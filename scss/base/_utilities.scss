@@ -2,7 +2,9 @@
     height: 100vh;
     overflow-y: scroll;
 }
-
+.p-rel{
+    position: relative;
+}
 .cbig-text{
     font-size: 3.5rem;
     font-weight: 600;
@@ -13,6 +15,7 @@
         font-size: 2.4rem;
     }
 }
+
 .cmedium-text{
     font-size: 2.8rem;
     font-weight: 600;
@@ -68,4 +71,11 @@
 
  .clr__greybg{
      background-color: #f5f6fa;
+ }
+
+ .p-copyright{
+    color: #707070;font-size: 13px;color: #707070;
+    font-size: 13px;
+    position: absolute;
+    bottom: 2rem;left:50%;transform: translateX(-50%);
  }
