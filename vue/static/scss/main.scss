@@ -1,0 +1,19 @@
+//import abstracts
+@import 'abstracts/mixins.scss';
+@import 'abstracts/variables.scss';
+//import base
+@import 'base/animation.scss';
+@import 'base/base.scss';
+@import 'base/typography.scss';
+@import 'base/utilities.scss';
+//import layout
+@import  'layout/header.scss';
+@import  'layout/aside.scss';
+@import  'layout/footer.scss';
+//import component
+@import 'component/button.scss';
+@import 'component/input.scss';
+
+//import pages
+@import 'pages/onboard.scss';
+@import 'pages/kyc.scss';
