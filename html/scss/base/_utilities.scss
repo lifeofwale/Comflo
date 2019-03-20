@@ -54,6 +54,10 @@
 .grey__bg{
     background-color: $clr__grey;
 }
+
+.bg-grey{
+    background-color: #F5F6FA;
+}
 .clr_a{
    color: #0a6994;font-weight: bold;
    &:hover{
@@ -78,4 +82,23 @@
     font-size: 13px;
     position: absolute;
     bottom: 2rem;left:50%;transform: translateX(-50%);
+ }
+
+ .mrt-6{
+    margin-top:6rem;
+    @media only screen and(max-width:900px){
+        margin-top:4rem;
+    }
+    @media only screen and(max-width:600px){
+        margin-top:2rem;
+    }
+ }
+
+ .empty-state{
+    width: 5rem;
+    background-color: #525f7f;
+    height: 1px;
+    opacity: .4;
+    margin-top:.7rem;
+    margin-bottom:.7rem;
  }
