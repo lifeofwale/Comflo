@@ -6,7 +6,7 @@ import company from './modules/company'
 import partner from './modules/partner'
 import actions from './actions'
 import VuexPersist from 'vuex-persist'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 
 Vue.use(Vuex)
 
@@ -19,11 +19,13 @@ Vue.use(Vuex)
 //   // filter: mutation => (true)
 // })
 // const inFifteenMinutes = new Date(new Date().getTime() + 60 * 1000)
-const vuexCookie = new VuexPersist({
-  restoreState: (key, storage) => Cookies.getJSON(key),
-  saveState: (key, state, storage) => Cookies.set(key, state, {
-    expires: 3
-  }),
+const vuexPersist = new VuexPersist({
+  key: 'my-app',
+  storage: localStorage,
+  // restoreState: (key, storage) => Cookies.getJSON(key),
+  // saveState: (key, state, storage) => Cookies.set(key, state, {
+  //   expires: 3
+  // }),
   modules: ['user', 'admin', 'company', 'partner'] // only save user module
 })
 
@@ -32,7 +34,7 @@ const vuexCookie = new VuexPersist({
 // })
 
 export default new Vuex.Store({
-  plugins: [vuexCookie.plugin],
+  plugins: [vuexPersist.plugin],
   actions,
   modules: {
     user,

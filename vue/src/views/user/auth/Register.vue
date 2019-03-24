@@ -1,5 +1,5 @@
 <template>
-  <div class="signup">
+<!-- <div class="signup">
     <div class="h-100">
       <Header></Header>
       <div class="row mt-lg-3">
@@ -273,9 +273,9 @@
               <div class="form-group">
                 <input type="text" class="form-control" v-model="company" placeholder="Company">
               </div>
-              <!-- <div class="form-group">
+               <div class="form-group">
                 <input type="text" class="form-control" v-model="company_email" placeholder="Company Email">
-              </div> -->
+              </div>
               <div class="form-group">
                 <input type="password" class="form-control" v-model="password" placeholder="Password">
               </div>
@@ -283,7 +283,7 @@
                 <input type="password" class="form-control" v-model="password2" placeholder="Confirm Password">
               </div>
               <div class="form-group">
-                <!-- <input type="checkbox" class="form-control" v-model="isTCChecked">  -->
+                <input type="checkbox" class="form-control" v-model="isTCChecked">
                 <label class="checkbox-inline">
                   <input type="checkbox" v-model="isTCChecked"> I agree to the <a class='text-info' href="http://www.comflo.com/wp-content/uploads/2018/10/Comflo-Terms-of-Use-July-2018.pdf" target="_blank">Terms of Service</a> and <a class='text-info' href="http://www.comflo.com/wp-content/uploads/2018/10/Comflo-Privacy-Policy-0718.pdf" target="_blank">Privacy Policy</a>
                 </label>
@@ -301,16 +301,188 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <section class="container-fluid px-0 hero h-100vh">
+    <Header></Header>
+    <div class="container mt-5 mb-2">
+      <div v-if="signupPart == 0">
+        <div class="row" id="create_1">
+          <div class="col-md-8 col-sm-12 col-xs-12">
+            <h1 class="cbig-text mb-4 mt-10">Create your account</h1>
+            <div class="csignup cgreen-border">
+              <form>
+                <!-- 1st form row -->
+                <div class="row">
+                  <div class="col">
+                    <div class="row">
+                      <div class="col">
+                          <div class="form-group mb-5">
+                              <label for="inputFirstName">First Name <sup>*</sup></label>
+                              <input type="text" class="form-control cinput" id="inputFirstName" placeholder="Nachi" required>
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="form-group mb-5">
+                              <label for="inputLastName">Last Name <sup>*</sup></label>
+                              <input type="text" class="form-control cinput" id="inputLastName" placeholder="Adaji" required>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                      <div class="form-group mb-5">
+                          <label for="inputEmail">Email <sup>*</sup></label>
+                          <input type="email" class="form-control cinput" id="inputEmail" placeholder="nachi@comflo.com" required>
+                        </div>
+                  </div>
+                </div>
+                <!-- 2nd form row -->
+                <div class="row">
+                  <div class="col">
+                      <div class="form-group mb-5">
+                          <label for="inputPhone">Phone Number <sup>*</sup></label>
+                          <input type="tel" class="form-control cinput" id="inputPhone"  placeholder="Email" required>
+                        </div>
+                  </div>
+                  <div class="col">
+                      <div class="form-group mb-5">
+
+                          <label for="inputPassword">Password <sup>*</sup></label>
+                          <div class="input-group" id="show_hide_password">
+                              <input type="password" class="form-control cinput" id="inputPassword">
+                              <a href=""><i class="fa fa-eye-slash show-pass" style="color:#83c225;" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                  </div>
+                </div>
+                <button type="button" @click="signupPart = 1"  class="btn btn-block button__primary mt-3">Next</button>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-1 d-none d-md-block">
+
+          </div>
+          <div class="col-md-3 d-none d-md-block">
+            <div class="cstepindicator cgreen-border text-center mt-16">
+                <p class="cstepindicator__p">STEP 1 OF 2</p>
+                <img src="/static/img/personal__info.svg" class="cstepindicator__icon" alt="personal info icon">
+                <p class="cstepindicator__p mb-2">Personal Information</p>
+                <div class="w-100">
+                  <a @click="signupPart = 0" class="cstepindicator__level  d-inline-block green__bg">
+                  </a>
+                  <a @click="signupPart = 1" class="cstepindicator__level d-inline-block  grey__bg">
+                    </a>
+                </div>
+            </div>
+            </div>
+        </div>
+      </div>
+
+      <div v-if="signupPart == 1">
+        <div class="row" id="create_2">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+            <h1 class="cbig-text mb-4 mt-8">Create your account</h1>
+            <div class="csignup cgreen-border">
+              <form>
+                <!-- 1st form row -->
+                  <div class="row">
+                    <div class="col">
+                        <div class="form-group mb-5">
+                            <label for="inputCompanyName">Company Name <sup>*</sup></label>
+                            <input type="text" class="form-control cinput form__valid" id="inputCompanyName"  placeholder="Email" required>
+                          </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group mb-5">
+                          <label for="inputCountry">Country <sup>*</sup></label>
+                          <select class="form-control cselect" id="inputCountry" >
+                              <option>Select country</option>
+                              </select>
+                        </div>
+                  </div>
+                  </div>
+                  <!-- 2nd form row -->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group mb-5">
+                        <label for="inputState">State <sup>*</sup></label>
+                        <select class="form-control cselect" id="inputState" >
+                          <option>Select country</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group mb-5">
+                              <label for="inputCity">City <sup>*</sup></label>
+                              <select class="form-control cselect" id="inputCity" >
+                                <option>Select city</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-5">
+                                <label for="inputPost">Post/Zip Code <sup>*</sup></label>
+                                <input type="number" class="form-control cinput form__valid" id="inputPost" placeholder="100001" required>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                    <!-- 3 row -->
+                    <div class="row">
+                          <div class="col">
+                                  <div class="form-group mb-5">
+                                      <label for="inputAddress">Street Address <sup>*</sup></label>
+                                      <input type="text" class="form-control cinput form__valid" id="inputAddress"  placeholder="Block 96 Exile" required>
+                                    </div>
+                              </div>
+                          <div class="col">
+                              <div class="form-group mb-5">
+                                  <label for="inputJob">Job Title<sup>*</sup></label>
+                                  <input type="text" class="form-control cinput form__valid" id="inputJob"  placeholder="Sales Representative" required>
+                                </div>
+                          </div>
+
+                        </div>
+                        <div class="text-center">By signing up you agree with our <span><a href="#" class="clr_a">Terms of Service & Private Policy</a></span></div>
+                  <button type="submit" class="btn btn-block button__primary mt-3">Sign Up</button>
+              </form>
+            </div>
+            </div>
+            <div class="col-md-1 d-none d-md-block">
+
+            </div>
+            <div class="col-md-3 d-none d-md-block">
+              <div class="cstepindicator cgreen-border text-center mt-16">
+                  <p class="cstepindicator__p">STEP 2 OF 2</p>
+                  <img src="/static/img/company__icon.svg" class="cstepindicator__icon" alt="personal info icon">
+                  <p class="cstepindicator__p mb-2">Company Information</p>
+                  <div class="w-100">
+                    <a @click="signupPart = 0" class="cstepindicator__level  d-inline-block green__bg">
+                    </a>
+                    <a @click="signupPart = 1" class="cstepindicator__level d-inline-block  green__bg">
+                      </a>
+                  </div>
+              </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <Footer></Footer>
+  </section>
 </template>
 <script>
 import api from '@/api/user'
+import Footer from '@/components/NewFooter'
 import Header from '@/components/Header'
 import {mapGetters, mapActions} from 'vuex'
 export default {
-  name: 'Index',
+  name: 'User-Register',
   components: {
-    Header
+    Header,
+    Footer
   },
   data: function () {
     return {
@@ -326,7 +498,8 @@ export default {
       password2: '',
       disable: false,
       mainerror: '',
-      visible: false
+      visible: false,
+      signupPart: 0
     }
   },
   computed: {

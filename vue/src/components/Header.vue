@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <!-- <div class="row">
     <nav class="navbar navbar-expand-md">
       <div class="col-md-6">
         <a class="navbar-brand" @click="gotoHome"><img src="/static/images/comflologo/comflo-logo.png" width="50%"  alt="comflo"></a>
@@ -8,7 +8,32 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </nav>
-  </div>
+  </div> -->
+  <header class="border px-4">
+    <nav class="navbar cnav">
+      <a @click="gotoHome"><img src="/static/img/comflo__logo.jpg" alt="comflo logo"></a>
+      <ul v-if="this.$route.path.includes('signup')" class="nav cnav__ul">
+          <li class="nav-item cnav__li d-none d-md-block">
+            <p class="nav-link">Already have an account?</p>
+          </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'User-Login'}" class='btn__green'>
+            Sign In
+          </router-link>
+        </li>
+      </ul>
+      <ul v-else class="nav cnav__ul">
+          <li class="nav-item cnav__li d-none d-md-block">
+            <p class="nav-link">Don’t have a Comflo Account yet??</p>
+          </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'User-Register'}" class='btn__green'>
+            Sign Up
+          </router-link>
+        </li>
+      </ul>
+    </nav>
+  </header>
 </template>
 
 <script>

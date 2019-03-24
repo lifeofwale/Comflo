@@ -16,9 +16,11 @@ import View404 from '@/views/404'
  */
 import Bug from '@/views/user/Bug'
 import Task from '@/views/user/Task'
-import UserLogin from '@/views/user/Login'
-import UserRegister from '@/views/user/Register'
-import UserForgotPass from '@/views/user/ForgotPass'
+import UserLogin from '@/views/user/auth/Login'
+import UserKyc from '@/views/user/auth/Kyc'
+import UserWelcome from '@/views/user/auth/Welcome'
+import UserRegister from '@/views/user/auth/Register'
+import UserForgotPass from '@/views/user/auth/ForgotPass'
 import UserDeals from '@/views/user/Deals'
 import UserMarketplace from '@/views/user/Marketplace'
 import UserContracts from '@/views/user/Contracts'
@@ -101,15 +103,27 @@ const router = new Router({
       meta: { requiresNoAuth: true }
     },
     {
-      path: '/',
-      name: 'User-Login',
-      component: UserLogin,
+      path: '/welcome',
+      name: 'User-Welcome',
+      component: UserWelcome,
       meta: { requiresNoAuth: true }
     },
     {
       path: '/forgot',
       name: 'User-ForgotPass',
       component: UserForgotPass,
+      meta: { requiresNoAuth: true }
+    },
+    {
+      path: '/kyc',
+      name: 'User-Kyc',
+      component: UserKyc,
+      meta: { requiresUserAuth: true }
+    },
+    {
+      path: '/',
+      name: 'User-Login',
+      component: UserLogin,
       meta: { requiresNoAuth: true }
     },
     // {

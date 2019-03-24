@@ -21,7 +21,8 @@ export var blackAxios = axios.create({
   baseURL: API,
   validateStatus: function (status) {
     return status >= 200 && status < 510 // default
-  }
+  },
+  timeout: 10000
 })
 
 var firebaseconfig = {
@@ -35,9 +36,9 @@ var firebaseconfig = {
 
 firebase.initializeApp(firebaseconfig)
 
-export async function upload (file, filetype, dealcommodity) {
+export async function upload (file, filetype, commodity) {
   try {
-    const name = dealcommodity + '/' + filetype + '/' + (+new Date()) + '-' + file.name
+    const name = commodity + '/' + filetype + '/' + (+new Date()) + '-' + file.name
     const metadata = {
       contentType: file.type
     }

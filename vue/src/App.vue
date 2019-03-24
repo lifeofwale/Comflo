@@ -10,10 +10,10 @@ export default {
 </script>
 
 <style>
-  @import '../static/assets/css/bootstrap.min.css';
+  /* @import '../static/assets/css/bootstrap.min.css';
   @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
   @import '../static/css/style.css';
-  @import '../static/css/responsive.css';
+  @import '../static/css/responsive.css'; */
 </style>
 
 <style lang="css">

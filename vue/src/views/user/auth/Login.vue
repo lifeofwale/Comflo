@@ -1,7 +1,6 @@
 <template>
-  <div class="signup">
+  <!-- <div class="signup">
     <div class="h-100">
-      <Header></Header>
       <div class="row mt-lg-3">
         <div class="col-md-12 mt-lg-2">
           <div class="container signup-panel p-lg-3">
@@ -10,10 +9,10 @@
               <p v-if="mainerror.length > 0" class="text-danger text-center">{{mainerror}}</p>
               <loading :active.sync="visible" :can-cancel="true"></loading>
               <div class="form-group">
-                <input type="email" class="form-control" v-model="email" placeholder="Email Address">
+                <input type="email" class="form-control"  placeholder="Email Address">
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" v-model="password" placeholder="Password">
+                <input type="password" class="form-control"  placeholder="Password">
               </div>
               <button type="button" @click="loginUser" :disabled="!emptyText || disable" class="btn btn-primary width-100 mb-lg-3">Submit</button>
               <div class="col-md-12 text-center">
@@ -36,17 +35,50 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <section class="container-fluid px-0 hero h-100vh">
+    <Header></Header>
+    <div class="container h-75" style="position:relative;">
+      <div class="w-75" style="margin:auto;position:absolute;top:50%;left:50%;transform: translate(-50%,-50%);">
+          <div class="row jumb">
+            <div class="col-sm-6 offset-sm-3">
+              <h1 class="cbig-text text-center my-5">Sign In to Comflo</h1>
+              <p v-if="mainerror.length > 0" class="text-danger text-center">{{mainerror}}</p>
+              <div class="csignin">
+                  <form action="">
+                    <div class="form-group mb-5">
+                      <label for="inputEmail">Email Address <sup>*</sup></label>
+                      <input type="text" v-model="email" class="form-control cinput form__valid" id="inputEmail" placeholder="Nachi@gmail.com" required>
+                    </div>
+                    <div class="form-group mb-5">
+                      <label for="inputFirstName">Password <sup>*</sup></label>
+                      <input type="password" v-model="password" class="form-control cinput form__valid" id="inputFirstName" placeholder="Password" required>
+                    </div>
+                    <button type="button" @click="loginUser" :disabled="!emptyText || disable" class="btn btn-block button__primary mt-3">Sign In</button>
+                    <div class="text-center  mt-4">
+                      <router-link :to="{ name: 'User-ForgotPass'}" class='clr_a'>
+                        Forgot Password?
+                      </router-link>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <Footer></Footer>
+  </section>
 </template>
 <script>
-import bus from '@/bus'
 import api from '@/api/user'
+import Footer from '@/components/NewFooter'
 import Header from '@/components/Header'
 import {mapGetters, mapActions} from 'vuex'
 export default {
-  name: 'Index',
+  name: 'User-Login',
   components: {
-    Header
+    Header,
+    Footer
   },
   data: function () {
     return {
@@ -65,10 +97,6 @@ export default {
   },
   mounted () {
     this.mainerror = this.error
-    bus.$on('events', 'data_processed', data => {
-      console.log('data processed')
-      console.log(data)
-    })
   },
   methods: {
     ...mapActions('user', ['clearError', 'addUser']),
@@ -87,7 +115,7 @@ export default {
       }
       let response = await api.userlogin(user)
       loader.hide()
-      // console.log(response)
+      console.log(response)
       // console.log(response.data.status)
       if (response.data.status === 'success') {
         user = response.data.data
@@ -106,8 +134,6 @@ export default {
         }
       } else {
         this.mainerror = 'Wrong Username/Password'
-        // this.resetDetails()
-        // return false
       }
       this.disable = false
     }
