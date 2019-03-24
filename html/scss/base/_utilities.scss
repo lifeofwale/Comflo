@@ -43,6 +43,18 @@
     }
 }
 
+.mb-10{
+    margin-bottom: 7rem;
+    @media only screen and(max-width:600px){
+        margin-bottom: 7rem;
+    }
+}
+
+.clr--grey{
+    color: #b1bfcd;
+}
+
+
 
 .mt-16{
     margin-top: 16%;
@@ -53,6 +65,10 @@
 }
 .grey__bg{
     background-color: $clr__grey;
+}
+
+.grey__bg.active{
+    background-color: $clr__green;
 }
 
 .bg-grey{
@@ -101,4 +117,25 @@
     opacity: .4;
     margin-top:.7rem;
     margin-bottom:.7rem;
+ }
+ .status-red{
+    width: 14px;
+    height: 14px;
+    background-color: #ef0000;
+    border-radius: 50%;
+    vertical-align: middle;
+ }
+ .status-blue{
+    width: 14px;
+    height: 14px;
+    background-color: blue;
+    border-radius: 50%;
+    vertical-align: middle;
+ }
+ .status-yellow{
+    width: 14px;
+    height: 14px;
+    background-color: #ffc500;
+    border-radius: 50%;
+    vertical-align: middle;
  }

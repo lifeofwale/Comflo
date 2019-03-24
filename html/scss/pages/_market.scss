@@ -1,0 +1,29 @@
+.market{
+
+    padding:0 10rem;
+    @media only screen and(max-width:600px){
+        padding:0 0rem;
+    }
+    @media only screen and(max-width:1140px){
+        padding:0 5rem;
+    }
+&__listing-id{
+    font-size: 2.1rem;
+    font-weight: bold;
+}
+
+&__listing-item{
+  font-size: 2.8rem;
+  font-weight: bold;
+}
+&__desc{
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #979797;
+}
+&__value{
+    font-size: 1.6rem;
+    font-weight: normal;
+    color: #525f7f;
+}
+}
