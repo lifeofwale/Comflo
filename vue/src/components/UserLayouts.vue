@@ -67,9 +67,11 @@ export default {
     ...mapGetters('user', ['user'])
   },
   methods: {
-    ...mapActions('user', ['userlogout', 'addUserError']),
+    ...mapActions('user', ['userlogout']),
+    ...mapActions('company', ['companylogout']),
     signout () {
       this.userlogout()
+      this.companylogout()
       this.$router.push('/')
     },
     collapse () {

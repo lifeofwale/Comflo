@@ -205,7 +205,7 @@
                     <input type="password" class="form-control cinput" v-model="password2" id="inputRePassword" required>
                   </div>
 
-                  <button type="button" @click="changePass" :disabled="!emptyPasswordsText || disable" class="btn btn-block button__primary mt-3">Submit</button>
+                  <button type="button" @click="changePass" :disabled="!emptyPasswordsText" class="btn btn-block button__primary mt-3">Submit</button>
 
                   <div class="text-center  mt-4">
                     <router-link :to="{ name: 'User-Login'}" class="clr_a-m">Back to Sign In </router-link>
@@ -222,8 +222,8 @@
 </template>
 <script>
 import api from '@/api/user'
-import Header from '@/components/Header'
-import Footer from '@/components/NewFooter'
+import Header from '@/components/auth/AuthHeader'
+import Footer from '@/components/auth/AuthFooter'
 import {mapGetters, mapActions} from 'vuex'
 export default {
   name: 'User-ForgotPass',
@@ -321,37 +321,38 @@ export default {
         if (this.password !== this.password2) {
           this.mainerror = 'Passwords do not match'
           return false
+        } else {
+          let details = {
+            email: this.email,
+            token: this.token,
+            password: this.password
+          }
+          let response = await api.userChangePass(details)
+          // console.log(response)
+          console.log(response.data.status)
+          if (response.data.status === 'success') {
+            let user = response.data.data
+            delete user['password']
+            // console.log(user)
+            if (user.user_type === 3) {
+              this.addAdmin(user)
+              api.settoken(user.token)
+              this.clearError()
+              this.$router.push('/admin')
+            } else {
+              this.addUser(user)
+              api.settoken(user.token)
+              this.clearError()
+              this.$router.push('/user')
+            }
+          } else {
+            this.mainerror = response.data.data
+            this.resetDetails()
+            return false
+          }
         }
-        let details = {
-          email: this.email,
-          token: this.token,
-          password: this.password
-        }
-        let response = await api.userChangePass(details)
         loader.hide()
         this.disable = false
-        // console.log(response)
-        // console.log(response.data.status)
-        if (response.data.status === 'success') {
-          let user = response.data.data
-          delete user['password']
-          // console.log(user)
-          if (user.user_type === 3) {
-            this.addAdmin(user)
-            api.settoken(user.token)
-            this.clearError()
-            this.$router.push('/admin')
-          } else {
-            this.addUser(user)
-            api.settoken(user.token)
-            this.clearError()
-            this.$router.push('/user')
-          }
-        } else {
-          this.mainerror = response.data.data
-          this.resetDetails()
-          return false
-        }
       } catch (error) {
         if (error.message === 'Network Error') {
           this.mainerror = 'Connection not established, please check your internet connection'

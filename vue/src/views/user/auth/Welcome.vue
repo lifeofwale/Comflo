@@ -26,8 +26,8 @@
 </template>
 <script>
 import api from '@/api/user'
-import Footer from '@/components/NewFooter'
-import Header from '@/components/Header'
+import Header from '@/components/auth/AuthHeader'
+import Footer from '@/components/auth/AuthFooter'
 import {mapGetters, mapActions} from 'vuex'
 export default {
   name: 'User-Welcome',

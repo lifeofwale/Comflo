@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import Header from '@/components/Header'
+import Header from '@/components/auth/AuthHeader'
 export default {
   name: 'Index',
   components: {
