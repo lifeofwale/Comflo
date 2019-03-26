@@ -22,3 +22,13 @@ body{
     color: #525f7f;
     background-color: #fff;
 }
+
+.nav-tabs .nav-link{
+   border: none;
+   color: #525f7f;
+}
+
+.nav-tabs .nav-link.active{
+    color:$clr__green;
+    border-bottom:2px solid $clr__green;
+}
