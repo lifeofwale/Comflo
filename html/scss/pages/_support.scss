@@ -1,20 +1,23 @@
 .support{
-    
-    img{
-        width: 8.5rem;
-        height: 8.5rem;
-        
-        background-color: #fff;
-        border-radius: 50%;
-        border-radius: 50%;
-    border: 2px solid #fff;
-    -webkit-box-shadow: 0 5px 10px 0 rgba(43, 43, 43, 0.2);
-    box-shadow: 0 5px 10px 0 rgba(43, 43, 43, 0.2);
-        margin:  1.6rem 1.8rem;
-        vertical-align: middle;
+    &__img{
 
-       clip-path: circle();
+        & >  img{
+            width: 8.5rem;
+            height: 8.5rem;
+            
+            background-color: #fff;
+            border-radius: 50%;
+            border-radius: 50%;
+        border: 2px solid #fff;
+        -webkit-box-shadow: 0 5px 10px 0 rgba(43, 43, 43, 0.2);
+        box-shadow: 0 5px 10px 0 rgba(43, 43, 43, 0.2);
+            margin:  1.6rem 1.8rem;
+            vertical-align: middle;
+    
+           clip-path: circle();
+        }
     }
+   
 
     &__card{
         max-width: 90.5rem;
