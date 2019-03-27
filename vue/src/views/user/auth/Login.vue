@@ -80,6 +80,9 @@ export default {
     Header,
     Footer
   },
+  title () {
+    return `Login | Comflo Inc`
+  },
   data: function () {
     return {
       email: '',

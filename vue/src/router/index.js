@@ -1,74 +1,59 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-// Containers
-import UserLayouts from '@/components/UserLayouts'
 import VueMultianalytics from 'vue-multianalytics'
-// import CompanyLayouts from '@/components/CompanyLayouts'
-// import PartnerLayouts from '@/components/PartnerLayouts'
-import AdminLayouts from '@/components/AdminLayouts'
+
+// LAYOUTS
+import UserLayouts from '@/components/user/UserLayouts'
+// import AdminLayouts from '@/components/AdminLayouts'
 
 // Views
 import View404 from '@/views/404'
+/**
+ * reporting routes
+ */
+import Bug from '@/views/user/Bug'
+import Task from '@/views/user/Task'
 
 /**
  * User Routes
  */
-import Bug from '@/views/user/Bug'
-import Task from '@/views/user/Task'
+
+// AUTH
 import UserLogin from '@/views/user/auth/Login'
 import UserKyc from '@/views/user/auth/Kyc'
 import UserWelcome from '@/views/user/auth/Welcome'
 import UserRegister from '@/views/user/auth/Register'
 import UserForgotPass from '@/views/user/auth/ForgotPass'
-import UserDeals from '@/views/user/Deals'
-import UserMarketplace from '@/views/user/Marketplace'
-import UserContracts from '@/views/user/Contracts'
-import UserContract from '@/views/user/Contract'
-import UserDeal from '@/views/user/Deal'
-import UserHome from '@/views/user/Home'
-import UserAddDeal from '@/views/user/AddDeal'
-import UserEditDeal from '@/views/user/EditDeal'
 
-// /**
-//  * Company Routes
-//  */
-// import CompanyLogin from '@/views/company/Login'
-// import CompanyRegister from '@/views/company/Register'
-// import CompanyForgotPass from '@/views/company/ForgotPass'
-// import CompanyHome from '@/views/company/Home'
-// import CompanyAddUser from '@/views/company/AddUser'
-
-// /**
-//  * Partner Routes
-//  */
-// import PartnerLogin from '@/views/partner/Login'
-// import PartnerRegister from '@/views/partner/Register'
-// import PartnerForgotPass from '@/views/partner/ForgotPass'
-// import PartnerHome from '@/views/partner/Home'
-// import PartnerDeal from '@/views/partner/Deal'
+// DASHBOARD
+import UserDashboard from '@/views/user/dashboard/Home'
+import UserAddTransaction from '@/views/user/dashboard/NewTransaction'
+// import UserTransactions from '@/views/user/Deals'
+// import UserMarketplace from '@/views/user/Marketplace'
+// import UserContracts from '@/views/user/Contracts'
+// import UserContract from '@/views/user/Contract'
+// import UserTransaction from '@/views/user/Deal'
+// import UserEditTransaction from '@/views/user/EditDeal'
 
 /**
  * admin Routes
  */
-// import AdminLogin from '@/views/admin/Login'
-// import AdminRegister from '@/views/admin/Register'
-import AdminHome from '@/views/admin/Home'
-import AdminCompanies from '@/views/admin/Companies'
-import AdminPartners from '@/views/admin/Partners'
-import AdminAdmins from '@/views/admin/Admins'
-import AdminDeals from '@/views/admin/Deals'
-import AdminEditDeal from '@/views/admin/EditDeal'
-import AdminContracts from '@/views/admin/Contracts'
-import AdminDeal from '@/views/admin/Deal'
-import AdminContract from '@/views/admin/Contract'
-import AdminAddContract from '@/views/admin/AddContract'
-import AdminAddContractContd from '@/views/admin/AddContractContd'
-import AdminAddUser from '@/views/admin/AddUser'
-import AdminAddCompany from '@/views/admin/AddCompany'
-import AdminAddPartner from '@/views/admin/AddPartner'
-import AdminAddAdmin from '@/views/admin/AddAdmin'
-import AdminAddDeal from '@/views/admin/AddDeal'
+// import AdminHome from '@/views/admin/Home'
+// import AdminCompanies from '@/views/admin/Companies'
+// import AdminPartners from '@/views/admin/Partners'
+// import AdminAdmins from '@/views/admin/Admins'
+// import AdminDeals from '@/views/admin/Deals'
+// import AdminEditDeal from '@/views/admin/EditDeal'
+// import AdminContracts from '@/views/admin/Contracts'
+// import AdminDeal from '@/views/admin/Deal'
+// import AdminContract from '@/views/admin/Contract'
+// import AdminAddContract from '@/views/admin/AddContract'
+// import AdminAddContractContd from '@/views/admin/AddContractContd'
+// import AdminAddUser from '@/views/admin/AddUser'
+// import AdminAddCompany from '@/views/admin/AddCompany'
+// import AdminAddPartner from '@/views/admin/AddPartner'
+// import AdminAddAdmin from '@/views/admin/AddAdmin'
+// import AdminAddDeal from '@/views/admin/AddDeal'
 
 // Store
 import UserStore from '@/store/modules/user'
@@ -97,7 +82,7 @@ const router = new Router({
       meta: { requiresNoAuth: true }
     },
     {
-      path: '/signup',
+      path: '/register',
       name: 'User-Register',
       component: UserRegister,
       meta: { requiresNoAuth: true }
@@ -184,174 +169,136 @@ const router = new Router({
         {
           path: '/',
           name: 'User-Home',
-          component: UserHome
+          component: UserDashboard
         },
+        // {
+        //   path: 'transactions',
+        //   name: 'User-Transactions',
+        //   component: UserTransactions
+        // },
+        // {
+        //   path: 'marketplace',
+        //   name: 'User-Marketplace',
+        //   component: UserMarketplace
+        // },
+        // {
+        //   path: 'contracts',
+        //   name: 'User-Contracts',
+        //   component: UserContracts
+        // },
         {
-          path: 'deals',
-          name: 'User-Deals',
-          component: UserDeals
+          path: 'transactions/new',
+          name: 'New-User-Transaction',
+          component: UserAddTransaction
         },
-        {
-          path: 'marketplace',
-          name: 'User-Marketplace',
-          component: UserMarketplace
-        },
-        {
-          path: 'contracts',
-          name: 'User-Contracts',
-          component: UserContracts
-        },
-        {
-          path: 'deals/new',
-          name: 'New-User-Deal',
-          component: UserAddDeal
-        },
-        {
-          path: 'deals/edit/:id',
-          name: 'User-Edit-Deal',
-          component: UserEditDeal
-        },
-        {
-          path: 'deals/:id',
-          name: 'User-Deal',
-          component: UserDeal
-        },
-        {
-          path: 'contracts/:id',
-          name: 'User-Contract',
-          component: UserContract
-        }
+        // {
+        //   path: 'transactions/edit/:id',
+        //   name: 'User-Edit-Transaction',
+        //   component: UserEditTransaction
+        // },
+        // {
+        //   path: 'transactions/:id',
+        //   name: 'User-Deal',
+        //   component: UserTransaction
+        // },
+        // {
+        //   path: 'contracts/:id',
+        //   name: 'User-Contract',
+        //   component: UserContract
+        // }
       ]
     },
     // {
-    //   path: '/company',
-    //   redirect: '/company',
-    //   name: 'ComfloCompany',
-    //   meta: { requiresCompanyAuth: true },
-    //   component: CompanyLayouts,
+    //   path: '/admin',
+    //   redirect: '/admin',
+    //   name: 'ComfloAdmin',
+    //   meta: { requiresAdminAuth: true },
+    //   component: AdminLayouts,
     //   children: [
     //     {
     //       path: '/',
-    //       name: 'Company-Home',
-    //       component: CompanyHome
+    //       name: 'Admin-Home',
+    //       component: AdminHome
     //     },
     //     {
-    //       path: 'add-user',
-    //       name: 'Company-Add-User',
-    //       component: CompanyAddUser
-    //     }
-    //   ]
-    // },
-    // {
-    //   path: '/partner',
-    //   redirect: '/partner',
-    //   name: 'ComfloPartner',
-    //   meta: { requiresPartnerAuth: true },
-    //   component: PartnerLayouts,
-    //   children: [
+    //       path: 'companies',
+    //       name: 'Admin-Companies',
+    //       component: AdminCompanies
+    //     },
     //     {
-    //       path: '/',
-    //       name: 'Partner-Home',
-    //       component: PartnerHome
+    //       path: 'deals',
+    //       name: 'Admin-Deals',
+    //       component: AdminDeals
+    //     },
+    //     {
+    //       path: 'contracts',
+    //       name: 'Admin-Contracts',
+    //       component: AdminContracts
+    //     },
+    //     {
+    //       path: 'deals/new',
+    //       name: 'Admin-New-Deal',
+    //       component: AdminAddDeal
+    //     },
+    //     {
+    //       path: 'deals/edit/:id',
+    //       name: 'Admin-Edit-Deal',
+    //       component: AdminEditDeal
     //     },
     //     {
     //       path: 'deals/:id',
-    //       name: 'Partner-Deal',
-    //       component: PartnerDeal
+    //       name: 'Admin-Deal',
+    //       component: AdminDeal
+    //     },
+    //     {
+    //       path: 'contracts/new/:id',
+    //       name: 'Admin-Add-Contract',
+    //       component: AdminAddContract
+    //     },
+    //     {
+    //       path: 'contracts/upload/:id',
+    //       name: 'Admin-Add-Contract-Contd',
+    //       component: AdminAddContractContd,
+    //       props: true
+    //     },
+    //     {
+    //       path: 'contracts/:id',
+    //       name: 'Admin-Contract',
+    //       component: AdminContract,
+    //       props: true
+    //     },
+    //     {
+    //       path: 'partners',
+    //       name: 'Admin-Partners',
+    //       component: AdminPartners
+    //     },
+    //     {
+    //       path: 'admins',
+    //       name: 'Admin-Admins',
+    //       component: AdminAdmins
+    //     },
+    //     {
+    //       path: 'users/new',
+    //       name: 'Admin-Add-User',
+    //       component: AdminAddUser
+    //     },
+    //     {
+    //       path: 'companies/new',
+    //       name: 'Admin-Add-Company',
+    //       component: AdminAddCompany
+    //     },
+    //     {
+    //       path: 'partners/new',
+    //       name: 'Admin-Add-Partner',
+    //       component: AdminAddPartner
+    //     },
+    //     {
+    //       path: 'admins/new',
+    //       name: 'Admin-Add-Admin',
+    //       component: AdminAddAdmin
     //     }
     //   ]
     // },
-    {
-      path: '/admin',
-      redirect: '/admin',
-      name: 'ComfloAdmin',
-      meta: { requiresAdminAuth: true },
-      component: AdminLayouts,
-      children: [
-        {
-          path: '/',
-          name: 'Admin-Home',
-          component: AdminHome
-        },
-        {
-          path: 'companies',
-          name: 'Admin-Companies',
-          component: AdminCompanies
-        },
-        {
-          path: 'deals',
-          name: 'Admin-Deals',
-          component: AdminDeals
-        },
-        {
-          path: 'contracts',
-          name: 'Admin-Contracts',
-          component: AdminContracts
-        },
-        {
-          path: 'deals/new',
-          name: 'Admin-New-Deal',
-          component: AdminAddDeal
-        },
-        {
-          path: 'deals/edit/:id',
-          name: 'Admin-Edit-Deal',
-          component: AdminEditDeal
-        },
-        {
-          path: 'deals/:id',
-          name: 'Admin-Deal',
-          component: AdminDeal
-        },
-        {
-          path: 'contracts/new/:id',
-          name: 'Admin-Add-Contract',
-          component: AdminAddContract
-        },
-        {
-          path: 'contracts/upload/:id',
-          name: 'Admin-Add-Contract-Contd',
-          component: AdminAddContractContd,
-          props: true
-        },
-        {
-          path: 'contracts/:id',
-          name: 'Admin-Contract',
-          component: AdminContract,
-          props: true
-        },
-        {
-          path: 'partners',
-          name: 'Admin-Partners',
-          component: AdminPartners
-        },
-        {
-          path: 'admins',
-          name: 'Admin-Admins',
-          component: AdminAdmins
-        },
-        {
-          path: 'users/new',
-          name: 'Admin-Add-User',
-          component: AdminAddUser
-        },
-        {
-          path: 'companies/new',
-          name: 'Admin-Add-Company',
-          component: AdminAddCompany
-        },
-        {
-          path: 'partners/new',
-          name: 'Admin-Add-Partner',
-          component: AdminAddPartner
-        },
-        {
-          path: 'admins/new',
-          name: 'Admin-Add-Admin',
-          component: AdminAddAdmin
-        }
-      ]
-    },
     {
       path: '*',
       name: '404',
@@ -365,12 +312,12 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresUserAuth) && UserStore.state.is_auth === false) {
     UserStore.state.error = 'You need to log in before you can perform this action.'
     next('/')
-  } else if (to.matched.some(record => record.meta.requiresCompanyAuth) && CompanyStore.state.is_auth === false) {
-    CompanyStore.state.error = 'You need to log in before you can perform this action.'
-    next('/company/login')
-  } else if (to.matched.some(record => record.meta.requiresPartnerAuth) && PartnerStore.state.is_auth === false) {
-    PartnerStore.state.error = 'You need to log in before you can perform this action.'
-    next('/partner/login')
+  // } else if (to.matched.some(record => record.meta.requiresCompanyAuth) && CompanyStore.state.is_auth === false) {
+  //   CompanyStore.state.error = 'You need to log in before you can perform this action.'
+  //   next('/company/login')
+  // } else if (to.matched.some(record => record.meta.requiresPartnerAuth) && PartnerStore.state.is_auth === false) {
+  //   PartnerStore.state.error = 'You need to log in before you can perform this action.'
+  //   next('/partner/login')
   } else if (to.matched.some(record => record.meta.requiresAdminAuth) && AdminStore.state.is_auth === false) {
     UserStore.state.error = 'You need to log in before you can perform this action.'
     next('/')
@@ -386,6 +333,8 @@ router.beforeEach((to, from, next) => {
     } else if (to.matched.some(record => record.path.includes('/admin')) && AdminStore.state.is_auth === true) {
       next('/admin/')
     } else if (to.matched.some(record => record.path.includes('/user')) && UserStore.state.is_auth === true) {
+      next('/user/')
+    } else if (to.matched.some(record => record.path.includes('/register') || record.path.includes('/forgot') || record.path === '') && UserStore.state.is_auth === true) {
       next('/user/')
     } else {
       next()

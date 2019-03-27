@@ -3,7 +3,7 @@ import {blackAxios} from '@/config'
 export default {
   headers: {
     'Content-Type': 'application/json',
-    'usertoken': ''
+    'Authorization': ''
   },
   login: 'partners/signin',
   register: 'partners/signup',

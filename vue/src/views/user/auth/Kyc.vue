@@ -94,6 +94,7 @@
   </section>
 </template>
 <script>
+import companyApi from '@/api/company'
 import { upload } from '@/config'
 import {mapGetters} from 'vuex'
 import SideCard from '@/components/SideCard'
@@ -101,6 +102,9 @@ export default {
   name: 'User-Kyc',
   components: {
     SideCard
+  },
+  title () {
+    return `KYC | Comflo Inc`
   },
   data: function () {
     return {
@@ -114,6 +118,7 @@ export default {
   },
   computed: {
     ...mapGetters('user', ['user']),
+    ...mapGetters('company', ['company']),
     emptyText () {
       return this.companyLicense.file.name !== 'Choose File' && this.personalID.file.name !== 'Choose File'
     }
@@ -134,6 +139,23 @@ export default {
       if (companyLicense.name && personalID.name) {
         const [companyLicenseUrl, personalIDUrl] = await Promise.all([upload(companyLicense, 'Company-License', this.user._id), await upload(personalID, 'Personal-ID', this.user._id)])
         console.log(companyLicenseUrl, personalIDUrl)
+        const kycDetails = {
+          id: this.company._id,
+          user_id: this.user._id,
+          company_id_url: personalIDUrl,
+          company_id_name: personalID.name,
+          registeration_url: companyLicenseUrl,
+          registeration_name: companyLicense.name
+        }
+        const response = await companyApi.companyKyc(this.company._id, kycDetails)
+        // console.log(response)
+        // console.log(response.data.status)
+        if (response.data.status === 'success') {
+          this.$router.push('/user')
+        } else {
+          this.mainerror = response.data.message
+        }
+        this.disable = false
       }
       loader.hide()
       this.disable = false

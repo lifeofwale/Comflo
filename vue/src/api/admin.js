@@ -3,10 +3,8 @@ import {blackAxios} from '@/config'
 export default {
   headers: {
     'Content-Type': 'application/json',
-    'usertoken': ''
+    'Authorization': ''
   },
-  login: 'admins/signin',
-  register: 'admins/signup',
   users: 'users/',
   partners: 'partners/',
   companies: 'companies/',
@@ -18,33 +16,6 @@ export default {
   adminPostDeal: 'deals/',
   // adminUpdateTrader: 'admins/update-traders',
   adminUpdateStatus: 'admins/update-status',
-
-  async adminlogin (dargs) {
-    try {
-      const response = blackAxios.post(this.login, {
-        email: dargs.email,
-        password: dargs.password
-      }, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async adminregister (dargs) {
-    try {
-      const response = blackAxios.post(this.register, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
 
   async getUsers (dargs) {
     try {

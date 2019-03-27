@@ -3,139 +3,23 @@ import {blackAxios} from '@/config'
 export default {
   headers: {
     'Content-Type': 'application/json',
-    'usertoken': ''
+    'Authorization': ''
   },
-  login: 'companies/signin',
-  register: 'companies/signup',
-  users: 'companies/users',
-  newuser: 'companies/add-user',
-  deactivate: 'companies/deactivate-user',
-  activate: 'companies/activate-user',
-  remove: 'companies/remove-user',
-  sendToken: 'companies/send-token',
-  checkToken: 'companies/verify-token',
-  resetPass: 'companies/reset-pass',
+  companies: 'companies/',
+  // login: 'companies/signin',
+  // register: 'companies/signup',
+  // users: 'companies/users',
+  // newuser: 'companies/add-user',
+  // deactivate: 'companies/deactivate-user',
+  // activate: 'companies/activate-user',
+  // remove: 'companies/remove-user',
+  // sendToken: 'companies/send-token',
+  // checkToken: 'companies/verify-token',
+  // resetPass: 'companies/reset-pass',
 
-  async companylogin (dargs) {
+  async companyKyc (id, dargs) {
     try {
-      const response = blackAxios.post(this.login, {
-        email: dargs.email,
-        password: dargs.password
-      }, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async companyregister (dargs) {
-    try {
-      const response = blackAxios.post(this.register, {
-        name: dargs.name,
-        email: dargs.email,
-        phone: dargs.phone,
-        country: dargs.country,
-        password: dargs.password
-      }, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async getUsers (dargs) {
-    try {
-      const response = blackAxios.post(this.users, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async addUser (dargs) {
-    try {
-      const response = blackAxios.post(this.newuser, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async deactivateUser (dargs) {
-    try {
-      const response = blackAxios.post(this.deactivate, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async activateUser (dargs) {
-    try {
-      const response = blackAxios.post(this.activate, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async removeUser (dargs) {
-    try {
-      const response = blackAxios.post(this.remove, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async companySendToken (dargs) {
-    try {
-      const response = blackAxios.post(this.sendToken, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async companyCheckToken (dargs) {
-    try {
-      const response = blackAxios.post(this.checkToken, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async companyChangePass (dargs) {
-    try {
-      const response = blackAxios.post(this.resetPass, dargs, {
+      const response = blackAxios.post(this.companies + id + '/complete-kyc', dargs, {
         headers: this.headers
       })
       return response
@@ -144,4 +28,132 @@ export default {
       return false
     }
   }
+  // async companylogin (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.login, {
+  //       email: dargs.email,
+  //       password: dargs.password
+  //     }, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async companyregister (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.register, {
+  //       name: dargs.name,
+  //       email: dargs.email,
+  //       phone: dargs.phone,
+  //       country: dargs.country,
+  //       password: dargs.password
+  //     }, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async getUsers (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.users, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async addUser (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.newuser, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async deactivateUser (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.deactivate, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async activateUser (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.activate, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async removeUser (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.remove, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async companySendToken (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.sendToken, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async companyCheckToken (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.checkToken, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async companyChangePass (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.resetPass, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // }
 }

@@ -1,0 +1,14 @@
+.search-input{
+    width: 21.6rem !important;
+    height: 4.8rem;
+    border: solid 0.6px #e6e6e6;
+    background-color: #ffffff;
+    font-family: 'Muli', sans-serif;
+    font-size: 16px;
+
+    &:focus{
+        outline:1px solid rgba(131, 194, 37, 0.4);
+        box-shadow: none;
+        border-color:transparent;
+      }
+}

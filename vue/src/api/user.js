@@ -1,5 +1,6 @@
 import {blackAxios} from '@/config'
 const admin = require('./admin')
+const company = require('./company')
 const offer = require('./offer')
 
 export default {
@@ -8,7 +9,7 @@ export default {
    */
   headers: {
     'Content-Type': 'application/json',
-    'usertoken': ''
+    'Authorization': ''
   },
 
   login: 'users/signin',
@@ -46,9 +47,10 @@ export default {
   },
 
   settoken (token) {
-    this.headers['usertoken'] = token
-    admin.default.headers['usertoken'] = token
-    offer.default.headers['usertoken'] = token
+    this.headers['Authorization'] = 'Bearer' + token
+    admin.default.headers['Authorization'] = 'Bearer' + token
+    company.default.headers['Authorization'] = 'Bearer' + token
+    offer.default.headers['Authorization'] = 'Bearer' + token
     // console.log(this.headers)
     return true
   },

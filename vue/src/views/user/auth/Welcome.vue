@@ -35,6 +35,9 @@ export default {
     Header,
     Footer
   },
+  title () {
+    return `Welcome to comflo | Comflo Inc`
+  },
   data: function () {
     return {
       email: '',

@@ -231,6 +231,9 @@ export default {
     Header,
     Footer
   },
+  title () {
+    return `Forgot password | Comflo Inc`
+  },
   data: function () {
     return {
       email: '',

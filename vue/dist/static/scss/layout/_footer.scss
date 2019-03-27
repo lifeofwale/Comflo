@@ -1,0 +1,18 @@
+.footer{
+    &__a{
+        color:inherit;
+        &:hover{
+            color:inherit;
+        }
+    }
+}
+.cfooter{
+    height: 4rem;
+    box-shadow: 0 0 5px 0 #e5e9f2;
+    background-color: #ffffff;
+
+    & > p {
+        font-size: 1.4rem;
+        color:#707070;
+    }
+}

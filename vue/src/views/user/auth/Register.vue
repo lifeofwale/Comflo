@@ -737,6 +737,9 @@ export default {
     Header,
     Footer
   },
+  title () {
+    return `Register | Comflo Inc`
+  },
   data: function () {
     return {
       email: '',
