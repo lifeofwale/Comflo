@@ -1,0 +1,9 @@
+.cnav{
+    &__a{
+        color:inherit;
+        &:hover{
+            color: inherit;
+            opacity: .8;
+        }
+    }
+}

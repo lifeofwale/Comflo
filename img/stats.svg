@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Stats" width="23.51" height="24" viewBox="0 0 23.51 24">
+    <defs>
+        <style>
+            .cls-1{fill:rgba(131,194,37,.4)}
+        </style>
+    </defs>
+    <path id="Fill_312" d="M4.324 7.5H.979A.991.991 0 0 1 0 6.5V1a.991.991 0 0 1 .979-1h3.345A.991.991 0 0 1 5.3 1v5.5a.991.991 0 0 1-.976 1zM1.954 2v3.5h1.39V2z" class="cls-1" data-name="Fill 312" transform="translate(1.959 13)"/>
+    <path id="Fill_313" d="M4.325 14H.98A.992.992 0 0 1 0 13V1a.991.991 0 0 1 .98-1h3.345A.991.991 0 0 1 5.3 1v12a.992.992 0 0 1-.975 1zM1.961 2v10h1.39V2z" class="cls-1" data-name="Fill 313" transform="translate(9.102 6.5)"/>
+    <path id="Fill_314" d="M4.325 20.5H.98a.992.992 0 0 1-.98-1V1a.991.991 0 0 1 .98-1h3.345A.991.991 0 0 1 5.3 1v18.5a.992.992 0 0 1-.975 1zM1.957 2v16.5h1.39V2z" class="cls-1" data-name="Fill 314" transform="translate(16.247)"/>
+    <path id="Fill_315" d="M51.857 347a1 1 0 0 0 0-2H30.306a1 1 0 0 0 0 2h21.551" class="cls-1" data-name="Fill 315" transform="translate(-29.327 -323)"/>
+</svg>

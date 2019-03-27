@@ -1,0 +1,22 @@
+.pagination{
+    cursor: pointer;
+   
+   
+    &__li.active &__a{
+        color: #fff;
+        background-color: $clr__green;
+        border-color: $clr__green;
+        
+    }
+
+    &__a{
+        border:none;
+        background-color: transparent;
+        color:$clr__green;
+
+        &:hover{
+            color: $clr__green;
+        }
+    }
+
+}
