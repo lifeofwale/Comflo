@@ -96,7 +96,7 @@
                       </a>
                     </li>
                     <li class="nav-item content__li">
-                      <a href="#" class="nav-link content__a">
+                      <a href="#" @click="signout" class="nav-link content__a">
                         <i class="fas fa-sign-out-alt"></i> Logout
                       </a>
                     </li>

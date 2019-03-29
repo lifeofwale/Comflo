@@ -13,6 +13,8 @@ export default {
   },
 
   login: 'users/signin',
+  verify: 'users/activate-email',
+  resend: 'users/resend-token',
   register: 'users/signup',
   sendToken: 'users/send-token',
   checkToken: 'users/verify-token',
@@ -47,17 +49,43 @@ export default {
   },
 
   settoken (token) {
-    this.headers['Authorization'] = 'Bearer' + token
-    admin.default.headers['Authorization'] = 'Bearer' + token
-    company.default.headers['Authorization'] = 'Bearer' + token
-    offer.default.headers['Authorization'] = 'Bearer' + token
-    // console.log(this.headers)
-    return true
+    this.headers.Authorization = 'Bearer' + token
+    admin.default.headers.Authorization = 'Bearer' + token
+    company.default.headers.Authorization = 'Bearer' + token
+    offer.default.headers.Authorization = 'Bearer' + token
+    console.log(this.headers)
+    // return true
   },
 
   async userregister (dargs) {
     try {
       const response = blackAxios.post(this.register, dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+
+  async userverify (dargs) {
+    try {
+      const response = blackAxios.post(this.verify, dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+
+  async userresend (dargs) {
+    try {
+      console.log(this.headers)
+      console.log(company.default.headers)
+      const response = blackAxios.patch(this.resend, dargs, {
         headers: this.headers
       })
       return response

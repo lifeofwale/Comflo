@@ -21,14 +21,14 @@ import Task from '@/views/user/Task'
 // AUTH
 import UserLogin from '@/views/user/auth/Login'
 import UserKyc from '@/views/user/auth/Kyc'
-import UserWelcome from '@/views/user/auth/Welcome'
+import UserVerify from '@/views/user/auth/Verify'
 import UserRegister from '@/views/user/auth/Register'
 import UserForgotPass from '@/views/user/auth/ForgotPass'
 
 // DASHBOARD
 import UserDashboard from '@/views/user/dashboard/Home'
 import UserAddTransaction from '@/views/user/dashboard/NewTransaction'
-// import UserTransactions from '@/views/user/Deals'
+import UserTransactions from '@/views/user/dashboard/Transactions'
 // import UserMarketplace from '@/views/user/Marketplace'
 // import UserContracts from '@/views/user/Contracts'
 // import UserContract from '@/views/user/Contract'
@@ -88,9 +88,9 @@ const router = new Router({
       meta: { requiresNoAuth: true }
     },
     {
-      path: '/welcome',
-      name: 'User-Welcome',
-      component: UserWelcome,
+      path: '/verify',
+      name: 'User-Verify',
+      component: UserVerify,
       meta: { requiresNoAuth: true }
     },
     {
@@ -171,11 +171,11 @@ const router = new Router({
           name: 'User-Home',
           component: UserDashboard
         },
-        // {
-        //   path: 'transactions',
-        //   name: 'User-Transactions',
-        //   component: UserTransactions
-        // },
+        {
+          path: 'transactions',
+          name: 'User-Transactions',
+          component: UserTransactions
+        },
         // {
         //   path: 'marketplace',
         //   name: 'User-Marketplace',
@@ -190,7 +190,7 @@ const router = new Router({
           path: 'transactions/new',
           name: 'New-User-Transaction',
           component: UserAddTransaction
-        },
+        }
         // {
         //   path: 'transactions/edit/:id',
         //   name: 'User-Edit-Transaction',

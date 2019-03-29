@@ -12,7 +12,7 @@
   <header class="border px-4">
     <nav class="navbar cnav">
       <a @click="gotoHome"><img src="/static/img/comflo__logo.jpg" alt="comflo logo"></a>
-      <ul v-if="this.$route.path.includes('signup')" class="nav cnav__ul">
+      <ul v-if="this.$route.path.includes('register')" class="nav cnav__ul">
           <li class="nav-item cnav__li d-none d-md-block">
             <p class="nav-link">Already have an account?</p>
           </li>

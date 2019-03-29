@@ -123,7 +123,6 @@ export default {
       if (response.data.status === 'success') {
         user = response.data.data
         delete user['password']
-        // console.log(user)
         if (user.user_type === 3) {
           this.addAdmin(user)
           api.settoken(user.token)

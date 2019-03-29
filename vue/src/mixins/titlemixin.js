@@ -1,3 +1,4 @@
+import { encode } from '@/config'
 function getTitle (vm) {
   const { title } = vm.$options
   if (title) {
@@ -21,6 +22,24 @@ export default {
     const dashboard = getDashboard(this)
     if (dashboard) {
       document.body.classList.add('bg-grey')
+    }
+  },
+  methods: {
+    isNumber (evt) {
+      evt = evt || window.event
+      var charCode = evt.which ? evt.which : evt.keyCode
+      if (
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57) &&
+        charCode !== 46
+      ) {
+        evt.preventDefault()
+      } else {
+        return true
+      }
+    },
+    encodeIt (id, reference, type) {
+      return encode(id, reference, type)
     }
   }
 }
