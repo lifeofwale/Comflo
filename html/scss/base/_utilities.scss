@@ -173,3 +173,14 @@
     border: solid 1px $clr__green;
     background-color: rgba(131,194,37,0.1)
  }
+ .content__uploadfile{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 38px;
+    border-radius: 3px;
+    background-color: #e9ecef;
+    z-index: 0;
+    padding: .6rem;
+    opacity: 1;
+ }
