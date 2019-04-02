@@ -73,7 +73,7 @@ export default {
       const loader = this.$loading.show()
       this.disable = true
       const details = {
-        token: this.token
+        rec_token: this.token
       }
       let response = await api.userverify(details)
       loader.hide()

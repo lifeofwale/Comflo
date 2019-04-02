@@ -112,7 +112,7 @@
       <div class="dropdown-divider mx-5"></div>
 
       <li class="nav-item aside-m__item">
-        <router-link :to="{ name: 'User-Deals'}" :class="{ active: usertransactions }"  class="nav-link aside-m__a text-center">
+        <router-link :to="{ name: 'User-Transactions'}" :class="{ active: usertransactions }"  class="nav-link aside-m__a text-center">
           <i class="fas fa-window-restore"></i>
           <span class="d-block mt-1">Transactions</span>
         </router-link>

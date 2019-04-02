@@ -14,6 +14,13 @@ function getDashboard (vm) {
 }
 
 export default {
+  data: function () {
+    return {
+      transactions: [],
+      allTransactions: [],
+      query: ''
+    }
+  },
   created () {
     const title = getTitle(this)
     if (title) {
@@ -40,6 +47,15 @@ export default {
     },
     encodeIt (id, reference, type) {
       return encode(id, reference, type)
+    },
+    searchTransactions () {
+      let query = this.query.toString().toLowerCase()
+      console.log('query ', query)
+      if (query === '') {
+        this.transactions = this.allTransactions
+      } else {
+        this.transactions = this.allTransactions.filter((transaction) => { console.log(transaction); return transaction.type.toLowerCase().includes(query) || transaction.commodity.toLowerCase().includes(query) || transaction.quantity.toString().toLowerCase().includes(query) || transaction.incoterm.toLowerCase().includes(query) || transaction.location.toLowerCase().includes(query) || transaction.reference.toLowerCase().includes(query) || transaction.price.toString().toLowerCase().includes(query) || transaction.payment.toLowerCase().includes(query) })
+      }
     }
   }
 }

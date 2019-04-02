@@ -1,14 +1,16 @@
 <template>
     <!-- <main class="col-sm-11 ml-sm-auto col-md-11 col-lg-10 dashboard-content" role="main">
         <div class="pull-left mt-lg-5">
-            <h3>Transactions</h3>
+            <h3>Marketplace</h3>
         </div>
         <p class="pull-right mt-lg-5">
             <router-link :to="{ name: 'New-User-Deal'}" class='btn btn-round venice-bg'>
-                Add Transaction
+                New Transaction
             </router-link>
         </p>
         <div class="table-responsive dashboard-widget">
+          <p v-if="mainerror.length > 0" class="text-danger text-center col-md-12 mt-lg-5">{{mainerror}}</p>
+          <p v-if="!isOnline" class="text-danger text-center col-md-12 mt-lg-5">You are not connected to the internet</p>
             <table id="projects" class="table" cellspacing="0" width="100%">
                 <thead>
                 <tr>
@@ -23,21 +25,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(transaction, index) in transactions" :key="index">
+                    <tr v-for="(deal, index) in transactions" :key="index">
                       <td class="hidden-md-down"></td>
-                          <td>{{transaction.reference}}</td>
-                          <td>{{transaction.type}}</td>
-                          <td>{{transaction.commodity}}</td>
-                          <td>{{transaction.quantity}}</td>
-                          <td>{{transaction.price}}</td>
-                          <td v-bind:class="{ 'text-warning': transaction.status == 'Pending', 'text-info': transaction.status == 'Active', 'text-primary': transaction.status == 'In Progress', 'text-danger': transaction.status == 'Terminated', 'text-success': transaction.status == 'Completed', 'text-dark': transaction.status == 'Contract' }" >{{transaction.status}}</td>
+                          <td>{{deal.reference}}</td>
+                          <td>{{deal.type}}</td>
+                          <td>{{deal.commodity}}</td>
+                          <td>{{deal.quantity}}</td>
+                          <td>{{deal.price}}</td>
+                          <td v-bind:class="{ 'text-warning': deal.status == 'Pending', 'text-info': deal.status == 'Active', 'text-primary': deal.status == 'In Progress', 'text-danger': deal.status == 'Terminated', 'text-success': deal.status == 'Completed', 'text-dark': deal.status == 'Contract' }" >{{deal.status}}</td>
                           <td>
-                              <router-link :to="{ name: 'Edit-Deal', params: { id: encodeIt(transaction[0], transaction[1], transaction[2]) }}">
-                                  Edit
-                              </router-link>
-                          </td>
-                          <td>
-                              <router-link :to="{ name: 'User-Deal', params: { id: encodeIt(transaction._id, transaction.reference, transaction.type) }}">
+                              <router-link :to="{ name: 'User-Deal', params: { id: encodeIt(deal._id, deal.reference, deal.type) }}">
                                   View
                               </router-link>
                           </td>
@@ -54,7 +51,7 @@
                     <div class="content__icon--bg"><i class="fas fa-shopping-basket"></i></div>
                 </span>
                 <span class="content__desc">
-                    <h3>Transactions</h3>
+                    <h3>Marketplace</h3>
                     <p class="empty-state"></p>
                     <p>View list of sellers</p>
                 </span>
@@ -69,7 +66,7 @@
                             <option value="">Filter by commodity</option>
                         </select>
                     </div>
-                    <router-link class="btn__green" :to="{ name: 'New-User-Transaction'}">
+                    <router-link v-if="user" class="btn__green" :to="{ name: 'New-User-Transaction'}">
                       New Transaction
                     </router-link>
                 </div>
@@ -78,7 +75,7 @@
 
     </div>
     <div class="market container mt-5 mb-10">
-        <div v-for="(transaction, index) in allTransactions" :key="index" class="card market__listing mb-5">
+        <div v-for="(transaction, index) in transactions" :key="index" class="card market__listing mb-5">
             <div class="card-body px-5">
                 <div class="d-flex justify-content-between align-items-center align-content-center">
                     <p class="market__listing-id">#{{transaction.reference}}</p>
@@ -184,40 +181,41 @@
 </main>
 </template>
 <script>
-import Footer from '@/components/user/UserFooter'
 import api from '@/api/offer'
+import Header from '@/components/Header'
 import {mapGetters} from 'vuex'
 export default {
   name: 'Index',
   components: {
-    Footer
-  },
-  dashboard: true,
-  title () {
-    return `Transactions | Comflo Inc`
+    Header
   },
   data: function () {
     return {
-      visible: false
+      transactions: [],
+      visible: false,
+      disable: false,
+      mainerror: ''
     }
   },
-  created () {
-    this.getUserOffers()
-  },
   computed: {
-    ...mapGetters('user', ['user'])
+    ...mapGetters('user', ['user']),
+    isOnline () {
+      return window.navigator.onLine
+    }
+  },
+  mounted () {
+    this.getTransactions()
   },
   methods: {
-    async getUserOffers () {
+    async getTransactions () {
       let loader = this.$loading.show()
-      let response = await api.getUserOffers(this.user._id)
+      let response = await api.getOffers('?status=pending')
+      loader.hide()
       if (response.data.status === 'success') {
         console.log(response.data.data)
         this.allTransactions = response.data.data
         this.transactions = this.allTransactions
       }
-      this.$forceUpdate()
-      loader.hide()
       this.disable = false
     }
   }

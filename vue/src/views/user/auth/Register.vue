@@ -828,7 +828,7 @@ export default {
           this.addCompany(company)
           api.settoken(user.token)
           this.clearError()
-          this.$router.push('/welcome')
+          this.$router.push('/verify')
         } else {
           this.mainerror = response.data.data
           // this.resetDetails()

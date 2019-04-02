@@ -1,4 +1,5 @@
 import {blackAxios} from '@/config'
+import UserStore from '@/store/modules/user'
 const admin = require('./admin')
 const company = require('./company')
 const offer = require('./offer')
@@ -71,7 +72,9 @@ export default {
 
   async userverify (dargs) {
     try {
-      const response = blackAxios.post(this.verify, dargs, {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
+      console.log(this.headers.Authorization)
+      const response = blackAxios.patch(this.verify, dargs, {
         headers: this.headers
       })
       return response
@@ -83,8 +86,8 @@ export default {
 
   async userresend (dargs) {
     try {
-      console.log(this.headers)
-      console.log(company.default.headers)
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
+      // console.log(this.headers.Authorization)
       const response = blackAxios.patch(this.resend, dargs, {
         headers: this.headers
       })
@@ -121,6 +124,7 @@ export default {
 
   async getDeals () {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.get(this.deals, {
         headers: this.headers
       })
@@ -133,6 +137,7 @@ export default {
 
   async getDeal (id) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.get(this.deals + '/' + id, {
         headers: this.headers
       })
@@ -146,6 +151,7 @@ export default {
   // TODO: change in frontend
   async updateDeal (dargs, id) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.patch(this.deals + '/' + id, dargs, {
         headers: this.headers
       })
@@ -155,26 +161,9 @@ export default {
       return false
     }
   },
-
-  // async getDealImage (dargs) {
-  //   try {
-  //     const response = blackAxios.post(this.dealImage, {
-  //       image_id: dargs
-  //     }, {
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //         // '':''
-  //       }
-  //     })
-  //     return response
-  //   } catch (e) {
-  //     console.log(e)
-  //     return false
-  //   }
-  // },
-
   async getDealDocs (id) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.get(this.dealDocs + '/' + id, {
         headers: this.headers
       })
@@ -187,6 +176,7 @@ export default {
 
   async userDeleteImage (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.post(this.deleteImage, {
         file_id: dargs
       }, {
@@ -201,6 +191,7 @@ export default {
 
   async userDeleteDoc (id) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.delete(this.dealDocs + '/' + id, {
         headers: this.headers
       })
@@ -213,6 +204,7 @@ export default {
 
   async userSellDeal (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.post(this.selldeal, dargs, {
         headers: this.headers
       })
@@ -225,6 +217,7 @@ export default {
 
   async userBuyDeal (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.post(this.buydeal, dargs, {
         headers: this.headers
       })
@@ -237,6 +230,7 @@ export default {
 
   async userUpdateDeal (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.patch(this.updatedeal, dargs, {
         headers: this.headers
       })
@@ -249,6 +243,7 @@ export default {
 
   async getName (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.get(this.address + '/' + dargs.address, {
         headers: this.headers
       })
@@ -261,6 +256,7 @@ export default {
 
   async userChangePass (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.patch(this.resetPass, dargs, {
         headers: this.headers
       })
@@ -274,6 +270,7 @@ export default {
   // TODO: change in frontend
   async userAddDocs (dargs, id) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.put(this.dealDocs + '/' + id, dargs, {
         headers: this.headers
       })
@@ -286,6 +283,7 @@ export default {
 
   async userAddImages (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.post(this.addImages, dargs, {
         headers: this.headers
       })
@@ -298,6 +296,7 @@ export default {
 
   async userUpdateDocs (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.put(this.updateDocs, dargs, {
         headers: this.headers
       })
@@ -310,6 +309,7 @@ export default {
 
   async negotiateDeal (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.post(this.negotiate, dargs, {
         headers: this.headers
       })

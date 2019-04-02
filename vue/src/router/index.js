@@ -29,10 +29,10 @@ import UserForgotPass from '@/views/user/auth/ForgotPass'
 import UserDashboard from '@/views/user/dashboard/Home'
 import UserAddTransaction from '@/views/user/dashboard/NewTransaction'
 import UserTransactions from '@/views/user/dashboard/Transactions'
-// import UserMarketplace from '@/views/user/Marketplace'
+import UserTransaction from '@/views/user/dashboard/Transaction'
+import UserMarketplace from '@/views/user/dashboard/Marketplace'
 // import UserContracts from '@/views/user/Contracts'
 // import UserContract from '@/views/user/Contract'
-// import UserTransaction from '@/views/user/Deal'
 // import UserEditTransaction from '@/views/user/EditDeal'
 
 /**
@@ -172,34 +172,34 @@ const router = new Router({
           component: UserDashboard
         },
         {
+          path: 'marketplace',
+          name: 'User-Marketplace',
+          component: UserMarketplace
+        },
+        {
           path: 'transactions',
           name: 'User-Transactions',
           component: UserTransactions
         },
-        // {
-        //   path: 'marketplace',
-        //   name: 'User-Marketplace',
-        //   component: UserMarketplace
-        // },
-        // {
-        //   path: 'contracts',
-        //   name: 'User-Contracts',
-        //   component: UserContracts
-        // },
+        {
+          path: 'transactions/:id',
+          name: 'User-Transaction',
+          component: UserTransaction
+        },
         {
           path: 'transactions/new',
           name: 'New-User-Transaction',
           component: UserAddTransaction
         }
         // {
+        //   path: 'contracts',
+        //   name: 'User-Contracts',
+        //   component: UserContracts
+        // },
+        // {
         //   path: 'transactions/edit/:id',
         //   name: 'User-Edit-Transaction',
         //   component: UserEditTransaction
-        // },
-        // {
-        //   path: 'transactions/:id',
-        //   name: 'User-Deal',
-        //   component: UserTransaction
         // },
         // {
         //   path: 'contracts/:id',

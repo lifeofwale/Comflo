@@ -735,7 +735,7 @@ export default {
       let response = await offerApi.postOffer(deal)
       loader.hide()
       if (response.data.status === 'success') {
-        this.deals = response.data.data
+        console.log(response.data.data)
         this.disable = false
         this.clearFields()
         this.$router.push('/user/transactions')
