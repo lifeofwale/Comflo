@@ -50,15 +50,13 @@
     <div class="container mrt-6">
         <div class="d-flex align-content-center align-items-center justify-content-between request__query">
             <div class="d-flex align-content-center align-items-center">
-                <span>
-                    <div class="content__icon--bg"><i class="fas fa-shopping-basket"></i></div>
-                </span>
-                <span class="content__desc">
-                    <h3>Transactions</h3>
-                    <p class="empty-state"></p>
-                    <p>View list of sellers</p>
-                </span>
-            </div>
+                    <span><div class="content__icon--bg"><i class="fas fa-window-restore"></i></div></span>
+                    <span class="content__desc">
+                      <h3>Transactions</h3>
+                      <p class="empty-state"></p>
+                      <p>View list of transactions</p>
+                    </span>
+                </div>
             <div class="d-flex justify-content-start">
                 <div class="form-inline">
                     <div class="form-group d-none d-md-block">
@@ -77,8 +75,8 @@
         </div>
 
     </div>
-    <div class="market container mt-5 mb-10">
-        <div v-for="(transaction, index) in allTransactions" :key="index" class="card market__listing mb-5">
+    <div v-if='allTransactions.length > 0' class="market container mt-5 mb-10">
+        <div v-for="(transaction, index) in transactions" :key="index" class="card market__listing mb-5">
             <div class="card-body px-5">
                 <div class="d-flex justify-content-between align-items-center align-content-center">
                     <p class="market__listing-id">#{{transaction.reference}}</p>
@@ -180,6 +178,13 @@
         </nav>
         <!-- pagination -end -->
     </div>
+    <div v-else class="market container mt-5 mb-10">
+          <div class="text-center mt-5">
+            <img src="/static/img/empty--list.svg" alt="empty">
+            <p class="font-weight-bold" style="color: #0a6994;">There are no items available now.<br>
+              Please check back.</p>
+          </div>
+        </div>
     <Footer></Footer>
 </main>
 </template>

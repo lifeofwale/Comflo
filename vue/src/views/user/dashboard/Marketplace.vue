@@ -189,6 +189,10 @@ export default {
   components: {
     Header
   },
+  dashboard: true,
+  title () {
+    return `Marketplace | Comflo Inc`
+  },
   data: function () {
     return {
       transactions: [],

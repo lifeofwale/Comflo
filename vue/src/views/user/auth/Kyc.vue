@@ -1,5 +1,5 @@
 <template>
-  <section class="container-fluid px-0 hero h-100vh clr__greybg">
+  <section class="container-fluid px-0 hero h-100vh">
 
     <div class="container mt-5">
       <div class="text-center">

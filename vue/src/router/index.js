@@ -22,6 +22,7 @@ import Task from '@/views/user/Task'
 import UserLogin from '@/views/user/auth/Login'
 import UserKyc from '@/views/user/auth/Kyc'
 import UserVerify from '@/views/user/auth/Verify'
+import UserWelcome from '@/views/user/auth/Welcome'
 import UserRegister from '@/views/user/auth/Register'
 import UserForgotPass from '@/views/user/auth/ForgotPass'
 
@@ -91,7 +92,14 @@ const router = new Router({
       path: '/verify',
       name: 'User-Verify',
       component: UserVerify,
-      meta: { requiresNoAuth: true }
+      meta: { requiresUserAuth: true }
+    },
+
+    {
+      path: '/welcome',
+      name: 'User-Welcome',
+      component: UserWelcome,
+      meta: { requiresUserAuth: true }
     },
     {
       path: '/forgot',

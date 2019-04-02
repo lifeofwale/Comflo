@@ -1,0 +1,48 @@
+.support{
+    &__img{
+
+        & >  img{
+            width: 8.5rem;
+            height: 8.5rem;
+            
+            background-color: #fff;
+            border-radius: 50%;
+            border-radius: 50%;
+        border: 2px solid #fff;
+        -webkit-box-shadow: 0 5px 10px 0 rgba(43, 43, 43, 0.2);
+        box-shadow: 0 5px 10px 0 rgba(43, 43, 43, 0.2);
+            margin:  1.6rem 1.8rem;
+            vertical-align: middle;
+    
+           clip-path: circle();
+        }
+    }
+   
+
+    &__card{
+        max-width: 90.5rem;
+        margin: 0 auto;
+        margin-top:2rem;
+        border:none;
+    }
+}
+.profile{
+    height: 45rem;
+    &__img {
+
+            & > img {
+               
+               width: 15.7rem;
+               height: 15.7rem; 
+                background-color: #fff;
+                border-radius: 50%;
+                border-radius: 50%;
+            border: 2px solid #fff;
+            -webkit-box-shadow: 0 5px 10px 0 rgba(43, 43, 43, 0.2);
+            box-shadow: 0 5px 10px 0 rgba(43, 43, 43, 0.2);
+                vertical-align: middle;
+               clip-path: circle();
+            }
+
+    }
+}

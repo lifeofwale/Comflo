@@ -150,7 +150,7 @@ export default {
       return this.$route.path === '/user/' || this.$route.path === '/user'
     },
     usertransactions () {
-      return this.$route.path === '/user/deals' || this.$route.path === '/user/deals/' || this.$route.path.includes('/user/deals')
+      return this.$route.path === '/user/transactions' || this.$route.path === '/user/transactions/' || this.$route.path.includes('/user/transactions')
     },
     usercontracts () {
       return this.$route.path === '/user/contracts' || this.$route.path === '/user/contracts/' || this.$route.path.includes('/user/contracts')

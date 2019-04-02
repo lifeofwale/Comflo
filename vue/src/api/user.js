@@ -28,7 +28,7 @@ export default {
   deals: 'deals/',
   selldeal: 'deals/sell-deal',
   updateDocs: 'deals/update-docs',
-  dealDocs: 'deals/deal-docs',
+  transactionDocs: 'deals/deal-docs',
   // deal: 'deals/',
   // dealImage: 'users/deal-image',
   // deleteImage: 'users/delete-image',
@@ -161,10 +161,10 @@ export default {
       return false
     }
   },
-  async getDealDocs (id) {
+  async getTransactionDocs (id) {
     try {
       this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
-      const response = blackAxios.get(this.dealDocs + '/' + id, {
+      const response = blackAxios.get(this.transactionDocs + '/' + id, {
         headers: this.headers
       })
       return response
@@ -192,7 +192,7 @@ export default {
   async userDeleteDoc (id) {
     try {
       this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
-      const response = blackAxios.delete(this.dealDocs + '/' + id, {
+      const response = blackAxios.delete(this.transactionDocs + '/' + id, {
         headers: this.headers
       })
       return response
@@ -271,7 +271,7 @@ export default {
   async userAddDocs (dargs, id) {
     try {
       this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
-      const response = blackAxios.put(this.dealDocs + '/' + id, dargs, {
+      const response = blackAxios.put(this.transactionDocs + '/' + id, dargs, {
         headers: this.headers
       })
       return response
