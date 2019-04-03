@@ -96,13 +96,14 @@
 <script>
 import companyApi from '@/api/company'
 import { upload } from '@/config'
-import {mapGetters} from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import SideCard from '@/components/SideCard'
 export default {
   name: 'User-Kyc',
   components: {
     SideCard
   },
+  dashboard: true,
   title () {
     return `KYC | Comflo Inc`
   },
@@ -127,6 +128,7 @@ export default {
     this.mainerror = this.error
   },
   methods: {
+    ...mapActions('company', ['clearError', 'addCompany']),
     setFile (event, doc) {
       var file = event.target.files[0]
       doc.file = file
@@ -148,6 +150,8 @@ export default {
           registeration_name: companyLicense.name
         }
         const response = await companyApi.companyKyc(this.company._id, kycDetails)
+        const company = this.cleanObject(response.data.data)
+        this.addCompany(company)
         // console.log(response)
         // console.log(response.data.status)
         if (response.data.status === 'success') {

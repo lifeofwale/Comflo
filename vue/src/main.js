@@ -15,9 +15,11 @@ import 'vue-loading-overlay/dist/vue-loading.min.css'
 
 import Tooltip from 'vue-directive-tooltip'
 import 'vue-directive-tooltip/css/index.css'
-import titleMixin from './mixins/titleMixin'
+import utilsMixins from './mixins/utils_mixins'
+import docsMixins from './mixins/doc_mixins'
 
-Vue.mixin(titleMixin)
+Vue.mixin(utilsMixins)
+Vue.mixin(docsMixins)
 
 Vue.use(Tooltip)
 Vue.use(VueRouter)

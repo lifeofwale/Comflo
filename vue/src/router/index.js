@@ -99,7 +99,7 @@ const router = new Router({
       path: '/welcome',
       name: 'User-Welcome',
       component: UserWelcome,
-      meta: { requiresUserAuth: true }
+      meta: { requiresUserAuth: true, kycFilled: true }
     },
     {
       path: '/forgot',
@@ -111,7 +111,7 @@ const router = new Router({
       path: '/kyc',
       name: 'User-Kyc',
       component: UserKyc,
-      meta: { requiresUserAuth: true }
+      meta: { requiresUserAuth: true, kycFilled: true }
     },
     {
       path: '/',
@@ -189,15 +189,16 @@ const router = new Router({
           name: 'User-Transactions',
           component: UserTransactions
         },
-        {
-          path: 'transactions/:id',
-          name: 'User-Transaction',
-          component: UserTransaction
-        },
+
         {
           path: 'transactions/new',
           name: 'New-User-Transaction',
           component: UserAddTransaction
+        },
+        {
+          path: 'transactions/:id',
+          name: 'User-Transaction',
+          component: UserTransaction
         }
         // {
         //   path: 'contracts',
@@ -317,6 +318,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  console.log(CompanyStore.state.is_auth)
   if (to.matched.some(record => record.meta.requiresUserAuth) && UserStore.state.is_auth === false) {
     UserStore.state.error = 'You need to log in before you can perform this action.'
     next('/')
@@ -343,6 +345,19 @@ router.beforeEach((to, from, next) => {
     } else if (to.matched.some(record => record.path.includes('/user')) && UserStore.state.is_auth === true) {
       next('/user/')
     } else if (to.matched.some(record => record.path.includes('/register') || record.path.includes('/forgot') || record.path === '') && UserStore.state.is_auth === true) {
+      next('/user/')
+    } else {
+      next()
+    }
+  }
+
+  if (to.matched.some(record => record.meta.kycFilled)) {
+    console.log('kyc filled')
+    console.log(CompanyStore.state)
+    if (to.matched.some(record => record.path.includes('/kyc')) && CompanyStore.state.company.kyc_documents.length > 1) {
+      next('/user/')
+    }
+    if (to.matched.some(record => record.path.includes('/welcome')) && CompanyStore.state.company.kyc_documents.length > 1) {
       next('/user/')
     } else {
       next()

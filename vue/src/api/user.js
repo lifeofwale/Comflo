@@ -122,6 +122,18 @@ export default {
     }
   },
 
+  async getPartners (dargs) {
+    try {
+      const response = blackAxios.get(this.partners + dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+
   async getDeals () {
     try {
       this.headers.Authorization = 'Bearer ' + UserStore.state.user.token

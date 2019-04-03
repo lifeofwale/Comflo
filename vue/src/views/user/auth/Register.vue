@@ -843,17 +843,6 @@ export default {
         loader.hide()
         this.disable = false
       }
-    },
-    cleanObject (object) {
-      delete object.password
-      delete object.createdAt
-      delete object.updatedAt
-      delete object.user_type
-      delete object.verified
-      delete object.status
-      delete object.__v
-
-      return object
     }
   }
 }

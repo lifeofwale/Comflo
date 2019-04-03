@@ -246,7 +246,7 @@
                                                 </label>
                                             </td>
                                             <td class="col-md-4">
-                                                <a v-on:click="removeDocElement(index)" class="btn btn-action" style="cursor: pointer">Remove</a>
+                                                <a v-on:click="removeDocElement(index, sellerDocs)" class="btn btn-action" style="cursor: pointer">Remove</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -266,7 +266,7 @@
                                                 <input type="text" v-model="bdoc.name" class="form-control mb-2" placeholder="Name"/>
                                             </td>
                                             <td class="col-md-4">
-                                                <a v-on:click="removeBdocElement(index)" class="btn btn-action" style="cursor: pointer">Remove</a>
+                                                <a v-on:click="removeDocElement(index, buyerDocs)" class="btn btn-action" style="cursor: pointer">Remove</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -610,17 +610,17 @@
                   </div>
                 </div>
                 <div class="col-2">
-                  <button v-on:click="removeDocElement(index)" class="btn pt-5"> <img src="/static/img/trash-icon.svg" alt="trash-icon"></button>
+                  <button v-on:click="removeDocElement(index, sellerDocs)" class="btn pt-5"> <img src="/static/img/trash-icon.svg" alt="trash-icon"></button>
                 </div>
               </div>
               <div class="d-flex">
-                <button type="button" @click="addDocRow" style="font-size: 16px;" class="btn btn-link bg-transparent">+Add document</button>
+                <button type="button" @click="addDocRow(sellerDocs)" style="font-size: 16px;" class="btn btn-link bg-transparent">+Add document</button>
               </div>
               <div class="row mt-3">
                 <div class="col">
                   <div class="form-group mb-5">
                     <label for="inputmoreinfo">MORE INFORMATION</label>
-                    <textarea type="text" class="form-control cinput" id="inputmoreinfo" rows="5" required></textarea>
+                    <textarea type="text" class="form-control cinput" v-model="additionalInfo" id="inputmoreinfo" rows="5" required></textarea>
                   </div>
                 </div>
               </div>
@@ -760,41 +760,6 @@ export default {
       this.partners = []
       this.visible = false
       this.disable = false
-    },
-
-    addDocRow () {
-      //   var elem = document.createElement('tr')
-      this.sellerDocs.push({
-        name: '',
-        file: {
-          name: 'Choose File'
-        }
-      })
-    },
-    removeDocElement (index) {
-      this.sellerDocs.splice(index, 1)
-    },
-
-    setDocFilename (event, sdoc) {
-      var file = event.target.files[0]
-      sdoc.file = file
-    },
-
-    addBdocRow () {
-      this.buyerDocs.push({
-        name: '',
-        file: {
-          name: 'Choose File'
-        }
-      })
-    },
-
-    removeBdocElement (index) {
-      this.buyerDocs.splice(index, 1)
-    },
-    setBdocFilename (event, bdoc) {
-      var file = event.target.files[0]
-      bdoc.file = file
     }
   }
 }

@@ -264,6 +264,7 @@ export default {
   methods: {
     ...mapActions('user', ['clearError', 'addUser']),
     ...mapActions('admin', ['addAdmin']),
+    ...mapActions('company', ['clearError', 'addCompany']),
     resetDetails () {
       this.email = ''
       this.password = ''
@@ -334,7 +335,9 @@ export default {
           // console.log(response)
           console.log(response.data.status)
           if (response.data.status === 'success') {
-            let user = response.data.data
+            const user = this.cleanObject(response.data.data.user)
+            const company = this.cleanObject(response.data.data.company)
+            this.addCompany(company)
             delete user['password']
             // console.log(user)
             if (user.user_type === 3) {

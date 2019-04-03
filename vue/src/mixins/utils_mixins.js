@@ -21,7 +21,7 @@ export default {
       query: ''
     }
   },
-  created () {
+  mounted () {
     const title = getTitle(this)
     if (title) {
       document.title = title
@@ -85,5 +85,16 @@ export default {
       // console.log(seller, user)
       return !addCompare(seller, user)
     },
+    cleanObject (object) {
+      delete object.password
+      delete object.createdAt
+      delete object.updatedAt
+      delete object.user_type
+      delete object.verified
+      delete object.status
+      delete object.__v
+
+      return object
+    }
   }
 }

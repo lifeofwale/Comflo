@@ -5,7 +5,7 @@
             <p v-if="mainsuccess.length > 0" class="text-success text-center col-md-12">{{mainsuccess}}</p>
             <loading :active.sync="visible" :can-cancel="true"></loading>
             <div class="row">
-                <!-- <div class="form-group col-md-12">
+                <div class="form-group col-md-12">
                     <div class="col-md-4 pull-left">
                         <p class="text-muted">Posted By</p>
                     </div>
@@ -96,15 +96,15 @@
                         <p>{{transaction.status}}</p>
                     </div>
                 </div>
-                <!-- <div class="form-group col-md-12">
+                <div class="form-group col-md-12">
                     <div class="col-md-4 pull-left">
                         <h5 class="text-muted">Category</h5>
                     </div>
                     <div class="col-md-8 pull-right">
                         <h5>{{transaction[10]}}</h5>
                     </div>
-                </div> -->
-                <!-- <div class="form-group col-md-12">
+                </div>
+                <div class="form-group col-md-12">
                     <div class="col-md-4 pull-left">
                         <h5 class="text-muted">Images</h5>
                     </div>
@@ -123,8 +123,8 @@
                     <div class="col-md-8 pull-right">
                         <p v-for="(sdoc, index) in sellerDocs" :key="index">
                             <span class="col-md-3">{{sdoc.name}}</span>
-                            <!-- <span v-if="sdoc.uploader && sdoc.uploader !== ''" class="col-md-3">Uploaded by - {{sdoc.uploader}}</span> -->
-                            <!-- <span class="col-md-3"><a @click="removeSDoc(index, sdoc.url, sdoc._id)">Remove</a></span> -
+                            <span v-if="sdoc.uploader && sdoc.uploader !== ''" class="col-md-3">Uploaded by - {{sdoc.uploader}}</span>
+                            <span class="col-md-3"><a @click="removeDoc(index, sdoc.url, sdoc._id, sellerDocs)">Remove</a></span> -
                             <span class="col-md-3"><a :href="sdoc.url" target="_blank">View</a></span>
                         </p>
                     </div>
@@ -139,7 +139,7 @@
                             <span v-if="(!bdoc.url || bdoc.url == 'false') && isPartner">
                                 <span>
                                     <label class="fileContainer">
-                                        <!-- {{bdoc.file.name}} -
+                                        {{bdoc.file.name}} -
                                         <input type="file" @change="setFilename($event, bdoc)" :id="index" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*"/>
                                     </label>
                                 </span>
@@ -149,8 +149,8 @@
                                     </button>
                                 </span>
                             </span>
-                            <!-- <span v-if="bdoc.uploader && bdoc.uploader !== ''" class="col-md-3"><span v-if="bdoc.url && bdoc.url !== 'false'">Uploaded by</span> <span v-else>Requested by</span> - {{bdoc.uploader}}</span> -->
-                            <!-- <span class="col-md-3"><a @click="removeDoc(index, bdoc.url, bdoc._id)">Remove</a></span> -
+                            <span v-if="bdoc.uploader && bdoc.uploader !== ''" class="col-md-3"><span v-if="bdoc.url && bdoc.url !== 'false'">Uploaded by</span> <span v-else>Requested by</span> - {{bdoc.uploader}}</span>
+                            <span class="col-md-3"><a @click="removeDoc(index, bdoc.url, bdoc._id, buyerDocs)">Remove</a></span> -
                             <span v-if="bdoc.url && bdoc.url !== 'false'" class="col-md-3"><a :href="bdoc.url" target="_blank">View</a></span>
                         </p>
                     </div>
@@ -158,7 +158,7 @@
             </div>
         </div>
         <div class="col-md-12 col-lg-12">
-            <!-- <template v-if="user.address == transaction.seller">
+            <template v-if="user.address == transaction.seller">
                 <p class="pull-right mt-10">
                     <a v-link="'/user/transactions/'+transaction[0]+'/edit'" class="btn btn-round venice-bg">
                     Edit
@@ -184,7 +184,7 @@
         <div class="container mrt-6 mb-10">
           <div class="row">
             <div class="col-md-8 col-xs-12 mt-3">
-              <p><span class="d-inline-block"><img src="/static/img/id__icon.svg" alt="id__icon"></span> OFFER ID: <span
+              <p><span class="d-inline-block"><img src="/static/img/id__icon.svg" alt="id__icon"></span> OFFER: <span
                   class="font-weight-bold">{{transaction.reference}}</span></p>
               <div class="card market__card mt-5">
                 <div class="card-body px-5">
@@ -194,9 +194,9 @@
                         role="tab" aria-controls="nav-home" aria-selected="true">DETAILS</a>
                       <a :class="{ active: detailPart == 2 }" class="nav-item nav-link px-5"  id="nav-profile-tab" data-toggle="tab" @click="detailPart = 2"
                         role="tab" aria-controls="nav-profile" aria-selected="true">DOCUMENTS</a>
-                      <a :class="{ active: detailPart == 3 }" class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab"@click="detailPart = 3" role="tab"
+                      <a :class="{ active: detailPart == 3 }" class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" @click="detailPart = 3" role="tab"
                         aria-controls="nav-contact" aria-selected="true">PARTICIPANTS</a>
-                      <a v-if="transaction.status.toLowerCase() == 'contract'" :class="{ active: detailPart == 4 }" class="nav-item nav-link" id="nav-contract-tab" data-toggle="tab" @click="detailPart = 4"
+                      <a v-if="transaction.status == 'contract'" :class="{ active: detailPart == 4 }" class="nav-item nav-link" id="nav-contract-tab" data-toggle="tab" @click="detailPart = 4"
                         role="tab" aria-controls="nav-contract" aria-selected="true">CONTRACT</a>
                     </div>
                   </nav>
@@ -227,11 +227,11 @@
                             <p class="market__desc">
                               STATUS:
                             </p>
-                            <div v-if="transaction.status.toLowerCase() == 'pending'" class="statusblock-yellow text-center">{{transaction.status}}</div>
-                            <div v-else-if="transaction.status.toLowerCase() == 'completed'" class="statusblock-green text-center">{{transaction.status}}</div>
-                            <div v-else-if="transaction.status.toLowerCase() == 'contract'" class="statusblock-grey text-center">{{transaction.status}}</div>
-                            <div v-else-if="transaction.status.toLowerCase() == 'active'" class="statusblock-blue text-center">{{transaction.status}}</div>
-                            <div v-else-if="transaction.status.toLowerCase() == 'terminated'" class="statusblock-red text-center">{{transaction.status}}</div>
+                            <div v-if="transaction.status == 'pending'" class="statusblock-yellow text-center">{{transaction.status}}</div>
+                            <div v-else-if="transaction.status == 'completed'" class="statusblock-green text-center">{{transaction.status}}</div>
+                            <div v-else-if="transaction.status == 'contract'" class="statusblock-grey text-center">{{transaction.status}}</div>
+                            <div v-else-if="transaction.status == 'active'" class="statusblock-blue text-center">{{transaction.status}}</div>
+                            <div v-else-if="transaction.status == 'terminated'" class="statusblock-red text-center">{{transaction.status}}</div>
                           </div>
                           <div class="col">
                             <p class="market__desc">
@@ -243,7 +243,6 @@
                           </div>
                         </div>
                       </div>
-                      <!-- deet 1 -->
                       <div class="market__details mt-5">
                         <p class="font-weight-bold"><span class="d-inline-block mr-2"><img src="/static/img/paper_icon.svg"
                               alt="paper icon"></span>PRICE & QUANTITY DETAILS</p>
@@ -254,7 +253,7 @@
                               QUANTITY(MT)
                             </p>
                             <p class="market__value">
-                              {{transaction.quantity.toLocaleString()}}
+                              {{transaction.quantity}}
                             </p>
                           </div>
                           <div class="col-7">
@@ -262,12 +261,11 @@
                               ASKING PRICE
                             </p>
                             <p class="market__value">
-                              {{transaction.price.toLocaleString()}}
+                              {{transaction.price}}
                             </p>
                           </div>
                         </div>
                       </div>
-                      <!-- deet 2 -->
                       <div class="market__details mt-5">
                         <p class="font-weight-bold"><span class="d-inline-block mr-2"><img src="/static/img/paper_icon.svg"
                               alt="paper icon"></span>OTHER DETAILS</p>
@@ -304,7 +302,7 @@
                                 <img src="/static/img/doc-icon.svg" class="mr-3" alt="doc-icon">
                                 <div class="media-body">
                                   <p class="mt-0 mb-1">{{sdoc.name}}</p>
-                                  <!-- <small>Contract_bill_of_lading.doc</small> -->
+                                  <small>Contract_bill_of_lading.doc</small>
                                 </div>
                               </div>
                               <a :href="sdoc.url" target="_blank" class="btn btn__green-v">View</a>
@@ -323,7 +321,7 @@
                                 <img src="/static/img/doc-icon.svg" class="mr-3" alt="doc-icon">
                                 <div class="media-body">
                                   <p class="mt-0 mb-1">{{bdoc.name}}</p>
-                                  <!-- <small>Contract_bill_of_lading.doc</small> -->
+                                  <small>Contract_bill_of_lading.doc</small>
                                 </div>
                               </div>
                               <a v-if="bdoc.url && bdoc.url !== 'false'" :href="bdoc.url" target="_blank" class="btn btn__green-v">View</a>
@@ -356,7 +354,7 @@
                         </div>
                       </div>
                     </div>
-                    <div v-if="transaction.status.toLowerCase() == 'contract'" :class="{ active: detailPart === 4, show: detailPart === 4, fade: detailPart != 4  }" class="tab-pane fade" id="nav-contract" role="tabpanel" aria-labelledby="nav-contract-tab">
+                    <div v-if="transaction.status == 'contract'" :class="{ active: detailPart === 4, show: detailPart === 4, fade: detailPart != 4  }" class="tab-pane fade" id="nav-contract" role="tabpanel" aria-labelledby="nav-contract-tab">
                       <div class="market__details mt-5">
                         <p class="font-weight-bold"><span class="d-inline-block mr-2"><img src="/static/img/paper_icon.svg"
                               alt="paper icon"></span>CONTRACT DETAILS</p>
@@ -449,7 +447,6 @@
                   <div class="float-right">
                     <button type="button" class="btn button__primary-m" data-toggle="modal"
                       data-target="#exampleModalCenter">Add Document</button>
-                    <!-- Modal -->
                     <div class="modal fade cwrap__modal" id="exampleModalCenter" tabindex="-1" role="dialog"
                       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered cwrap__modal-dialog" role="document">
@@ -510,7 +507,6 @@
 </template>
 <script>
 import api from '@/api/user'
-import adminApi from '@/api/admin'
 import offerApi from '@/api/offer'
 import Header from '@/components/Header'
 import { deleteFile, upload } from '@/config'
@@ -531,7 +527,6 @@ export default {
       sellerDocs: [],
       buyerDocs: [],
       partners: [],
-      partner_id: '',
       isPartner: false,
       //   poster: '',
       receiver: '',
@@ -583,6 +578,10 @@ export default {
       loader.hide()
       if (response.data.status === 'success') {
         this.transaction = response.data.data
+        this.transaction.status = this.transaction.status.toLowerCase()
+        this.transaction.quantity = this.transaction.quantity.toLocaleString()
+        this.transaction.currency = this.transaction.price.split(' ')[0]
+        this.transaction.price = parseInt(this.transaction.price.split(' ')[1], 10).toLocaleString()
         this.price = this.locale(this.transaction.price)
         this.getDocs()
         this.getPartners()
@@ -594,13 +593,10 @@ export default {
      */
     async getPartners () {
       let loader = this.$loading.show()
-      let response = await adminApi.getPartners(this.transaction.partners)
-      console.log('partners')
+      let response = await offerApi.getOfferPartners(this.transaction._id)
       console.log(response)
-      // console.log(response.data)
       loader.hide()
       if (response.data.status === 'success') {
-        this.partner_id = response.data.data._id
         this.partners = response.data.data.partner
       }
       this.disable = false
@@ -619,51 +615,30 @@ export default {
       this.disable = false
     },
     /**
-     * Remove seller image, i.e if a user made a mistake
+     * Remove document, i.e if a user made a mistake
      */
-    async removeSDoc (index, url, _id) {
+    async removeDoc (index, url, _id, docs) {
       let loader = this.$loading.show()
       deleteFile(url)
       await api.userDeleteDoc(_id)
-      this.sellerDocs.splice(index, 1)
+      docs.splice(index, 1)
       loader.hide()
     },
     /**
-     * Remove buyer image, i.e if a user made a mistake
+     * Add a file
      */
-    async removeDoc (index, url, _id) {
-      let loader = this.$loading.show()
-      deleteFile(url)
-      await api.userDeleteDoc(_id)
-      this.buyerDocs.splice(index, 1)
-      loader.hide()
-    },
-    // /**
-    //  * Get the name of the owner of a blockchain address
-    //  */
-    // async getName (address) {
-    //   let details = {
-    //     address
-    //   }
-    //   let response = await api.getName(details)
-    //   if (response.data.status === 'success') {
-    //     // console.log(response.data.data)
-    //     return response.data.data
-    //   } else {
-    //     return false
-    //   }
-    // },
     setFilename (event, doc) {
       var file = event.target.files[0]
       doc.file = file
     },
+
     async uploadFile ($event, bdoc) {
       let loader = this.$loading.show()
       let file = bdoc.file
       // console.log(file)
       let url = ''
       if (file.name) {
-        url = await upload(file, 'buyer-docs', this.transaction[3])
+        url = await upload(file, 'buyer-docs', this.transaction.commodity)
         bdoc.uploader = this.user.fname + ' ' + this.user.lname
       }
       bdoc.url = url
