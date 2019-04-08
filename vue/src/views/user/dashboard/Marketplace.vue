@@ -162,15 +162,14 @@
         <!-- pagination begin -->
         <nav aria-label="Page navigation">
             <ul class="pagination pagination__ul justify-content-center pagination-lg">
-                <li class="page-item pagination__li">
+                <li v-if="pagination.pre_page != null" class="page-item pagination__li">
                     <a class="page-link pagination__a" href="#" tabindex="-1"
                         aria-disabled="true">&laquo;</a>
                 </li>
-                <li class="page-item active pagination__li"><a class="page-link pagination__a"
-                        href="#">1</a></li>
-                <li class="page-item pagination__li"><a class="page-link pagination__a" href="#">2</a></li>
-                <li class="page-item pagination__li"><a class="page-link pagination__a" href="#">3</a></li>
-                <li class="page-item pagination__li">
+                <template v-if="pagination.page > 1">
+                    <li v-for="(n, index) in pagination.page" :key="index" class="page-item active pagination__li"><a class="page-link pagination__a" @click="paginator(allTransactions, n, 20)">{{n}}</a></li>
+                </template>
+                <li v-if="pagination.next_page != null" class="page-item pagination__li">
                     <a class="page-link pagination__a" href="#">&raquo;</a>
                 </li>
             </ul>
@@ -218,7 +217,9 @@ export default {
       if (response.data.status === 'success') {
         console.log(response.data.data)
         this.allTransactions = response.data.data
-        this.transactions = this.allTransactions
+        this.filteredTransactions = this.allTransactions
+        this.commodities = this.allTransactions.map(transaction => transaction.commodity)
+        this.transactions = this.paginator(this.allTransactions, 1, 20)
       }
       this.disable = false
     }

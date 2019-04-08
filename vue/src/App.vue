@@ -10,10 +10,12 @@ export default {
 </script>
 
 <style>
-  /* @import '../static/assets/css/bootstrap.min.css';
-  @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
-  @import '../static/css/style.css';
-  @import '../static/css/responsive.css'; */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
 
 <style lang="css">

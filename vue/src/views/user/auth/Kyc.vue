@@ -45,7 +45,7 @@
             </label>
             <div class="cwrap__content">
               <div class="custom-file cwrap__file">
-                <input @change="setFile($event, personalID)" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*" type="file" class="custom-file-input" id="customFile-2">
+                <input @change="setDocFilename($event, personalID)" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*" type="file" class="custom-file-input" id="customFile-2">
                 <label class="custom-file-label cwrap__file-label" for="customFile-2">{{personalID.file.name}}</label>
               </div>
             </div>
@@ -129,10 +129,6 @@ export default {
   },
   methods: {
     ...mapActions('company', ['clearError', 'addCompany']),
-    setFile (event, doc) {
-      var file = event.target.files[0]
-      doc.file = file
-    },
     async uploadKYC () {
       const loader = this.$loading.show()
       this.disable = true

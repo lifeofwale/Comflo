@@ -280,23 +280,10 @@ export default {
   },
 
   // TODO: change in frontend
-  async userAddDocs (dargs, id) {
+  async userAddDocs (dargs, offerId, docId) {
     try {
       this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
-      const response = blackAxios.put(this.transactionDocs + '/' + id, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async userAddImages (dargs) {
-    try {
-      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
-      const response = blackAxios.post(this.addImages, dargs, {
+      const response = blackAxios.put(`offers/${offerId}/documents/${docId}`, dargs, {
         headers: this.headers
       })
       return response

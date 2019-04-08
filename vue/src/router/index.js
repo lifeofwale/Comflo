@@ -354,10 +354,10 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.kycFilled)) {
     console.log('kyc filled')
     console.log(CompanyStore.state)
-    if (to.matched.some(record => record.path.includes('/kyc')) && CompanyStore.state.company.kyc_documents.length > 1) {
+    if (to.matched.some(record => record.path.includes('/kyc')) && CompanyStore.state.company.kyc_documents != null && CompanyStore.state.company.kyc_documents.length > 1) {
       next('/user/')
     }
-    if (to.matched.some(record => record.path.includes('/welcome')) && CompanyStore.state.company.kyc_documents.length > 1) {
+    if (to.matched.some(record => record.path.includes('/welcome')) && CompanyStore.state.company.kyc_documents != null && CompanyStore.state.company.kyc_documents.length > 1) {
       next('/user/')
     } else {
       next()

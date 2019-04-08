@@ -17,8 +17,12 @@ export default {
   data: function () {
     return {
       transactions: [],
+      filteredTransactions: [],
       allTransactions: [],
-      query: ''
+      query: '',
+      commodities: [],
+      filterQuery: 'all',
+      pagination: {}
     }
   },
   mounted () {
@@ -73,9 +77,42 @@ export default {
     searchTransactions () {
       let query = this.query.toString().toLowerCase()
       if (query === '') {
-        this.transactions = this.allTransactions
+        this.transactions = this.filteredTransactions
       } else {
-        this.transactions = this.allTransactions.filter(transaction => transaction.type.toLowerCase().includes(query) || transaction.commodity.toLowerCase().includes(query) || transaction.quantity.toString().toLowerCase().includes(query) || transaction.incoterm.toLowerCase().includes(query) || transaction.location.toLowerCase().includes(query) || transaction.reference.toLowerCase().includes(query) || transaction.price.toString().toLowerCase().includes(query))
+        this.transactions = this.filteredTransactions.filter(transaction => transaction.type.toLowerCase().includes(query) || transaction.commodity.toLowerCase().includes(query) || transaction.quantity.toString().toLowerCase().includes(query) || transaction.incoterm.toLowerCase().includes(query) || transaction.location.toLowerCase().includes(query) || transaction.reference.toLowerCase().includes(query) || transaction.price.toString().toLowerCase().includes(query))
+      }
+    },
+    paginator (items, page, perPage) {
+      page = page || 1
+      perPage = perPage || 10
+      const offset = (page - 1) * perPage
+      const paginatedItems = items.slice(offset).slice(0, perPage)
+      const totalPpages = Math.ceil(items.length / perPage)
+
+      this.pagination = {
+        page: page,
+        per_page: perPage,
+        pre_page: page - 1 ? page - 1 : null,
+        next_page: (totalPpages > page) ? page + 1 : null,
+        total: items.length,
+        total_pages: totalPpages,
+        data: paginatedItems
+      }
+      return paginatedItems
+    },
+    /**
+     * helper function, filter commodities
+     */
+    filter () {
+      const query = this.filterQuery.toString().toLowerCase()
+      if (query === 'all') {
+        this.filteredTransactions = this.allTransactions
+        this.transactions = this.filteredTransactions
+        this.searchTransactions()
+      } else {
+        this.filteredTransactions = this.allTransactions.filter(transaction => transaction.commodity.toLowerCase().includes(query))
+        this.transactions = this.filteredTransactions
+        this.searchTransactions()
       }
     },
     /**

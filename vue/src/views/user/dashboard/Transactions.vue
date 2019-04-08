@@ -63,8 +63,9 @@
                         <input type="text" class="form-control search-input" v-model="query"  @input="searchTransactions" placeholder="Search...">
                     </div>
                     <div class="form-group mx-sm-3 d-none d-md-block">
-                        <select class="form-control search-input">
-                            <option value="">Filter by commodity</option>
+                        <select @change="filter" v-model="filterQuery" class="form-control search-input">
+                            <option value="all">Filter by commodity</option>
+                            <option v-for="(commodity, index) in commodities" :key="index" :value="commodity">{{commodity}}</option>
                         </select>
                     </div>
                     <router-link class="btn__green" :to="{ name: 'New-User-Transaction'}">
@@ -75,7 +76,7 @@
         </div>
 
     </div>
-    <div v-if='allTransactions.length > 0' class="market container mt-5 mb-10">
+    <div v-if='transactions.length > 0' class="market container mt-5 mb-10">
         <div v-for="(transaction, index) in transactions" :key="index" class="card market__listing mb-5">
             <div class="card-body px-5">
                 <div class="d-flex justify-content-between align-items-center align-content-center">
@@ -163,15 +164,14 @@
         <!-- pagination begin -->
         <nav aria-label="Page navigation">
             <ul class="pagination pagination__ul justify-content-center pagination-lg">
-                <li class="page-item pagination__li">
+                <li v-if="pagination.pre_page != null" class="page-item pagination__li">
                     <a class="page-link pagination__a" href="#" tabindex="-1"
                         aria-disabled="true">&laquo;</a>
                 </li>
-                <li class="page-item active pagination__li"><a class="page-link pagination__a"
-                        href="#">1</a></li>
-                <li class="page-item pagination__li"><a class="page-link pagination__a" href="#">2</a></li>
-                <li class="page-item pagination__li"><a class="page-link pagination__a" href="#">3</a></li>
-                <li class="page-item pagination__li">
+                <template v-if="pagination.page > 1">
+                    <li v-for="(n, index) in pagination.page" :key="index" class="page-item active pagination__li"><a class="page-link pagination__a" @click="paginator(allTransactions, n, 20)">{{n}}</a></li>
+                </template>
+                <li v-if="pagination.next_page != null" class="page-item pagination__li">
                     <a class="page-link pagination__a" href="#">&raquo;</a>
                 </li>
             </ul>
@@ -219,7 +219,9 @@ export default {
       if (response.data.status === 'success') {
         console.log(response.data.data)
         this.allTransactions = response.data.data
-        this.transactions = this.allTransactions
+        this.filteredTransactions = this.allTransactions
+        this.commodities = this.allTransactions.map(transaction => transaction.commodity)
+        this.transactions = this.paginator(this.allTransactions, 1, 20)
       }
       this.$forceUpdate()
       loader.hide()

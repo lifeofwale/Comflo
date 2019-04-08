@@ -140,7 +140,7 @@
                                 <span>
                                     <label class="fileContainer">
                                         {{bdoc.file.name}} -
-                                        <input type="file" @change="setFilename($event, bdoc)" :id="index" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*"/>
+                                        <input type="file" @change="setDocFilename($event, bdoc)" :id="index" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*"/>
                                     </label>
                                 </span>
                                 <span>
@@ -194,7 +194,7 @@
                         role="tab" aria-controls="nav-home" aria-selected="true">DETAILS</a>
                       <a :class="{ active: detailPart == 2 }" class="nav-item nav-link px-5"  id="nav-profile-tab" data-toggle="tab" @click="detailPart = 2"
                         role="tab" aria-controls="nav-profile" aria-selected="true">DOCUMENTS</a>
-                      <a :class="{ active: detailPart == 3 }" class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" @click="detailPart = 3" role="tab"
+                      <a v-if="partners && partners.length > 0" :class="{ active: detailPart == 3 }" class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" @click="detailPart = 3" role="tab"
                         aria-controls="nav-contact" aria-selected="true">PARTICIPANTS</a>
                       <a v-if="transaction.status == 'contract'" :class="{ active: detailPart == 4 }" class="nav-item nav-link" id="nav-contract-tab" data-toggle="tab" @click="detailPart = 4"
                         role="tab" aria-controls="nav-contract" aria-selected="true">CONTRACT</a>
@@ -321,7 +321,7 @@
                                 <img src="/static/img/doc-icon.svg" class="mr-3" alt="doc-icon">
                                 <div class="media-body">
                                   <p class="mt-0 mb-1">{{bdoc.name}}</p>
-                                  <small>Contract_bill_of_lading.doc</small>
+                                  <!-- <small>Contract_bill_of_lading.doc</small> -->
                                 </div>
                               </div>
                               <a v-if="bdoc.url && bdoc.url !== 'false'" :href="bdoc.url" target="_blank" class="btn btn__green-v">View</a>
@@ -407,28 +407,16 @@
                               alt="paper icon"></span>CONTRACT DOCUMENT</p>
                         <p class="empty-state"></p>
                         <div class="row mt-5">
-                          <div class="col-sm-6 col-xs-12">
+                          <div v-for="(jdoc, index) in jointDocs" :key="index" class="col-sm-6 col-xs-12">
                             <div class="d-flex justify-content-between align-items-center mb-4">
                               <div class="media">
                                 <img src="/static/img/doc-icon.svg" class="mr-3" alt="doc-icon">
                                 <div class="media-body">
-                                  <p class="mt-0 mb-1">Bill of lading</p>
-                                  <small>Contract_bill_of_lading.doc</small>
+                                  <p class="mt-0 mb-1">{{jdoc.name}}</p>
+                                  <!-- <small>Contract_bill_of_lading.doc</small> -->
                                 </div>
                               </div>
-                              <a href="#" class="btn btn__green-v">View</a>
-                            </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                              <div class="media">
-                                <img src="/static/img/doc-icon.svg" class="mr-3" alt="doc-icon">
-                                <div class="media-body">
-                                  <p class="mt-0 mb-1">Bill of lading</p>
-                                  <small>Contract_bill_of_lading.doc</small>
-                                </div>
-                              </div>
-                              <a href="#" class="btn btn__green-v">View</a>
+                              <a v-if="jdoc.url && jdoc.url !== 'false'" :href="jdoc.url" target="_blank" class="btn btn__green-v">View</a>
                             </div>
                           </div>
                         </div>
@@ -442,31 +430,39 @@
               <div class="market__nego">
                 <div class="clearfix">
                   <div class="float-left">
-                    <a href="#" class="btn button__grey-a">Back</a>
+                    <!-- <a href="#" class="btn button__grey-a">Back</a> -->
+                    <router-link class="btn button__grey-a" :to="{ name: 'User-Transactions'}">
+                      Back
+                    </router-link>
                   </div>
                   <div class="float-right">
-                    <button type="button" class="btn button__primary-m" data-toggle="modal"
+                    <button v-if="user._id === transaction.buyer || user._id === transaction.seller" @click="showModal = true" type="button" class="btn button__primary-m" data-toggle="modal"
                       data-target="#exampleModalCenter">Add Document</button>
-                    <div class="modal fade cwrap__modal" id="exampleModalCenter" tabindex="-1" role="dialog"
-                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <button @click="negotiate()" v-if="notSame(transaction.poster, user._id) && transaction.status=='Pending'" type="button" class="btn button__primary-m" data-toggle="modal"
+                    data-target="#exampleModalCenter">Negotiate</button>
+                    <!-- Modal -->
+                    <div v-if="showModal === true" class="modal cwrap__modal show" id="exampleModalCenter" tabindex="-1" role="dialog" style="display: block;"
+                      aria-labelledby="exampleModalCenterTitle" aria-modal="true">
                       <div class="modal-dialog modal-dialog-centered cwrap__modal-dialog" role="document">
                         <div class="modal-content cwrap__modal-content">
                           <div class="modal-header cwrap__modal-header ">
-                            <h5 class="modal-title cwrap__modal-title text-center m-auto" id="exampleModalCenterTitle">NEGOTIATE</h5>
+                            <h5 class="modal-title cwrap__modal-title text-center m-auto" id="exampleModalCenterTitle">
+                              NEGOTIATE</h5>
                           </div>
                           <div class="modal-body px-5">
                             <div class="form-group mb-5">
                               <label for="inputFilename">FILE NAME <sup>*</sup></label>
-                              <input type="text" class="form-control cinput" id="inputFilename"
+                              <input type="text" v-model="newDoc.name" class="form-control cinput" id="inputFilename"
                                 placeholder="Enter file name" required>
                             </div>
                             <div class="custom-file cwrap__file mb-4">
-                              <input type="file" class="custom-file-input" id="customFile-2">
-                              <label class="custom-file-label cwrap__file-label" for="customFile-2">Choose file</label>
+                              <input @change="setDocFilename($event, newDoc)" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*" type="file" class="custom-file-input" id="customFile-2">
+                              <label class="custom-file-label cwrap__file-label" for="customFile-2">{{newDoc.file.name}}</label>
                             </div>
                           </div>
                           <div class="modal-footer  cwrap__modal-footer">
-                            <button type="submit" class="btn  button__primary mx-3">Upload</button>
+                            <button @click="showModal = false" type="button" class="btn button__grey-m">Cancel</button>
+                            <button @click="uploadFile(newDoc)" type="submit" class="btn  button__primary mx-3">Upload</button>
                           </div>
                         </div>
                       </div>
@@ -488,33 +484,20 @@
             </div>
           </div>
         </div>
-        <footer
-          class="col-sm-11 offset-sm-1 content content-m content-offset content-offset-m fixed-bottom cfooter navbar">
-          <p>© 2019 Comflo. All rights reserved.</p>
-          <ul class="nav">
-            <li class="nav-item footer__li">
-              <a href="#" class="nav-link footer__a"><i class="fab fa-medium-m"></i></a>
-            </li>
-            <li class="nav-item footer__li">
-              <a href="#" class="nav-link footer__a"><i class="fab fa-facebook"></i></a>
-            </li>
-            <li class="nav-item footer__li">
-              <a href="#" class="nav-link footer__a"><i class="fab fa-twitter-square"></i></a>
-            </li>
-          </ul>
-        </footer>
+        <Footer></Footer>
+        <div v-if="showModal === true" class="modal-backdrop fade show"></div>
       </main>
 </template>
 <script>
 import api from '@/api/user'
 import offerApi from '@/api/offer'
-import Header from '@/components/Header'
-import { deleteFile, upload } from '@/config'
+import Footer from '@/components/user/UserFooter'
+import { upload } from '@/config'
 import {mapGetters} from 'vuex'
 export default {
   name: 'Index',
   components: {
-    Header
+    Footer
   },
   dashboard: true,
   title () {
@@ -522,10 +505,13 @@ export default {
   },
   data: function () {
     return {
+      newDoc: { name: '', file: { name: 'Choose File' } },
+      showModal: false,
       detailPart: 1,
       transaction: [],
       sellerDocs: [],
       buyerDocs: [],
+      jointDocs: [],
       partners: [],
       isPartner: false,
       //   poster: '',
@@ -606,49 +592,48 @@ export default {
      */
     async getDocs () {
       let loader = this.$loading.show()
-      let [sellerResponse, buyerResponse] = await Promise.all([api.getTransactionDocs(this.transaction.sellerDocuments), api.getTransactionDocs(this.transaction.buyerDocuments)])
+      let [sellerResponse, buyerResponse, jointResponse] = await Promise.all([api.getTransactionDocs(this.transaction.sellerDocuments), api.getTransactionDocs(this.transaction.buyerDocuments), api.getTransactionDocs(this.transaction.jointDocuments)])
       loader.hide()
       if (sellerResponse.data.status === 'success' && buyerResponse.data.status === 'success') {
         this.sellerDocs = sellerResponse.data.data
         this.buyerDocs = buyerResponse.data.data
+        console.log('seller', sellerResponse)
+        console.log('buyer', buyerResponse)
+        if (this.transaction.status.toLowerCase() === 'contract') {
+          this.jointDocs = jointResponse.data.data
+        }
       }
       this.disable = false
     },
-    /**
-     * Remove document, i.e if a user made a mistake
-     */
-    async removeDoc (index, url, _id, docs) {
-      let loader = this.$loading.show()
-      deleteFile(url)
-      await api.userDeleteDoc(_id)
-      docs.splice(index, 1)
-      loader.hide()
-    },
-    /**
-     * Add a file
-     */
-    setFilename (event, doc) {
-      var file = event.target.files[0]
-      doc.file = file
-    },
 
-    async uploadFile ($event, bdoc) {
-      let loader = this.$loading.show()
-      let file = bdoc.file
+    async uploadFile (doc) {
+      this.showModal = false
+      let loader = this.$loading.show({zIndex: 999})
+      let file = doc.file
+
+      let type = 'buyer-docs'
+      let docId = this.transaction.buyerDocuments
+      if (this.user._id === this.transaction.seller) {
+        type = 'seller-docs'
+        docId = this.transaction.sellerDocuments
+      }
       // console.log(file)
       let url = ''
       if (file.name) {
-        url = await upload(file, 'buyer-docs', this.transaction.commodity)
-        bdoc.uploader = this.user.fname + ' ' + this.user.lname
+        url = await upload(file, type, this.transaction.commodity)
+        doc.uploader = this.user._id
       }
-      bdoc.url = url
-      delete bdoc.file
+      doc.url = url
+      doc.contract = false
+      delete doc.file
 
+      const documents = []
+      documents.push(doc)
       const details = {
-        doc: bdoc
+        documents
       }
-      let response = await api.userUpdateDocs(details)
-      // console.log(response)
+      let response = await api.userAddDocs(details, this.transaction._id, docId)
+      console.log(response)
       // console.log(response.data.status)
       loader.hide()
       if (response.data.status === 'success') {
@@ -662,3 +647,11 @@ export default {
   }
 }
 </script>
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .9s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>
