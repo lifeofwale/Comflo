@@ -280,20 +280,20 @@ export default {
         let response = await api.userSendToken(details)
         loader.hide()
         this.disable = false
-        // console.log(response)
-        // console.log(response.data.status)
         if (response.data.status === 'success') {
+          this.$toast.success('Token Sent!', '', this.notificationSystem.options.success)
           this.formpart = 1
         } else {
-          this.mainerror = response.data.data
+          this.$toast.error(response.data.data, '', this.notificationSystem.options.error)
+          // this.mainerror = response.data.data
           this.resetDetails()
           return false
         }
       } catch (error) {
         if (error.message === 'Network Error') {
-          this.mainerror = 'Connection not established, please check your internet connection'
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
         } else {
-          this.mainerror = error.message
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
         }
         loader.hide()
         this.disable = false
@@ -301,22 +301,6 @@ export default {
     },
     async checkToken () {
       this.formpart = 2
-      // let loader = this.$loading.show()
-      // this.disable = true
-      // let details = {
-      //   email: this.email,
-      // }
-      // let response = await api.userCheckToken(details)
-      // loader.hide()
-      // // console.log(response)
-      // // console.log(response.data.status)
-      // if (response.data.status === 'success') {
-      //   this.disable = false
-      // } else {
-      //   this.mainerror = response.data.data
-      //   this.resetDetails()
-      //   return false
-      // }
     },
     async changePass () {
       let loader = this.$loading.show()
@@ -332,14 +316,13 @@ export default {
             password: this.password
           }
           let response = await api.userChangePass(details)
-          // console.log(response)
-          console.log(response.data.status)
+          console.log(response)
           if (response.data.status === 'success') {
             const user = this.cleanObject(response.data.data.user)
             const company = this.cleanObject(response.data.data.company)
             this.addCompany(company)
             delete user['password']
-            // console.log(user)
+            this.$toast.success('Change Password Successful!', '', this.notificationSystem.options.success)
             if (user.user_type === 3) {
               this.addAdmin(user)
               api.settoken(user.token)
@@ -352,7 +335,7 @@ export default {
               this.$router.push('/user')
             }
           } else {
-            this.mainerror = response.data.data
+            this.$toast.error(response.data.data, '', this.notificationSystem.options.error)
             this.resetDetails()
             return false
           }
@@ -361,9 +344,9 @@ export default {
         this.disable = false
       } catch (error) {
         if (error.message === 'Network Error') {
-          this.mainerror = 'Connection not established, please check your internet connection'
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
         } else {
-          this.mainerror = error.message
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
         }
         loader.hide()
         this.disable = false

@@ -22,7 +22,27 @@ export default {
       query: '',
       commodities: [],
       filterQuery: 'all',
-      pagination: {}
+      pagination: {},
+      notificationSystem: {
+        options: {
+          ballon: {
+            balloon: true,
+            position: 'topRight'
+          },
+          info: {
+            position: 'topRight'
+          },
+          success: {
+            position: 'topRight'
+          },
+          warning: {
+            position: 'topRight'
+          },
+          error: {
+            position: 'topRight'
+          }
+        }
+      }
     }
   },
   mounted () {
@@ -34,6 +54,11 @@ export default {
     if (dashboard) {
       document.body.classList.add('bg-grey')
     }
+    // this.$toast.show('Welcome!', 'Hey Show', this.notificationSystem.options.ballon)
+    // this.$toast.info('Welcome!', 'Hello', this.notificationSystem.options.info)
+    // this.$toast.success('Successfully inserted record!', 'OK', this.notificationSystem.options.success)
+    // this.$toast.warning('You forgot important data', 'Caution', this.notificationSystem.options.warning)
+    // this.$toast.error('Illegal operation', 'Error', this.notificationSystem.options.error)
   },
   methods: {
     /**

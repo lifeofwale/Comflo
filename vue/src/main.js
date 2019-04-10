@@ -10,8 +10,10 @@ import vSelect from 'vue-select'
 import store from './store/store'
 // Import component
 import VueLoading from 'vue-loading-overlay'
+import VueIziToast from 'vue-izitoast'
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.min.css'
+import 'izitoast/dist/css/iziToast.min.css'
 
 import Tooltip from 'vue-directive-tooltip'
 import 'vue-directive-tooltip/css/index.css'
@@ -25,6 +27,7 @@ Vue.use(Tooltip)
 Vue.use(VueRouter)
 Vue.use(Notify)
 Vue.use(VueLoading)
+Vue.use(VueIziToast)
 Vue.component('datepicker', Datepicker)
 Vue.component('v-select', vSelect)
 Vue.component('Loading', VueLoading)

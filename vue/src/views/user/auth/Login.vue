@@ -99,7 +99,10 @@ export default {
     }
   },
   mounted () {
-    this.mainerror = this.error
+    // this.mainerror = this.error
+    if (this.error) {
+      this.$toast.error(this.error, '', this.notificationSystem.options.error)
+    }
   },
   methods: {
     ...mapActions('user', ['clearError', 'addUser']),
@@ -126,6 +129,7 @@ export default {
         const company = this.cleanObject(response.data.data.company)
         this.addCompany(company)
         delete user['password']
+        this.$toast.success('Login Successful!', '', this.notificationSystem.options.success)
         if (user.user_type === 3) {
           this.addAdmin(user)
           api.settoken(user.token)
@@ -138,7 +142,7 @@ export default {
           this.$router.push('/user')
         }
       } else {
-        this.mainerror = 'Wrong Username/Password'
+        this.$toast.error('Wrong Username/Password', '', this.notificationSystem.options.error)
       }
       this.disable = false
     }

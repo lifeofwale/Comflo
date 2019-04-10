@@ -80,9 +80,10 @@ export default {
       console.log(response)
       // console.log(response.data.status)
       if (response.data.status === 'success') {
+        this.$toast.success('Verification Successful!', '', this.notificationSystem.options.success)
         this.$router.push('/welcome')
       } else {
-        this.mainerror = response.data.message
+        this.$toast.error(response.data.message, '', this.notificationSystem.options.error)
       }
       this.disable = false
     },
@@ -94,9 +95,9 @@ export default {
       console.log(response)
       // console.log(response.data.status)
       if (response.data.status === 'success') {
-        this.mainerror = 'Token has been sent'
+        this.$toast.error('Token has been sent', '', this.notificationSystem.options.error)
       } else {
-        this.mainerror = response.data.message
+        this.$toast.error(response.data.message, '', this.notificationSystem.options.error)
       }
       this.disable = false
     }

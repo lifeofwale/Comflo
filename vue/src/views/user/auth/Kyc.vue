@@ -27,7 +27,7 @@
             </label>
             <div class="cwrap__content">
               <div class="custom-file cwrap__file">
-                <input @change="setFile($event, companyLicense)" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*" type="file" class="custom-file-input" id="customFile">
+                <input @change="setDocFilename($event, companyLicense)" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*" type="file" class="custom-file-input" id="customFile">
                 <label class="custom-file-label cwrap__file-label" for="customFile">{{companyLicense.file.name}}</label>
               </div>
             </div>
@@ -149,17 +149,18 @@ export default {
         const company = this.cleanObject(response.data.data)
         this.addCompany(company)
         // console.log(response)
-        // console.log(response.data.status)
         if (response.data.status === 'success') {
+          this.$toast.success('KYC Upload Successful!', '', this.notificationSystem.options.success)
           this.$router.push('/user')
         } else {
-          this.mainerror = response.data.message
+          this.$toast.error(response.data.data, '', this.notificationSystem.options.error)
+          // this.mainerror = response.data.message
         }
         this.disable = false
       }
       loader.hide()
       this.disable = false
-      this.mainerror = 'Please select your Company ID and Personal ID for verification'
+      this.$toast.error('Please select your Company ID and Personal ID for verification', '', this.notificationSystem.options.error)
     }
   }
 }

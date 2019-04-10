@@ -85,15 +85,15 @@
                   <a @click="isProfileDropdownOpen = !isProfileDropdownOpen" class="content__launch" href="#" role="button" id="dropdownMenuLink-2" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="true">
                     <img src="/static/img/avatar.jpg" class="content__img" alt="User-Profile-Image">
-                    <span class="mr-2">John Doe</span>
+                    <span class="mr-2">{{user.fname}} {{user.lname}}</span>
                     <img src="/static/img/spaceship.svg" alt="spaceship">
                   </a>
 
                   <ul v-if="isProfileDropdownOpen" class="dropdown-menu content__dropdown show" aria-labelledby="dropdownMenuLink-2">
                     <li class="nav-item content__li">
-                      <a href="#" class="nav-link content__a">
+                      <router-link :to="{ name: 'User-Profile'}" class="nav-link content__a">
                         <i class="fas fa-cog mr-3"></i> Settings
-                      </a>
+                      </router-link>
                     </li>
                     <li class="nav-item content__li">
                       <a href="#" @click="signout" class="nav-link content__a">

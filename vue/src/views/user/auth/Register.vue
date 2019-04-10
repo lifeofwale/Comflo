@@ -817,28 +817,26 @@ export default {
         }
         let response = await api.userregister(user)
         console.log(response)
-        // console.log(response.data.status)
         loader.hide()
         this.disable = false
         if (response.data.status === 'success') {
           const user = this.cleanObject(response.data.data.user)
           const company = this.cleanObject(response.data.data.company)
-          // console.log(user)
+          this.$toast.success('Registration Successful!', '', this.notificationSystem.options.success)
           this.addUser(user)
           this.addCompany(company)
           api.settoken(user.token)
           this.clearError()
           this.$router.push('/verify')
         } else {
-          this.mainerror = response.data.data
-          // this.resetDetails()
+          this.$toast.error(response.data.data, '', this.notificationSystem.options.error)
           return false
         }
       } catch (error) {
         if (error.message === 'Network Error') {
-          this.mainerror = 'Connection not established, please check your internet connection'
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
         } else {
-          this.mainerror = error.message
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
         }
         loader.hide()
         this.disable = false

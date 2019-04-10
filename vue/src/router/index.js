@@ -36,6 +36,9 @@ import UserMarketplace from '@/views/user/dashboard/Marketplace'
 // import UserContract from '@/views/user/Contract'
 // import UserEditTransaction from '@/views/user/EditDeal'
 
+// PROFILE
+import UserSupport from '@/views/user/profile/Support'
+import UserProfile from '@/views/user/profile/Profile'
 /**
  * admin Routes
  */
@@ -83,12 +86,6 @@ const router = new Router({
       meta: { requiresNoAuth: true }
     },
     {
-      path: '/register',
-      name: 'User-Register',
-      component: UserRegister,
-      meta: { requiresNoAuth: true }
-    },
-    {
       path: '/verify',
       name: 'User-Verify',
       component: UserVerify,
@@ -112,6 +109,12 @@ const router = new Router({
       name: 'User-Kyc',
       component: UserKyc,
       meta: { requiresUserAuth: true, kycFilled: true }
+    },
+    {
+      path: '/register',
+      name: 'User-Register',
+      component: UserRegister,
+      meta: { requiresNoAuth: true }
     },
     {
       path: '/',
@@ -178,6 +181,16 @@ const router = new Router({
           path: '/',
           name: 'User-Home',
           component: UserDashboard
+        },
+        {
+          path: 'support',
+          name: 'User-Support',
+          component: UserSupport
+        },
+        {
+          path: 'profile',
+          name: 'User-Profile',
+          component: UserProfile
         },
         {
           path: 'marketplace',

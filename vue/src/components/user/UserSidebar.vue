@@ -123,7 +123,7 @@
       </li>
       <div class="dropdown-divider mx-5"></div>
       <li class="nav-item aside-m__item">
-        <router-link to="#" :class="{ active: usersupport }"  class="nav-link aside-m__a text-center">
+        <router-link :to="{ name: 'User-Support'}" :class="{ active: usersupport }"  class="nav-link aside-m__a text-center">
           <i class="fas fa-headset"></i>
           <span class="d-block mt-1">Support</span>
         </router-link>
