@@ -135,7 +135,7 @@ export default {
       const companyLicense = this.companyLicense.file
       const personalID = this.personalID.file
       if (companyLicense.name && personalID.name) {
-        const [companyLicenseUrl, personalIDUrl] = await Promise.all([upload(companyLicense, 'Company-License', this.user._id), await upload(personalID, 'Personal-ID', this.user._id)])
+        const [companyLicenseUrl, personalIDUrl] = await Promise.all([upload(companyLicense, 'Company-License', this.user._id), upload(personalID, 'Personal-ID', this.user._id)])
         console.log(companyLicenseUrl, personalIDUrl)
         const kycDetails = {
           id: this.company._id,

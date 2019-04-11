@@ -20,7 +20,9 @@ export default {
   sendToken: 'users/send-token',
   checkToken: 'users/verify-token',
   resetPass: 'users/reset-pass',
+  changePass: 'users/change-pass',
   address: 'users/address',
+  users: 'users/',
 
   /**
    * Deal Routes
@@ -113,6 +115,34 @@ export default {
   async userCheckToken (dargs) {
     try {
       const response = blackAxios.post(this.checkToken, dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+
+  async userupdate (dargs) {
+    try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
+      // console.log(this.headers.Authorization)
+      const response = blackAxios.patch(this.users, dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+
+  async userchangepass (dargs) {
+    try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
+      // console.log(this.headers.Authorization)
+      const response = blackAxios.patch(this.changePass, dargs, {
         headers: this.headers
       })
       return response
@@ -227,18 +257,18 @@ export default {
     }
   },
 
-  async userBuyDeal (dargs) {
-    try {
-      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
-      const response = blackAxios.post(this.buydeal, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
+  // async userBuyDeal (dargs) {
+  //   try {
+  //     this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
+  //     const response = blackAxios.post(this.buydeal, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
 
   async userUpdateDeal (dargs) {
     try {

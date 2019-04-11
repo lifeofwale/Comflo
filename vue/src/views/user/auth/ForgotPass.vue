@@ -307,7 +307,7 @@ export default {
       this.disable = true
       try {
         if (this.password !== this.password2) {
-          this.mainerror = 'Passwords do not match'
+          this.$toast.error('Passwords do not match', '', this.notificationSystem.options.error)
           return false
         } else {
           let details = {
@@ -320,6 +320,7 @@ export default {
           if (response.data.status === 'success') {
             const user = this.cleanObject(response.data.data.user)
             const company = this.cleanObject(response.data.data.company)
+            user.type = response.data.data.type
             this.addCompany(company)
             delete user['password']
             this.$toast.success('Change Password Successful!', '', this.notificationSystem.options.success)

@@ -1,4 +1,5 @@
 import {blackAxios} from '@/config'
+import UserStore from '@/store/modules/user'
 
 export default {
   headers: {
@@ -19,7 +20,20 @@ export default {
 
   async companyKyc (id, dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       const response = blackAxios.post(this.companies + id + '/complete-kyc', dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+  async companyupdate (id, dargs) {
+    try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
+      const response = blackAxios.patch(this.companies + id, dargs, {
         headers: this.headers
       })
       return response

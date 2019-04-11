@@ -822,6 +822,7 @@ export default {
         if (response.data.status === 'success') {
           const user = this.cleanObject(response.data.data.user)
           const company = this.cleanObject(response.data.data.company)
+          user.type = response.data.data.type
           this.$toast.success('Registration Successful!', '', this.notificationSystem.options.success)
           this.addUser(user)
           this.addCompany(company)

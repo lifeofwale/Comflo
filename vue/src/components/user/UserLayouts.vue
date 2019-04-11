@@ -84,7 +84,8 @@
                 <div class="dropdown">
                   <a @click="isProfileDropdownOpen = !isProfileDropdownOpen" class="content__launch" href="#" role="button" id="dropdownMenuLink-2" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="true">
-                    <img src="/static/img/avatar.jpg" class="content__img" alt="User-Profile-Image">
+                    <template v-if="user.image"><img :src="user.image" class="content__img" alt="User-Profile-Image"></template>
+                    <template v-else><img src="/static/img/avatar.jpg" class="content__img" alt="User-Profile-Image"></template>
                     <span class="mr-2">{{user.fname}} {{user.lname}}</span>
                     <img src="/static/img/spaceship.svg" alt="spaceship">
                   </a>
@@ -152,6 +153,6 @@ export default {
   /* @import '../../static/css/dashboard.css'; */
   @import 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css';
   @import 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css';
-  @import 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css';
-  @import 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
+  /* @import 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css'; */
+  /* @import 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'; */
 </style>
