@@ -128,9 +128,18 @@
  .status-blue{
     width: 14px;
     height: 14px;
-    background-color: blue;
+    background-color: #0a6994;
     border-radius: 50%;
     vertical-align: middle;
+ }
+ .statusblock-blue{
+    width: 7.8rem;
+    font-size: 1.3rem;
+    height: 2.7rem;
+    border-radius: 3px;
+    color:#0a6994;
+    border: solid 1px #0a6994;
+    background-color: rgba(10,105,148,0.1)
  }
  .status-yellow{
     width: 14px;
@@ -138,4 +147,40 @@
     background-color: #ffc500;
     border-radius: 50%;
     vertical-align: middle;
+ }
+ .statusblock-yellow{
+    width: 7.8rem;
+    font-size: 1.3rem;
+    height: 2.7rem;
+    border-radius: 3px;
+    color:#ffc500;
+    border: solid 1px #ffc500;
+    background-color: rgba(255, 197, 0, 0.1);
+ }
+ .status-green{
+    width: 14px;
+    height: 14px;
+    background-color: $clr__green;
+    border-radius: 50%;
+    vertical-align: middle;
+ }
+ .statusblock-green{
+    width: 7.8rem;
+    font-size: 1.3rem;
+    height: 2.7rem;
+    border-radius: 3px;
+    color:$clr__green;
+    border: solid 1px $clr__green;
+    background-color: rgba(131,194,37,0.1)
+ }
+ .content__uploadfile{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 38px;
+    border-radius: 3px;
+    background-color: #e9ecef;
+    z-index: 0;
+    padding: .6rem;
+    opacity: 1;
  }

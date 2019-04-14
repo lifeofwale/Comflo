@@ -19,23 +19,25 @@
             <form action="">
               <div class="form-group mb-5">
                 <label for="inputCategory">Please select category</label>
-                <select class="form-control cselect" id="inputCategory">
+                {{category}}
+                <select v-model="category" class="form-control cselect" id="inputCategory">
                   <option>Please select category</option>
+                  <option v-for="(category, index) in categories" :key="index" :value="category">{{category}}</option>
                 </select>
               </div>
               <div class="form-group mb-5">
                 <label for="inputSubject">Subject</label>
-                <input type="text" class="form-control cinput form__valid" id="inputSubject" required>
+                <input v-model="subject" type="text" class="form-control cinput form__valid" id="inputSubject" required>
               </div>
               <div class="form-group mb-5">
                 <label for="inputmoreinfo">Give us the details
                   <br>
                   <small>Please provide us with as much details as you can. We’ll reply in a few hours.</small>
                 </label>
-                <textarea class="form-control cinput" id="inputmoreinfo" rows="5" required>
+                <textarea v-model="body" class="form-control cinput" id="inputmoreinfo" rows="5" required>
                           </textarea>
               </div>
-              <div class="text-center"> <button class="btn  button__primary mb-2">Send a mail</button></div>
+              <div class="text-center"> <button type="button" @click="sendSupportMail" :disabled="!emptyText || disable" class="btn  button__primary mb-2">Send a mail</button></div>
             </form>
             </div>
           </div>
@@ -43,6 +45,8 @@
     </main>
 </template>
 <script>
+import api from '@/api/user'
+import { mapGetters } from 'vuex'
 import Footer from '@/components/user/UserFooter'
 export default {
   name: 'User-Support',
@@ -52,6 +56,52 @@ export default {
   },
   components: {
     Footer
+  },
+  computed: {
+    ...mapGetters('user', ['user']),
+    emptyText () {
+      return this.category.length > 0 && this.subject.length > 0 && this.body.length > 0
+    }
+  },
+  data () {
+    return {
+      categories: ['Argo', 'IT', 'Business', 'Another'],
+      category: 'Argo',
+      subject: '',
+      body: ''
+    }
+  },
+  methods: {
+    async sendSupportMail () {
+      const loader = this.$loading.show()
+      this.disable = true
+      try {
+        const details = {
+          subject: `Category: ${this.category}; ${this.subject}`,
+          body: this.body,
+          email: this.user.email
+        }
+        const response = await api.usersupport(details)
+        console.log(response.data)
+        if (response.data.status === 'success') {
+          this.$toast.success(response.data.data, '', this.notificationSystem.options.success)
+          this.clearfields()
+        } else {
+          this.$toast.error(response.data.data, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
+        this.disable = false
+      } catch (error) {
+        loader.hide()
+        this.disable = false
+        this.$toast.error('Error sending support mail', '', this.notificationSystem.options.error)
+      }
+    },
+    clearfields () {
+      this.category = 'Argo'
+      this.subject = ''
+      this.body = ''
+    }
   }
 }
 </script>

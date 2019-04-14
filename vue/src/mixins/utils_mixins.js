@@ -16,6 +16,7 @@ function getDashboard (vm) {
 export default {
   data: function () {
     return {
+      disable: false,
       transactions: [],
       filteredTransactions: [],
       allTransactions: [],

@@ -157,10 +157,11 @@ export default {
           // this.mainerror = response.data.message
         }
         this.disable = false
+      } else {
+        this.$toast.error('Please select your Company ID and Personal ID for verification', '', this.notificationSystem.options.error)
       }
       loader.hide()
       this.disable = false
-      this.$toast.error('Please select your Company ID and Personal ID for verification', '', this.notificationSystem.options.error)
     }
   }
 }

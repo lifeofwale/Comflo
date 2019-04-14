@@ -23,6 +23,7 @@ export default {
   changePass: 'users/change-pass',
   address: 'users/address',
   users: 'users/',
+  userSupport: 'users/support',
 
   /**
    * Deal Routes
@@ -143,6 +144,20 @@ export default {
       this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       // console.log(this.headers.Authorization)
       const response = blackAxios.patch(this.changePass, dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+
+  async usersupport (dargs) {
+    try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
+      // console.log(this.headers.Authorization)
+      const response = blackAxios.post(this.userSupport, dargs, {
         headers: this.headers
       })
       return response

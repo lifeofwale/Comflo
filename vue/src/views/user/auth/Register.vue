@@ -402,7 +402,7 @@
                           <!-- <select class="form-control cselect" id="inputCountry" >
                               <option>Select country</option>
                               </select> -->
-                              <v-select class="  cselect" v-model="company_country" :options='[
+                              <v-select class="cselect" v-model="company_country" :options='[
                                 {"value":"Search Country", "label":"Search Country"},
                                 {"value":"AF", "label":"Afghanistan"},
                                 {"value":"AX", "label":"Åland Islands"},
