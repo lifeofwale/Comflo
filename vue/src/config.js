@@ -12,7 +12,7 @@ export let API = ''
 if (process.env.NODE_ENV === 'development') {
   API = 'http://localhost:8080/'
 } else {
-  API = 'http://146b4fa1.ngrok.io'
+  API = 'http://1dd78b9a.ngrok.io'
 }
 
 console.log(API)

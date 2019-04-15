@@ -320,13 +320,13 @@
                       <div class="col">
                           <div class="form-group mb-5">
                               <label for="inputFirstName">First Name <sup>*</sup></label>
-                              <input type="text" v-model="fname" class="form-control cinput" id="inputFirstName" placeholder="Nachi" required>
+                              <input type="text" v-model="fname" class="form-control cinput form__valid" id="inputFirstName" placeholder="Nachi" required>
                             </div>
                       </div>
                       <div class="col">
                           <div class="form-group mb-5">
                               <label for="inputLastName">Last Name <sup>*</sup></label>
-                              <input type="text" v-model="lname" class="form-control cinput" id="inputLastName" placeholder="Adaji" required>
+                              <input type="text" v-model="lname" class="form-control cinput form__valid" id="inputLastName" placeholder="Adaji" required>
                             </div>
                         </div>
                     </div>
@@ -334,7 +334,7 @@
                   <div class="col">
                       <div class="form-group mb-5">
                           <label for="inputEmail">Email <sup>*</sup></label>
-                          <input type="email" v-model="email" class="form-control cinput" id="inputEmail" placeholder="nachi@comflo.com" required>
+                          <input type="email" v-model="email" class="form-control cinput form__valid" id="inputEmail" placeholder="nachi@comflo.com" required>
                         </div>
                   </div>
                 </div>
@@ -343,7 +343,7 @@
                   <div class="col">
                       <div class="form-group mb-5">
                           <label for="inputPhone">Phone Number <sup>*</sup></label>
-                          <input type="tel" v-model="phone" class="form-control cinput" id="inputPhone"  placeholder="234818374855" required>
+                          <input type="tel" v-model="phone" class="form-control cinput form__valid" id="inputPhone"  placeholder="234818374855" required>
                         </div>
                   </div>
                   <div class="col">
@@ -402,7 +402,7 @@
                           <!-- <select class="form-control cselect" id="inputCountry" >
                               <option>Select country</option>
                               </select> -->
-                              <v-select class="cselect" v-model="company_country" :options='[
+                              <v-select class="cselect form__valid" v-model="company_country" :options='[
                                 {"value":"Search Country", "label":"Search Country"},
                                 {"value":"AF", "label":"Afghanistan"},
                                 {"value":"AX", "label":"Åland Islands"},
