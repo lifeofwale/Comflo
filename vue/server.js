@@ -24,6 +24,6 @@ app.use(function (req, res, next) {
 app.use(cors());
 app.use(require('connect-history-api-fallback')())
 app.use(serveStatic(__dirname + "/dist"));
-var port = process.env.PORT || 8081;
+var port = process.env.PORT || 8082;
 app.listen(port);
 console.log('server started '+ port);
