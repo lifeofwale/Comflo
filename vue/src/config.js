@@ -12,7 +12,7 @@ export let API = ''
 if (process.env.NODE_ENV === 'development') {
   API = 'http://localhost:8080/'
 } else {
-  API = 'http://1dd78b9a.ngrok.io'
+  API = 'https://backend.comflo.com'
 }
 
 console.log(API)
