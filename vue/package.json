@@ -5,6 +5,7 @@
   "author": "tay.andrew <tay.andrew@yahoo.com>",
   "private": true,
   "scripts": {
+    "deploy": "npm run build && cp ./dist/index.html ./dist/200.html && cd dist && surge",
     "heroku": "npm run build && git add . && git commit -m $message && git push origin master && git push heroku master",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "node server.js",
