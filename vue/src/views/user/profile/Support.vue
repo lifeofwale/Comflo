@@ -3,7 +3,7 @@
         <div class="container support mrt-6 mb-10">
           <div class="text-center">
             <h1 class="text-center font-weight-bold">How can we help you?</h1>
-            <div class="d-flex justify-content-center">
+            <!-- <div class="d-flex justify-content-center">
               <div class="support__icon text-center mx-3">
                 <div class="support__img"><img src="/static/img/avatar.jpg" alt="avatar"></div>
                 <p class="text-center">Nachi Adaji</p>
@@ -12,7 +12,7 @@
                 <div class="support__img"><img src="/static/img/avatar.jpg" alt="avatar"></div>
                 <p class="text-center">Eniola Adewale</p>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <div class="card support__card px-5 py-5">

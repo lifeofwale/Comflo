@@ -10,7 +10,8 @@ config()
 export let API = ''
 
 if (process.env.NODE_ENV === 'development') {
-  API = 'http://localhost:8080/'
+  // API = 'http://localhost:8082/'
+  API = 'https://v2.comflo.com'
 } else {
   API = 'https://v2.comflo.com'
 }
@@ -22,7 +23,7 @@ export var blackAxios = axios.create({
   validateStatus: function (status) {
     return status >= 200 && status < 510 // default
   },
-  timeout: 10000
+  timeout: 30000
 })
 
 var firebaseconfig = {

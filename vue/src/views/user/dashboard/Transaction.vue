@@ -227,11 +227,11 @@
                             <p class="market__desc">
                               STATUS:
                             </p>
-                            <div v-if="transaction.status == 'pending'" class="statusblock-yellow text-center">{{transaction.status}}</div>
-                            <div v-else-if="transaction.status == 'completed'" class="statusblock-green text-center">{{transaction.status}}</div>
-                            <div v-else-if="transaction.status == 'contract'" class="statusblock-grey text-center">{{transaction.status}}</div>
-                            <div v-else-if="transaction.status == 'active'" class="statusblock-blue text-center">{{transaction.status}}</div>
-                            <div v-else-if="transaction.status == 'terminated'" class="statusblock-red text-center">{{transaction.status}}</div>
+                            <div v-if="transaction.status == 'pending'" class="statusblock-yellow text-center">{{transaction.status | capitalCase }}</div>
+                            <div v-else-if="transaction.status == 'completed'" class="statusblock-green text-center">{{transaction.status | capitalCase}}</div>
+                            <div v-else-if="transaction.status == 'contract'" class="statusblock-grey text-center">{{transaction.status | capitalCase}}</div>
+                            <div v-else-if="transaction.status == 'active'" class="statusblock-blue text-center">{{transaction.status | capitalCase}}</div>
+                            <div v-else-if="transaction.status == 'terminated'" class="statusblock-red text-center">{{transaction.status | capitalCase}}</div>
                           </div>
                           <div class="col">
                             <p class="market__desc">
@@ -292,9 +292,10 @@
                     </div>
                     <div :class="{ active: detailPart == 2, show: detailPart == 2, fade: detailPart != 2  }" class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                       <div class="market__details mt-4 mb-5">
-                        <p class="font-weight-bold"><span class="d-inline-block mr-2"><img src="/static/img/paper_icon.svg"
+                        <!-- <p class="font-weight-bold"><span class="d-inline-block mr-2"><img src="/static/img/paper_icon.svg"
                               alt="paper icon"></span>SELLER's DOCUMENT</p>
-                        <p class="empty-state"></p>
+                        <p class="empty-state"></p> -->
+                         <!--  SELLER's DOCUMENT -->
                         <div class="row mt-5">
                           <div v-for="(sdoc, index) in sellerDocs" :key="index" class="col-sm-6 col-xs-12">
                             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -302,18 +303,14 @@
                                 <img src="/static/img/doc-icon.svg" class="mr-3" alt="doc-icon">
                                 <div class="media-body">
                                   <p class="mt-0 mb-1">{{sdoc.name}}</p>
-                                  <small>Contract_bill_of_lading.doc</small>
+                                  <small>Uploaded by seller</small>
                                 </div>
                               </div>
                               <a :href="sdoc.url" target="_blank" class="btn btn__green-v">View</a>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="market__details mt-5">
-                        <p class="font-weight-bold"><span class="d-inline-block mr-2"><img src="/static/img/paper_icon.svg"
-                              alt="paper icon"></span>BUYER's DOCUMENT</p>
-                        <p class="empty-state"></p>
+                        <!--  BUYER's DOCUMENT -->
                         <div class="row mt-5">
                           <div v-for="(bdoc, index) in buyerDocs" :key="index" class="col-sm-6 col-xs-12">
                             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -321,7 +318,7 @@
                                 <img src="/static/img/doc-icon.svg" class="mr-3" alt="doc-icon">
                                 <div class="media-body">
                                   <p class="mt-0 mb-1">{{bdoc.name}}</p>
-                                  <!-- <small>Contract_bill_of_lading.doc</small> -->
+                                  <small>Uploaded by Buyer</small>
                                 </div>
                               </div>
                               <a v-if="bdoc.url && bdoc.url !== 'false'" :href="bdoc.url" target="_blank" class="btn btn__green-v">View</a>
@@ -329,6 +326,11 @@
                           </div>
                         </div>
                       </div>
+                      <!-- <div class="market__details mt-5">
+                        <p class="font-weight-bold"><span class="d-inline-block mr-2"><img src="/static/img/paper_icon.svg"
+                              alt="paper icon"></span>BUYER's DOCUMENT</p>
+                        <p class="empty-state"></p>
+                      </div> -->
                       <div class="market__details mt-4">
                         <p class="font-weight-bold"><span class="d-inline-block mr-2"><img src="/static/img/paper_icon.svg"
                               alt="paper icon"></span>MORE INFORMATION</p>
@@ -438,7 +440,7 @@
                   <div class="float-right">
                     <button v-if="user._id === transaction.buyer || user._id === transaction.seller" @click="showModal = true" type="button" class="btn button__primary-m" data-toggle="modal"
                       data-target="#exampleModalCenter">Add Document</button>
-                    <button @click="negotiate()" v-if="notSame(transaction.poster, user._id) && transaction.status=='Pending'" type="button" class="btn button__primary-m" data-toggle="modal"
+                    <button @click="negotiate()" v-if="notSame(transaction.poster, user._id) && transaction.status == 'pending'" type="button" class="btn button__primary-m" data-toggle="modal"
                     data-target="#exampleModalCenter">Negotiate</button>
                     <!-- Modal -->
                     <div v-if="showModal === true" class="modal cwrap__modal show" id="exampleModalCenter" tabindex="-1" role="dialog" style="display: block;"
@@ -539,16 +541,16 @@ export default {
       let link = 'https://trade.comflo.com/admin/transactions/' + this.$route.params.id
       let details = {
         link,
-        user: this.user._id,
-        transaction: this.transaction
+        user: this.user._id
       }
+      console.log(details)
       let response = await offerApi.negotiateOffer(this.transaction._id, details)
       console.log(response)
       loader.hide()
       if (response.data.status === 'success') {
-        this.mainsuccess = 'A negotiation mail has been sent. A representative will contact you'
+        this.$toast.success('A negotiation mail has been sent. A representative will contact you', '', this.notificationSystem.options.success)
       } else {
-        this.mainerror = 'Error sending a negotiation mail'
+        this.$toast.error('Error sending a negotiation mail', '', this.notificationSystem.options.error)
         return false
       }
       this.disable = false
@@ -637,10 +639,11 @@ export default {
       // console.log(response.data.status)
       loader.hide()
       if (response.data.status === 'success') {
+        this.$toast.success('Document uploaded', '', this.notificationSystem.options.success)
         this.disable = false
         location.reload()
       } else {
-        this.mainerror = 'An error occured uploading buyer documents'
+        this.$toast.error('An error occured uploading document', '', this.notificationSystem.options.error)
         return false
       }
     }

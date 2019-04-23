@@ -159,5 +159,10 @@ export default {
 
       return object
     }
+  },
+  filters: {
+    capitalCase (string) {
+      return string.charAt(0).toUpperCase() + string.slice(1)
+    }
   }
 }

@@ -220,7 +220,7 @@ export default {
         console.log(response.data.data)
         this.allTransactions = response.data.data
         this.filteredTransactions = this.allTransactions
-        this.commodities = this.allTransactions.map(transaction => transaction.commodity)
+        this.commodities = [...new Set(this.allTransactions.map(transaction => transaction.commodity.trim()))]
         this.transactions = this.paginator(this.allTransactions, 1, 20)
       }
       this.$forceUpdate()

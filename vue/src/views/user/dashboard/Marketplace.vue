@@ -62,8 +62,9 @@
                         <input type="text" class="form-control search-input" v-model="query"  @input="searchTransactions" placeholder="Search...">
                     </div>
                     <div class="form-group mx-sm-3 d-none d-md-block">
-                        <select class="form-control search-input">
-                            <option value="">Filter by commodity</option>
+                        <select @change="filter" v-model="filterQuery" class="form-control search-input">
+                            <option value="all">Filter by commodity</option>
+                            <option v-for="(commodity, index) in commodities" :key="index" :value="commodity">{{commodity}}</option>
                         </select>
                     </div>
                     <router-link v-if="user" class="btn__green" :to="{ name: 'New-User-Transaction'}">
@@ -218,7 +219,7 @@ export default {
         console.log(response.data.data)
         this.allTransactions = response.data.data
         this.filteredTransactions = this.allTransactions
-        this.commodities = this.allTransactions.map(transaction => transaction.commodity)
+        this.commodities = [...new Set(this.allTransactions.map(transaction => transaction.commodity.trim()))]
         this.transactions = this.paginator(this.allTransactions, 1, 20)
       }
       this.disable = false
