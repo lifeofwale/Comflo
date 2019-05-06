@@ -132,6 +132,14 @@
     border-radius: 50%;
     vertical-align: middle;
  }
+ .statusblock-red{
+    width: auto;
+    font-size: 1.6rem;
+    height: 2.7rem;
+    border-radius: 3px;
+    color:#ef0000;
+    background-color: rgba(239,0,0,0.1);
+ }
  .statusblock-blue{
     width: 7.8rem;
     font-size: 1.3rem;
@@ -139,6 +147,14 @@
     border-radius: 3px;
     color:#0a6994;
     border: solid 1px #0a6994;
+    background-color: rgba(10,105,148,0.1)
+ }
+ .statusblock-blue--m{
+    width: auto;
+    font-size: 1.6rem;
+    height: 2.7rem;
+    border-radius: 3px;
+    color:#0a6994;
     background-color: rgba(10,105,148,0.1)
  }
  .status-yellow{
@@ -157,6 +173,16 @@
     border: solid 1px #ffc500;
     background-color: rgba(255, 197, 0, 0.1);
  }
+
+ .statusblock-yellow--m{
+    width: auto;
+    font-size: 1.6rem;
+    height: 2.7rem;
+    border-radius: 3px;
+    color:#ffc500;
+   
+    background-color: rgba(255, 197, 0, 0.1);
+ }
  .status-green{
     width: 14px;
     height: 14px;
@@ -171,6 +197,14 @@
     border-radius: 3px;
     color:$clr__green;
     border: solid 1px $clr__green;
+    background-color: rgba(131,194,37,0.1)
+ }
+ .statusblock-green--m{
+    width: auto;
+    font-size: 1.6rem;
+    height: 2.7rem;
+    border-radius: 3px;
+    color:$clr__green;
     background-color: rgba(131,194,37,0.1)
  }
  .content__uploadfile{

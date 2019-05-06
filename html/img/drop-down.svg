@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+    <defs>
+        <style>
+            .cls-1{fill:#fff}.cls-2{fill:#525f7f}.cls-3{filter:url(#Ellipse_23)}
+        </style>
+        <filter id="Ellipse_23" width="52" height="52" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g id="Group_536" data-name="Group 536" transform="translate(-1453 -446)">
+        <g class="cls-3" transform="translate(1453 446)">
+            <circle id="Ellipse_23-2" cx="17" cy="17" r="17" class="cls-1" data-name="Ellipse 23" transform="translate(9 6)"/>
+        </g>
+        <g id="noun_dots_395568" transform="translate(1488 453.355)">
+            <g id="Group_535" data-name="Group 535" transform="translate(-18 13.645)">
+                <circle id="Ellipse_20" cx="1.766" cy="1.766" r="1.766" class="cls-2" data-name="Ellipse 20"/>
+                <circle id="Ellipse_21" cx="1.766" cy="1.766" r="1.766" class="cls-2" data-name="Ellipse 21" transform="translate(6.734)"/>
+                <circle id="Ellipse_22" cx="1.766" cy="1.766" r="1.766" class="cls-2" data-name="Ellipse 22" transform="translate(13.467)"/>
+            </g>
+        </g>
+    </g>
+</svg>
