@@ -49,6 +49,12 @@
         margin-bottom: 7rem;
     }
 }
+.mb-15{
+    margin-bottom: 9rem;
+    @media only screen and(max-width:600px){
+        margin-bottom: 8rem;
+    }
+}
 
 .clr--grey{
     color: #b1bfcd;
