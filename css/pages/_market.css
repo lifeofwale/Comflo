@@ -1,0 +1,8 @@
+.market {
+  padding: 0 8rem; }
+  @media only screen and (max-width: 600px) {
+    .market {
+      padding: 0 0rem; } }
+  @media only screen and (max-width: 1140px) {
+    .market {
+      padding: 0 5rem; } }
