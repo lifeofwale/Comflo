@@ -4,7 +4,7 @@ import VueMultianalytics from 'vue-multianalytics'
 
 // LAYOUTS
 import UserLayouts from '@/components/user/UserLayouts'
-// import AdminLayouts from '@/components/AdminLayouts'
+import AdminLayouts from '@/components/admin/AdminLayouts'
 
 // Views
 import View404 from '@/views/404'
@@ -42,18 +42,19 @@ import UserProfile from '@/views/user/profile/Profile'
 /**
  * admin Routes
  */
-// import AdminHome from '@/views/admin/Home'
-// import AdminCompanies from '@/views/admin/Companies'
+import AdminUsers from '@/views/admin/dashboard/Users'
+import NewAdmin from '@/views/admin/dashboard/NewAdmin'
+import AdminCompanies from '@/views/admin/dashboard/Companies'
+import AdminCompany from '@/views/admin/dashboard/Company'
+import AdminTransactions from '@/views/admin/dashboard/Transactions'
+// import AdminEditTransaction from '@/views/admin/dashboard/EditTransaction'
 // import AdminPartners from '@/views/admin/Partners'
 // import AdminAdmins from '@/views/admin/Admins'
-// import AdminDeals from '@/views/admin/Deals'
-// import AdminEditDeal from '@/views/admin/EditDeal'
 // import AdminContracts from '@/views/admin/Contracts'
 // import AdminDeal from '@/views/admin/Deal'
 // import AdminContract from '@/views/admin/Contract'
 // import AdminAddContract from '@/views/admin/AddContract'
 // import AdminAddContractContd from '@/views/admin/AddContractContd'
-// import AdminAddUser from '@/views/admin/AddUser'
 // import AdminAddCompany from '@/views/admin/AddCompany'
 // import AdminAddPartner from '@/views/admin/AddPartner'
 // import AdminAddAdmin from '@/views/admin/AddAdmin'
@@ -230,97 +231,107 @@ const router = new Router({
         // }
       ]
     },
-    // {
-    //   path: '/admin',
-    //   redirect: '/admin',
-    //   name: 'ComfloAdmin',
-    //   meta: { requiresAdminAuth: true },
-    //   component: AdminLayouts,
-    //   children: [
-    //     {
-    //       path: '/',
-    //       name: 'Admin-Home',
-    //       component: AdminHome
-    //     },
-    //     {
-    //       path: 'companies',
-    //       name: 'Admin-Companies',
-    //       component: AdminCompanies
-    //     },
-    //     {
-    //       path: 'deals',
-    //       name: 'Admin-Deals',
-    //       component: AdminDeals
-    //     },
-    //     {
-    //       path: 'contracts',
-    //       name: 'Admin-Contracts',
-    //       component: AdminContracts
-    //     },
-    //     {
-    //       path: 'deals/new',
-    //       name: 'Admin-New-Deal',
-    //       component: AdminAddDeal
-    //     },
-    //     {
-    //       path: 'deals/edit/:id',
-    //       name: 'Admin-Edit-Deal',
-    //       component: AdminEditDeal
-    //     },
-    //     {
-    //       path: 'deals/:id',
-    //       name: 'Admin-Deal',
-    //       component: AdminDeal
-    //     },
-    //     {
-    //       path: 'contracts/new/:id',
-    //       name: 'Admin-Add-Contract',
-    //       component: AdminAddContract
-    //     },
-    //     {
-    //       path: 'contracts/upload/:id',
-    //       name: 'Admin-Add-Contract-Contd',
-    //       component: AdminAddContractContd,
-    //       props: true
-    //     },
-    //     {
-    //       path: 'contracts/:id',
-    //       name: 'Admin-Contract',
-    //       component: AdminContract,
-    //       props: true
-    //     },
-    //     {
-    //       path: 'partners',
-    //       name: 'Admin-Partners',
-    //       component: AdminPartners
-    //     },
-    //     {
-    //       path: 'admins',
-    //       name: 'Admin-Admins',
-    //       component: AdminAdmins
-    //     },
-    //     {
-    //       path: 'users/new',
-    //       name: 'Admin-Add-User',
-    //       component: AdminAddUser
-    //     },
-    //     {
-    //       path: 'companies/new',
-    //       name: 'Admin-Add-Company',
-    //       component: AdminAddCompany
-    //     },
-    //     {
-    //       path: 'partners/new',
-    //       name: 'Admin-Add-Partner',
-    //       component: AdminAddPartner
-    //     },
-    //     {
-    //       path: 'admins/new',
-    //       name: 'Admin-Add-Admin',
-    //       component: AdminAddAdmin
-    //     }
-    //   ]
-    // },
+    {
+      path: '/admin',
+      redirect: '/admin',
+      name: 'ComfloAdmin',
+      meta: { requiresAdminAuth: true },
+      component: AdminLayouts,
+      children: [
+        {
+          path: '/',
+          name: 'Admin-Users',
+          component: AdminUsers
+        },
+        {
+          path: 'new',
+          name: 'New-Admin',
+          component: NewAdmin
+        },
+        {
+          path: 'companies',
+          name: 'Admin-Companies',
+          component: AdminCompanies
+        },
+        {
+          path: 'companies/:id',
+          name: 'Admin-Company',
+          component: AdminCompany
+        },
+        {
+          path: 'transactions',
+          name: 'Admin-Transactions',
+          component: AdminTransactions
+        }
+        // {
+        //   path: 'deals/new',
+        //   name: 'Admin-New-Deal',
+        //   component: AdminAddDeal
+        // },
+        // {
+        //   path: 'deals/edit/:id',
+        //   name: 'Admin-Edit-Deal',
+        //   component: AdminEditDeal
+        // },
+        // {
+        //   path: 'deals/:id',
+        //   name: 'Admin-Deal',
+        //   component: AdminDeal
+        // },
+        // {
+        //   path: 'contracts',
+        //   name: 'Admin-Contracts',
+        //   component: AdminContracts
+        // },
+        // {
+        //   path: 'contracts/new/:id',
+        //   name: 'Admin-Add-Contract',
+        //   component: AdminAddContract
+        // },
+        // {
+        //   path: 'contracts/upload/:id',
+        //   name: 'Admin-Add-Contract-Contd',
+        //   component: AdminAddContractContd,
+        //   props: true
+        // },
+        // {
+        //   path: 'contracts/:id',
+        //   name: 'Admin-Contract',
+        //   component: AdminContract,
+        //   props: true
+        // },
+        // {
+        //   path: 'partners',
+        //   name: 'Admin-Partners',
+        //   component: AdminPartners
+        // },
+        // {
+        //   path: 'admins',
+        //   name: 'Admin-Admins',
+        //   component: AdminAdmins
+        // },
+        // {
+        //   path: 'users/new',
+        //   name: 'Admin-Add-User',
+        //   component: AdminAddUser
+        // },
+        // {
+        //   path: 'companies/new',
+        //   name: 'Admin-Add-Company',
+        //   component: AdminAddCompany
+        // },
+        // {
+        //   path: 'partners/new',
+        //   name: 'Admin-Add-Partner',
+        //   component: AdminAddPartner
+        // },
+        // {
+        //   path: 'admins/new',
+        //   name: 'Admin-Add-Admin',
+        //   component: AdminAddAdmin
+        // }
+      ]
+    },
     {
       path: '*',
       name: '404',

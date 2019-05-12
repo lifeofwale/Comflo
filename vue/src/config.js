@@ -10,8 +10,8 @@ config()
 export let API = ''
 
 if (process.env.NODE_ENV === 'development') {
-  // API = 'http://localhost:8082/'
-  API = 'https://v2.comflo.com'
+  API = 'http://localhost:8082/'
+  // API = 'https://v2.comflo.com'
 } else {
   API = 'https://v2.comflo.com'
 }

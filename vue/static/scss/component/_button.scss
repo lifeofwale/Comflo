@@ -1,3 +1,6 @@
+.btn.focus, .btn:focus{
+  box-shadow: none !important;
+}
 .btn__green:link,.btn__green:visited{
     @include btnmx;
     color:#fff;
@@ -53,7 +56,7 @@
 }
 
 .button__grey{
-  min-width: 20rem;
+  min-width: 15rem;
     color: inherit;
     font-size: 1.6rem;
     font-weight: normal;
@@ -120,4 +123,41 @@ border: solid 0.6px #2a2a2a;
   color: inherit;
     opacity:.8;
 }
+}
+.btn-dropdown{
+  background-color: #fff;
+  font-size: 1.6rem;
+  height: 48px;
+  line-height: 3.8rem;
+  color: #525f7f;
+}
+
+a.drop-link{
+  font-size: 1.6rem;
+}
+
+.btn-green-status{
+  width: auto;
+  font-size: 1.6rem;
+  height: 4.8rem;
+  background-color: #83c225;
+  color:#fff;
+}
+.btn-green-status:hover{
+  opacity: .8;
+  color:#fff;
+}
+
+.btn-green-status--m{
+  width: auto;
+  font-size: 1.6rem;
+  height: 4.8rem;
+  color: #83c225;
+  border: solid 0.6px #83c225;
+  background-color: rgba(131, 194, 37, 0.1);
+}
+
+.btn-green-status--m:hover{
+  opacity: .8;
+  color: #83c225;
 }

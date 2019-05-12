@@ -735,12 +735,14 @@ export default {
       let response = await offerApi.postOffer(deal)
       loader.hide()
       if (response.data.status === 'success') {
+        this.$toast.success('Trabsaction has been created', '', this.notificationSystem.options.success)
         console.log(response.data.data)
         this.disable = false
         this.clearFields()
         this.$router.push('/user/transactions')
       } else {
-        this.mainerror = 'An error occured'
+        this.$toast.error('Error creating a new transaction', '', this.notificationSystem.options.error)
+        // this.mainerror = 'An error occured'
         return false
       }
     },

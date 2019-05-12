@@ -23,7 +23,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(transaction, index) in transactions" :key="index">
+                    <tr v-for="(transaction, index) in collections" :key="index">
                       <td class="hidden-md-down"></td>
                           <td>{{transaction.reference}}</td>
                           <td>{{transaction.type}}</td>
@@ -63,7 +63,7 @@
                         <input type="text" class="form-control search-input" v-model="query"  @input="searchTransactions" placeholder="Search...">
                     </div>
                     <div class="form-group mx-sm-3 d-none d-md-block">
-                        <select @change="filter" v-model="filterQuery" class="form-control search-input">
+                        <select @change="filter(2)" v-model="filterQuery" class="form-control search-input">
                             <option value="all">Filter by commodity</option>
                             <option v-for="(commodity, index) in commodities" :key="index" :value="commodity">{{commodity}}</option>
                         </select>
@@ -76,8 +76,8 @@
         </div>
 
     </div>
-    <div v-if='transactions.length > 0' class="market container mt-5 mb-10">
-        <div v-for="(transaction, index) in transactions" :key="index" class="card market__listing mb-5">
+    <div v-if='collections.length > 0' class="market container mt-5 mb-10">
+        <div v-for="(transaction, index) in collections" :key="index" class="card market__listing mb-5">
             <div class="card-body px-5">
                 <div class="d-flex justify-content-between align-items-center align-content-center">
                     <p class="market__listing-id">#{{transaction.reference}}</p>
@@ -169,7 +169,7 @@
                         aria-disabled="true">&laquo;</a>
                 </li>
                 <template v-if="pagination.page > 1">
-                    <li v-for="(n, index) in pagination.page" :key="index" class="page-item active pagination__li"><a class="page-link pagination__a" @click="paginator(allTransactions, n, 20)">{{n}}</a></li>
+                    <li v-for="(n, index) in pagination.page" :key="index" class="page-item active pagination__li"><a class="page-link pagination__a" @click="paginator(allCollections, n, 20)">{{n}}</a></li>
                 </template>
                 <li v-if="pagination.next_page != null" class="page-item pagination__li">
                     <a class="page-link pagination__a" href="#">&raquo;</a>
@@ -179,12 +179,12 @@
         <!-- pagination -end -->
     </div>
     <div v-else class="market container mt-5 mb-10">
-          <div class="text-center mt-5">
-            <img src="/static/img/empty--list.svg" alt="empty">
-            <p class="font-weight-bold" style="color: #0a6994;">There are no items available now.<br>
-              Please check back.</p>
-          </div>
+        <div class="text-center mt-5">
+        <img src="/static/img/empty--list.svg" alt="empty">
+        <p class="font-weight-bold" style="color: #0a6994;">There are no items available now.<br>
+            Please check back.</p>
         </div>
+    </div>
     <Footer></Footer>
 </main>
 </template>
@@ -215,17 +215,27 @@ export default {
   methods: {
     async getUserOffers () {
       let loader = this.$loading.show()
-      let response = await api.getUserOffers(this.user._id)
-      if (response.data.status === 'success') {
-        console.log(response.data.data)
-        this.allTransactions = response.data.data
-        this.filteredTransactions = this.allTransactions
-        this.commodities = [...new Set(this.allTransactions.map(transaction => transaction.commodity.trim()))]
-        this.transactions = this.paginator(this.allTransactions, 1, 20)
+      try {
+        let response = await api.getUserOffers(this.user._id)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.allCollections = response.data.data
+          this.filteredCollections = this.allCollections
+          this.commodities = [...new Set(this.allCollections.map(transaction => transaction.commodity.trim()))]
+          this.collections = this.paginator(this.allCollections, 1, 20)
+        }
+        this.$forceUpdate()
+        loader.hide()
+        this.disable = false
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+        } else {
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
+        this.disable = false
       }
-      this.$forceUpdate()
-      loader.hide()
-      this.disable = false
     }
   }
 }

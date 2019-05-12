@@ -17,9 +17,10 @@ export default {
   data: function () {
     return {
       disable: false,
-      transactions: [],
-      filteredTransactions: [],
-      allTransactions: [],
+      collections: [],
+      passwordFieldType: 'password',
+      filteredCollections: [],
+      allCollections: [],
       query: '',
       commodities: [],
       filterQuery: 'all',
@@ -103,9 +104,21 @@ export default {
     searchTransactions () {
       let query = this.query.toString().toLowerCase()
       if (query === '') {
-        this.transactions = this.filteredTransactions
+        this.collections = this.filteredCollections
       } else {
-        this.transactions = this.filteredTransactions.filter(transaction => transaction.type.toLowerCase().includes(query) || transaction.commodity.toLowerCase().includes(query) || transaction.quantity.toString().toLowerCase().includes(query) || transaction.incoterm.toLowerCase().includes(query) || transaction.location.toLowerCase().includes(query) || transaction.reference.toLowerCase().includes(query) || transaction.price.toString().toLowerCase().includes(query))
+        this.collections = this.filteredCollections.filter((collection) => {
+          // console.log()
+          for (let index = 0; index < Object.keys(collection).length; index++) {
+            const collectionElement = Object.values(collection)[index].toString()
+            // console.log(collectionElement, collectionElement.toLowerCase().includes(query))
+            if (collectionElement.toLowerCase().includes(query) === false) {
+              continue
+            } else {
+              return true
+            }
+          }
+          // return transaction.type.toLowerCase().includes(query) || transaction.commodity.toLowerCase().includes(query) || transaction.quantity.toString().toLowerCase().includes(query) || transaction.incoterm.toLowerCase().includes(query) || transaction.location.toLowerCase().includes(query) || transaction.reference.toLowerCase().includes(query) || transaction.price.toString().toLowerCase().includes(query)
+        })
       }
     },
     paginator (items, page, perPage) {
@@ -129,15 +142,19 @@ export default {
     /**
      * helper function, filter commodities
      */
-    filter () {
+    filter (index) {
       const query = this.filterQuery.toString().toLowerCase()
       if (query === 'all') {
-        this.filteredTransactions = this.allTransactions
-        this.transactions = this.filteredTransactions
+        this.filteredCollections = this.allCollections
+        this.collections = this.filteredCollections
         this.searchTransactions()
       } else {
-        this.filteredTransactions = this.allTransactions.filter(transaction => transaction.commodity.toLowerCase().includes(query))
-        this.transactions = this.filteredTransactions
+        this.filteredCollections = this.allCollections.filter((collection) => {
+          const collectionElement = Object.values(collection)[index].toString()
+          console.log(collectionElement, query)
+          return collectionElement.toLowerCase().includes(query)
+        })
+        this.collections = this.filteredCollections
         this.searchTransactions()
       }
     },
@@ -147,6 +164,13 @@ export default {
     notSame (seller, user) {
       // console.log(seller, user)
       return !addCompare(seller, user)
+    },
+    switchVisibility () {
+      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
+    },
+    makeDropdown (id) {
+      document.getElementById('show-' + id).classList.toggle('show')
+      document.getElementById('show-2-' + id).classList.toggle('show')
     },
     cleanObject (object) {
       delete object.password

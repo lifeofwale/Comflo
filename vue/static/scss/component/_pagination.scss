@@ -1,3 +1,41 @@
+.custom-table{
+    color: #525f7f;
+    font-weight: 400;
+    border-collapse: separate;
+    border-spacing: 0 0.4rem;
+    
+    tr.tr-custom {
+        background-color: #fff;
+        
+        &:hover{
+            background-color: #f9f9f9;
+          
+        }
+    }
+
+    tr.tr-custom > th {
+       
+        padding-top:2.2rem;
+        padding-bottom:2.2rem;
+    }
+    tr.tr-custom > td {
+        padding-top:2.2rem;
+    padding-bottom:2.2rem;
+    }
+}
+.thead-custom > tr > th {
+    color: #b1bfcd;
+    font-weight: 300;
+    padding-top:2.2rem;
+    padding-bottom:2.2rem;
+}
+.thead-custom > tr > td {
+    color: #b1bfcd;
+    font-weight: 300;
+    padding-top:2.2rem;
+    padding-bottom:2.2rem;
+}
+
 .pagination{
     cursor: pointer;
    

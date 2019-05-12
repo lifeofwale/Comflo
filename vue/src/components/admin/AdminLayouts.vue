@@ -1,47 +1,4 @@
 <template>
-  <!-- <div id="layout">
-    <link rel="stylesheet" href="/static/css/dashboard.css">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top nav-admin-top">
-      <router-link to="/user/">
-      <a class="navbar-brand">
-        <img src="/static/images/comflologo/colorlogotrans.png" alt="comflo">
-      </a>
-      </router-link>
-      <button class="navbar-toggler d-lg-none" @click="collapse" type="button" data-toggle="collapse" data-target="#nav-admin-top" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="navbar-collapse" :class="collapsed"  id="nav-admin-top">
-        <ul  @mouseover="isDropdownOpen = true" @mouseleave="isDropdownOpen = false" class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <img height="50px" width="50px" src="https://via.placeholder.com/50x50" class="rounded-circle mr-3">
-          </li>
-          <li class="nav-item">
-            <div class="dropdown" :class="{show: isDropdownOpen}">
-              <a class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="isDropdownOpen">
-                {{user.fname}} {{user.lname}}
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" :class="{show: isDropdownOpen}">
-                <router-link to="#">
-                  <a class="dropdown-item"><i class="fa fa-user"></i> Profile</a>
-                </router-link>
-                <a @click="signout" class="dropdown-item text-black"><i class="fa fa-sign-out"></i> Logout</a>
-
-              </div>
-            </div>
-          </li>
-
-        </ul>
-      </div>
-    </nav>
-    <div class="container-fluid">
-      <div class="row">
-        <user-sidebar></user-sidebar>
-          <router-view/>
-      </div>
-    </div>
-    <back-footer></back-footer>
-  </div> -->
   <section class="container-fluid">
     <div class="row">
       <aside class="col-sm-1 aside px-0">
@@ -84,15 +41,15 @@
                 <div class="dropdown">
                   <a v-click-outside="hideProfile" @click="isProfileDropdownOpen = !isProfileDropdownOpen" class="content__launch" href="#" role="button" id="dropdownMenuLink-2" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="true">
-                    <template v-if="user.image"><img :src="user.image" class="content__img" alt="User-Profile-Image"></template>
+                    <template v-if="admin.image"><img :src="admin.image" class="content__img" alt="User-Profile-Image"></template>
                     <template v-else><img src="/static/img/avatar.jpg" class="content__img" alt="User-Profile-Image"></template>
-                    <span class="mr-2">{{user.fname}} {{user.lname}}</span>
+                    <span class="mr-2">{{admin.fname}} {{admin.lname}}</span>
                     <img src="/static/img/spaceship.svg" alt="spaceship">
                   </a>
 
                   <ul v-if="isProfileDropdownOpen" class="dropdown-menu content__dropdown show" aria-labelledby="dropdownMenuLink-2">
                     <li class="nav-item content__li">
-                      <router-link :to="{ name: 'User-Profile'}" class="nav-link content__a">
+                      <router-link :to="{ name: 'Admin-Profile'}" class="nav-link content__a">
                         <i class="fas fa-cog mr-3"></i> Settings
                       </router-link>
                     </li>
@@ -111,21 +68,21 @@
     </div>
 
     <div class="row">
-      <user-sidebar></user-sidebar>
+      <admin-sidebar></admin-sidebar>
       <router-view/>
     </div>
   </section>
 </template>
 <script>
 import BackFooter from '@/components/MinFooter'
-import UserSidebar from '@/components/user/UserSidebar'
+import AdminSidebar from '@/components/admin/AdminSidebar'
 import {mapGetters, mapActions} from 'vuex'
 import vClickOutside from 'v-click-outside'
 export default {
   name: 'Layout',
   components: {
     BackFooter,
-    UserSidebar
+    AdminSidebar
   },
   data: function () {
     return {
@@ -137,13 +94,13 @@ export default {
   //   this.countdown()
   // },
   computed: {
-    ...mapGetters('user', ['user'])
+    ...mapGetters('admin', ['admin'])
   },
   directives: {
     clickOutside: vClickOutside.directive
   },
   methods: {
-    ...mapActions('user', ['userlogout']),
+    ...mapActions('admin', ['adminlogout']),
     ...mapActions('company', ['companylogout']),
     hideProfile () {
       this.isProfileDropdownOpen = false
@@ -154,7 +111,7 @@ export default {
       // console.log('Clicked outside. Event: ', event)
     },
     signout () {
-      this.userlogout()
+      this.adminlogout()
       this.companylogout()
       this.$router.push('/')
     }

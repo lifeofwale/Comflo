@@ -471,7 +471,6 @@ export default {
   data () {
     return {
       isActive: 0,
-      passwordFieldType: 'password',
       // User Profile
       fname: '',
       lname: '',
@@ -493,9 +492,6 @@ export default {
   methods: {
     ...mapActions('user', ['clearError', 'addUser']),
     ...mapActions('company', ['clearError', 'addCompany']),
-    switchVisibility () {
-      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
-    },
     async updateUser () {
       const loader = this.$loading.show()
       this.disable = true

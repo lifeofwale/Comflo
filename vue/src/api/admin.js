@@ -1,4 +1,5 @@
 import {blackAxios} from '@/config'
+import AdminStore from '@/store/modules/admin'
 
 export default {
   headers: {
@@ -19,6 +20,7 @@ export default {
 
   async getUsers (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + AdminStore.state.admin.token
       const response = blackAxios.get(this.users, dargs, {
         headers: this.headers
       })
@@ -31,31 +33,8 @@ export default {
 
   async getUser (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + AdminStore.state.admin.token
       const response = blackAxios.get(this.users + '/' + dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async getAllPartners (dargs) {
-    try {
-      const response = blackAxios.get(this.partners, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async getPartners (dargs) {
-    try {
-      const response = blackAxios.get('admins/' + this.partners + dargs, {
         headers: this.headers
       })
       return response
@@ -67,6 +46,7 @@ export default {
 
   async getCompanies (dargs) {
     try {
+      this.headers.Authorization = 'Bearer ' + AdminStore.state.admin.token
       const response = blackAxios.get(this.companies, dargs, {
         headers: this.headers
       })
@@ -77,9 +57,22 @@ export default {
     }
   },
 
-  async getAdmins (dargs) {
+  async getCompany (dargs) {
     try {
-      const response = blackAxios.get(this.admins, dargs, {
+      const response = blackAxios.get(this.companies + '/' + dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+
+  async createAdmin (dargs) {
+    try {
+      this.headers.Authorization = 'Bearer ' + AdminStore.state.admin.token
+      const response = blackAxios.post('admins/create', dargs, {
         headers: this.headers
       })
       return response
@@ -113,9 +106,9 @@ export default {
     }
   },
 
-  async postDeal (dargs) {
+  async getAllPartners (dargs) {
     try {
-      const response = blackAxios.post(this.adminPostDeal, dargs, {
+      const response = blackAxios.get(this.partners, dargs, {
         headers: this.headers
       })
       return response
@@ -125,47 +118,9 @@ export default {
     }
   },
 
-  async updateTrader (dargs) {
+  async getPartners (dargs) {
     try {
-      const response = blackAxios.patch(this.adminUpdateTrader, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async updateStatus (dargs) {
-    try {
-      const response = blackAxios.patch(this.adminUpdateStatus, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async adminAddPartner (dargs) {
-    try {
-      const response = blackAxios.post(this.addPartners, dargs, {
-        headers: this.headers
-      })
-      return response
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  },
-
-  async adminRemovePartner (dargs) {
-    try {
-      const response = blackAxios.post(this.removePartner, {
-        partner_id: dargs
-      }, {
+      const response = blackAxios.get('admins/' + this.partners + dargs, {
         headers: this.headers
       })
       return response
@@ -174,4 +129,78 @@ export default {
       return false
     }
   }
+
+  // async getAdmins (dargs) {
+  //   try {
+  //     const response = blackAxios.get(this.admins, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async postDeal (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.adminPostDeal, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async updateTrader (dargs) {
+  //   try {
+  //     const response = blackAxios.patch(this.adminUpdateTrader, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async updateStatus (dargs) {
+  //   try {
+  //     const response = blackAxios.patch(this.adminUpdateStatus, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async adminAddPartner (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.addPartners, dargs, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // },
+
+  // async adminRemovePartner (dargs) {
+  //   try {
+  //     const response = blackAxios.post(this.removePartner, {
+  //       partner_id: dargs
+  //     }, {
+  //       headers: this.headers
+  //     })
+  //     return response
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // }
 }

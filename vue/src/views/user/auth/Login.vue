@@ -48,11 +48,14 @@
                   <form action="">
                     <div class="form-group mb-5">
                       <label for="inputEmail">Email Address <sup>*</sup></label>
-                      <input type="text" v-model="email" class="form-control cinput form__valid" id="inputEmail" placeholder="Nachi@gmail.com" required>
+                      <input type="text" v-model="email" class="form-control cinput form__valid" placeholder="Nachi@gmail.com" required>
                     </div>
                     <div class="form-group mb-5">
                       <label for="inputFirstName">Password <sup>*</sup></label>
-                      <input type="password" v-model="password" class="form-control cinput form__valid" id="inputFirstName" placeholder="Password" required>
+                      <!-- <input type="password" v-model="password" class="form-control cinput form__valid" placeholder="Password" required> -->
+                      <input :type="passwordFieldType" class="form-control cinput form__valid" placeholder="**********" v-model="password" required>
+                              <a @click="switchVisibility"><i class="fa fa-eye-slash show-pass" style="color:#83c225;"
+                                  aria-hidden="true"></i></a>
                     </div>
                     <button type="button" @click="loginUser" :disabled="!emptyText || disable" class="btn btn-block button__primary mt-3">Sign In</button>
                     <div class="text-center  mt-4">
@@ -131,7 +134,7 @@ export default {
         this.addCompany(company)
         delete user['password']
         this.$toast.success('Login Successful!', '', this.notificationSystem.options.success)
-        if (user.user_type === 3) {
+        if (user.type === 'ADMIN') {
           this.addAdmin(user)
           api.settoken(user.token)
           this.clearError()

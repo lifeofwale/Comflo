@@ -343,16 +343,16 @@
                   <div class="col">
                       <div class="form-group mb-5">
                           <label for="inputPhone">Phone Number <sup>*</sup></label>
-                          <input type="tel" v-model="phone" class="form-control cinput form__valid" id="inputPhone"  placeholder="234818374855" required>
+                          <input type="text" @keypress='isNumber($event)' v-model="phone" class="form-control cinput form__valid" id="inputPhone"  placeholder="234818374855" required>
                         </div>
                   </div>
                   <div class="col">
                       <div class="form-group mb-5">
-
                           <label for="inputPassword">Password <sup>*</sup></label>
                           <div class="input-group" id="show_hide_password">
-                              <input type="password" v-model="password" class="form-control cinput" id="inputPassword" placeholder="*********">
-                              <a href=""><i class="fa fa-eye-slash show-pass" style="color:#83c225;" aria-hidden="true"></i></a>
+                              <input :type="passwordFieldType" class="form-control cinput" placeholder="**********" id="inputPassword" v-model="password" required>
+                              <a @click="switchVisibility"><i class="fa fa-eye-slash show-pass" style="color:#83c225;"
+                                  aria-hidden="true"></i></a>
                             </div>
                         </div>
                   </div>
