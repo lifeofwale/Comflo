@@ -141,7 +141,7 @@
             <td>{{company.zip_code}}</td>
             <td>{{company.country}}</td>
             <td>
-              <div v-if='company.verified == "true"' class="statusblock-green text-center">Passed</div>
+              <div v-if='company.verified == true' class="statusblock-green--m text-center">Passed</div>
               <div v-else class="statusblock-red text-center">Not Passed</div>
             </td>
             <td>
@@ -162,21 +162,21 @@
         </tbody>
       </table>
       <div class="d-flex justify-content-between mt-4">
-        <p v-if="collections > 20">
-          <i><small>Showing results 1 - 20 of {{collections.length}}</small></i>
+        <p>
+          <i><small>Showing results 1 - {{collections.length}} of 20</small></i>
         </p>
         <!-- pagination begin -->
         <nav aria-label="Page navigation">
             <ul class="pagination pagination__ul justify-content-center pagination-lg">
                 <li v-if="pagination.pre_page != null" class="page-item pagination__li">
-                    <a class="page-link pagination__a" href="#" tabindex="-1"
+                    <a class="page-link pagination__a" @click="collections = paginator(allCollections, pagination.pre_page, 20)" tabindex="-1"
                         aria-disabled="true">&laquo;</a>
                 </li>
-                <template v-if="pagination.page > 1">
-                    <li v-for="(n, index) in pagination.page" :key="index" class="page-item active pagination__li"><a class="page-link pagination__a" @click="paginator(allCollections, n, 20)">{{n}}</a></li>
+                <template v-if="pagination.page !== 0">
+                    <li v-for="(n, index) in pagination.page" :key="index" class="page-item active pagination__li"><a class="page-link pagination__a" @click="collections = paginator(allCollections, n, 20)">{{n}}</a></li>
                 </template>
                 <li v-if="pagination.next_page != null" class="page-item pagination__li">
-                    <a class="page-link pagination__a" href="#">&raquo;</a>
+                    <a class="page-link pagination__a" @click="collections = paginator(allCollections, pagination.next_page, 20)">&raquo;</a>
                 </li>
             </ul>
         </nav>
@@ -250,10 +250,6 @@ export default {
         loader.hide()
         this.disable = false
       }
-    },
-    makeDropdown (id) {
-      document.getElementById('show-' + id).classList.toggle('show')
-      document.getElementById('show-2-' + id).classList.toggle('show')
     }
   }
 }

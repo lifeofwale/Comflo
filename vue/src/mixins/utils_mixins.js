@@ -105,6 +105,8 @@ export default {
       let query = this.query.toString().toLowerCase()
       if (query === '') {
         this.collections = this.filteredCollections
+        console.log(this.collections.length)
+        this.collections = this.paginator(this.collections, 1, 20)
       } else {
         this.collections = this.filteredCollections.filter((collection) => {
           // console.log()
@@ -119,6 +121,8 @@ export default {
           }
           // return transaction.type.toLowerCase().includes(query) || transaction.commodity.toLowerCase().includes(query) || transaction.quantity.toString().toLowerCase().includes(query) || transaction.incoterm.toLowerCase().includes(query) || transaction.location.toLowerCase().includes(query) || transaction.reference.toLowerCase().includes(query) || transaction.price.toString().toLowerCase().includes(query)
         })
+        console.log(this.collections.length)
+        this.collections = this.paginator(this.collections, 1, 20)
       }
     },
     paginator (items, page, perPage) {
@@ -144,7 +148,7 @@ export default {
      */
     filter (index) {
       const query = this.filterQuery.toString().toLowerCase()
-      if (query === 'all') {
+      if (query === '') {
         this.filteredCollections = this.allCollections
         this.collections = this.filteredCollections
         this.searchTransactions()

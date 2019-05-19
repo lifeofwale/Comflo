@@ -130,11 +130,11 @@ export default {
       if (response.data.status === 'success') {
         const user = this.cleanObject(response.data.data.user)
         const company = this.cleanObject(response.data.data.company)
-        user.type = response.data.data.type
+        user.company_type = response.data.data.type
         this.addCompany(company)
         delete user['password']
         this.$toast.success('Login Successful!', '', this.notificationSystem.options.success)
-        if (user.type === 'ADMIN') {
+        if (user.type.toLowerCase() === 'admin') {
           this.addAdmin(user)
           api.settoken(user.token)
           this.clearError()

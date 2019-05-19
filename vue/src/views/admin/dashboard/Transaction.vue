@@ -198,9 +198,9 @@
                         role="tab" aria-controls="nav-home" aria-selected="true">DETAILS</a>
                       <a :class="{ active: detailPart == 2 }" class="nav-item nav-link px-5"  id="nav-profile-tab" data-toggle="tab" @click="detailPart = 2"
                         role="tab" aria-controls="nav-profile" aria-selected="true">DOCUMENTS</a>
-                      <a v-if="partners && partners.length > 0" :class="{ active: detailPart == 3 }" class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" @click="detailPart = 3" role="tab"
+                      <a :class="{ active: detailPart == 3 }" class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" @click="detailPart = 3" role="tab"
                         aria-controls="nav-contact" aria-selected="true">PARTICIPANTS</a>
-                      <a v-if="transaction.status == 'contract'" :class="{ active: detailPart == 4 }" class="nav-item nav-link" id="nav-contract-tab" data-toggle="tab" @click="detailPart = 4"
+                      <a :class="{ active: detailPart == 4 }" class="nav-item nav-link" id="nav-contract-tab" data-toggle="tab" @click="detailPart = 4"
                         role="tab" aria-controls="nav-contract" aria-selected="true">CONTRACT</a>
                     </div>
                   </nav>
@@ -231,11 +231,11 @@
                             <p class="market__desc">
                               STATUS:
                             </p>
-                            <div v-if="transaction.status == 'pending'" class="statusblock-yellow--m text-center">{{transaction.status | capitalCase }}</div>
-                            <div v-else-if="transaction.status == 'completed'" class="statusblock-green--m text-center">{{transaction.status | capitalCase}}</div>
-                            <div v-else-if="transaction.status == 'contract'" class="statusblock-grey--m text-center">{{transaction.status | capitalCase}}</div>
-                            <div v-else-if="transaction.status == 'active'" class="statusblock-blue--m text-center">{{transaction.status | capitalCase}}</div>
-                            <div v-else-if="transaction.status == 'terminated'" class="statusblock-red--m text-center">{{transaction.status | capitalCase}}</div>
+                            <div v-if="transaction.status == 'pending'" class="statusblock-yellow text-center">{{transaction.status | capitalCase }}</div>
+                            <div v-else-if="transaction.status == 'completed'" class="statusblock-green text-center">{{transaction.status | capitalCase}}</div>
+                            <div v-else-if="transaction.status == 'contract'" class="statusblock-grey text-center">{{transaction.status | capitalCase}}</div>
+                            <div v-else-if="transaction.status == 'active'" class="statusblock-blue text-center">{{transaction.status | capitalCase}}</div>
+                            <div v-else-if="transaction.status == 'terminated'" class="statusblock-red text-center">{{transaction.status | capitalCase}}</div>
                           </div>
                           <div class="col">
                             <p class="market__desc">
@@ -307,7 +307,12 @@
                                 <img src="/static/img/doc-icon.svg" class="mr-3" alt="doc-icon">
                                 <div class="media-body">
                                   <p class="mt-0 mb-1">{{sdoc.name}}</p>
-                                  <small>Uploaded by seller</small>
+                                  <template v-if="sdoc.uploader">
+                                    <small v-if="sdoc.uploader._id == transaction.buyer">Uploaded by Buyer</small>
+                                    <small v-if="sdoc.uploader._id == transaction.seller">Uploaded by Seller</small>
+                                    <small v-if="sdoc.uploader.type == 'Admin'">Uploaded by Admin</small>
+                                  </template>
+                                  <small v-else>Uploaded by Buyer</small>
                                 </div>
                               </div>
                               <a :href="sdoc.url" target="_blank" class="btn btn__green-v">View</a>
@@ -346,16 +351,85 @@
                     </div>
                     <div :class="{ active: detailPart === 3, show: detailPart === 3, fade: detailPart != 3  }" class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                       <div class="container-fluid participants">
+                        <div class="add-participants">
+                          <div v-for="(partner, index) in uploadPartners" :key="index" class="row mt-4">
+                            <div class="col-sm-6">
+                              <div class="form-group mb-5">
+                                <label for="inputCity">Select User</label>
+                                <v-select v-model="partner.user_id" :options='users'>
+                                    </v-select>
+                              </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                              <label for="inputCity">Select Role</label>
+                              <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" v-model="partner.role" name="inlineRadioOptions"
+                                    id="inlineRadio1" value="Vendor">
+                                  <label class="form-check-label" for="inlineRadio1">Vendor</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" v-model="partner.role" name="inlineRadioOptions"
+                                    id="inlineRadio2" value="Agent">
+                                  <label class="form-check-label" for="inlineRadio2">Agent</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" v-model="partner.role" name="inlineRadioOptions"
+                                    id="inlineRadio3" value="Bank">
+                                  <label class="form-check-label" for="inlineRadio3">Bank</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="d-flex justify-content-center  mb-3">
+                            <button :disabled="!uploadPartners.length > 0" @click="uploadPartnersLink" class="button__primary border-0">Add Participant</button>
+                          </div>
+                        </div>
                         <div class="row mt-5">
-                          <div v-for="(partner, index) in partners" :key="index" class="col-sm-6">
-                            <div class="text-center border rounded mb-4">
+                          <!-- <div v-for="(partner, index) in partners" :key="index" class="col-sm-6">
+                            <div class="text-left d-flex justify-content-between p-3 border rounded mb-4">
                               <p class="market__desc pt-3">
                                 {{partner.role}}
                               </p>
                               <p class="market__value">
                                 {{partner.user_id.fname}} {{partner.user_id.lname}}
                               </p>
+                              <div :id="'show-'+index" class="pt-3">
+                                <a @click='makeDropdown(index)' class="btn btn__green-v" data-toggle="dropdown" aria-haspopup="true"
+                                  aria-expanded="true"><i class="fas fa-ellipsis-v" style="color:#83c225"></i></a>
+                                <div :id="'show-2-'+index" class="dropdown-menu dropdown-menu-right shadow border-0"
+                                  style="font-size:1.5rem;">
+
+                                  <button class="dropdown-item" type="button" data-toggle="modal"
+                                    data-target="#deleteFileCenter"><i class="far fa-trash-alt mr-4"></i>Delete</button>
+
+                                </div>
+                              </div>
                             </div>
+                          </div> -->
+                          <div v-for="(partner, index) in partners" :key="index" class="col-sm-6">
+                            <div class="text-left d-flex justify-content-between p-3 border rounded mb-4">
+                              <div>
+                                <p class="market__desc pt-3">
+                                  {{partner.role}}
+                                </p>
+                                <p class="market__value">
+                                  {{partner.user_id.fname}} {{partner.user_id.lname}}
+                                </p>
+                              </div>
+                              <div :id="'show-'+index" class="pt-3">
+                                <a href="#" @click='makeDropdown(index)' class="btn btn__green-v" data-toggle="dropdown" aria-haspopup="true"
+                                  aria-expanded="true"><i class="fas fa-ellipsis-v" style="color:#83c225"></i></a>
+                                <div :id="'show-2-'+index" class="dropdown-menu dropdown-menu-right shadow border-0"
+                                  style="font-size:1.5rem;">
+                                  <button @click="removePartner(index, partner._id, transaction.partners)" class="dropdown-item" type="button" data-toggle="modal"
+                                    data-target="#deleteFileCenter"><i class="far fa-trash-alt mr-4"></i>Delete</button>
+
+                                </div>
+                              </div>
+                            </div>
+
                           </div>
                         </div>
                       </div>
@@ -370,16 +444,16 @@
                             <p class="market__desc">
                               BUYER
                             </p>
-                            <p class="market__value">
-                              Brech farms
+                            <p v-if="transaction.poster" class="market__value">
+                              {{transaction.poster.fname}} {{transaction.poster.lname}}
                             </p>
                           </div>
                           <div class="col-sm-3 mb-4">
                             <p class="market__desc">
                               SELLER
                             </p>
-                            <p class="market__value">
-                              Grouch LTD
+                            <p v-if="transaction.receiver" class="market__value">
+                              {{transaction.receiver.fname}} {{transaction.receiver.lname}}
                             </p>
                           </div>
                           <div class="col-sm-3 mb-4">
@@ -387,7 +461,7 @@
                               ORIGIN
                             </p>
                             <p class="market__value">
-                              Lagos, Nigeria
+                             {{transaction.origin}}
                             </p>
                           </div>
                           <div class="col-sm-3 mb-4">
@@ -395,7 +469,7 @@
                               DESTINATION
                             </p>
                             <p class="market__value">
-                              California, USA
+                              {{transaction.destination}}
                             </p>
                           </div>
                           <div class="col-sm-3 mb-4">
@@ -403,7 +477,7 @@
                               SHIPMENT DATE
                             </p>
                             <p class="market__value">
-                              14/17/2019
+                              {{ new Date(transaction.shipmentdate).toLocaleDateString("en-US")}}
                             </p>
                           </div>
                         </div>
@@ -419,7 +493,12 @@
                                 <img src="/static/img/doc-icon.svg" class="mr-3" alt="doc-icon">
                                 <div class="media-body">
                                   <p class="mt-0 mb-1">{{jdoc.name}}</p>
-                                  <!-- <small>Contract_bill_of_lading.doc</small> -->
+                                  <template v-if="jdoc.uploader">
+                                    <small v-if="jdoc.uploader._id == transaction.buyer">Uploaded by Buyer</small>
+                                    <small v-if="jdoc.uploader._id == transaction.seller">Uploaded by Seller</small>
+                                    <small v-if="jdoc.uploader.type == 'Admin'">Uploaded by Admin</small>
+                                  </template>
+                                  <small v-else>Uploaded by Buyer</small>
                                 </div>
                               </div>
                               <a v-if="jdoc.url && jdoc.url !== 'false'" :href="jdoc.url" target="_blank" class="btn btn__green-v">View</a>
@@ -434,39 +513,61 @@
             </div>
             <div class="col-md-4 col-xs-12 mt-3">
               <div class="market__nego">
-                <div class="card px-5 text-center d-none d-md-block">
-                  <form>
-                    <img class="mt-4 mb-3" src="/static/img/question-icon.svg" alt="chat icon">
-                    <p class="mb-3 font-weight-bold" style="font-size: 13px;">Do you have any question
-                      about this transaction?</p>
-                    <div class="form-group">
-                      <textarea type="text" class="form-control cinput mb-3" id="inputquestion" rows="4"></textarea>
+
+                <form>
+                  <div class="card pb-3 d-none d-md-block" style="height:auto;">
+                    <div class="card-header bg-white">
+                      TRANSACTION STATUS
                     </div>
-                    <button type="submit" class="btn button__primary mb-4">Ask</button>
-                  </form>
-                </div>
-                <div class="clearfix mt-4">
-                  <div class="float-left">
-                    <!-- <a href="#" class="btn button__grey-a">Back</a> -->
-                    <router-link class="btn button__grey-a" :to="{ name: 'User-Transactions'}">
-                      Back
-                    </router-link>
+
+                    <div class="card-body px-1">
+                      <div class="col">
+                        <div class="form-group mb-5">
+                          <label for="inputCity">Select Status</label>
+                          <!-- <select v-model="status" class="form-control cselect" id="inputCity">
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Contract">Contract</option>
+                            <option value="Completed">Completed</option>
+                          </select> -->
+                          <v-select v-model="status" :options='[
+                            {"value":"Pending", "label":"Pending"},
+                            {"value":"In Progress", "label":"In Progress"},
+                            {"value":"Contract", "label":"Contract"},
+                            {"value":"Completed", "label":"Completed"},
+                            {"value":"Terminated", "label":"Terminated"}
+                            ]'>
+                          </v-select>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                          <button type="button" @click="updateStatus" :disabled="disable" class="btn btn-green-status">Set Status</button>
+                          <!-- <button >Create Contract</button> -->
+                          <router-link v-if="transaction.contract === 'False' && transaction.status.toLowerCase() === 'contract'" :to="{ name: 'Admin-Add-Contract', params: { id: encodeIt(transaction._id, transaction.reference, transaction.type) }}" class="btn btn-green-status--m">
+                                Create Contract
+                            </router-link>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="float-right">
-                    <button v-if="user._id === transaction.buyer || user._id === transaction.seller" @click="showModal = true" type="button" class="btn button__primary-m" data-toggle="modal"
-                      data-target="#exampleModalCenter">Add Document</button>
-                    <button @click="negotiate()" v-if="notSame(transaction.poster, user._id) && transaction.status == 'pending'" type="button" class="btn button__primary-m" data-toggle="modal"
-                    data-target="#exampleModalCenter">Negotiate</button>
-                    <!-- Modal -->
-                    <div v-if="showModal === true" class="modal cwrap__modal show" id="exampleModalCenter" tabindex="-1" role="dialog" style="display: block;"
+                  <div class="clearfix mt-3">
+                    <div class="float-left">
+                      <a href="#" class="btn button__grey-a">Back</a>
+                    </div>
+                    <div class="float-right">
+                      <button @click="showModal = true" type="button" class="btn button__primary-m" data-toggle="modal"
+                        data-target="#exampleModalCenter">Add Document</button>
+                      <!-- Modal -->
+                      <div v-if="showModal === true" class="modal cwrap__modal show" id="exampleModalCenter" tabindex="-1" role="dialog" style="display: block;"
                       aria-labelledby="exampleModalCenterTitle" aria-modal="true">
-                      <div class="modal-dialog modal-dialog-centered cwrap__modal-dialog" role="document">
-                        <div class="modal-content cwrap__modal-content">
-                          <div class="modal-header cwrap__modal-header ">
-                            <h5 class="modal-title cwrap__modal-title text-center m-auto" id="exampleModalCenterTitle">
-                              ADD DOCUMENT</h5>
-                          </div>
-                          <div class="modal-body px-5">
+                        <div class="modal-dialog modal-dialog-centered cwrap__modal-dialog" role="document">
+                          <div class="modal-content cwrap__modal-content">
+                            <div class="modal-header cwrap__modal-header ">
+                              <h5 class="modal-title cwrap__modal-title text-center m-auto"
+                                id="exampleModalCenterTitle">ADD DOCUMENT</h5>
+
+                            </div>
+                            <div class="modal-body px-5">
                             <div class="form-group mb-5">
                               <label for="inputFilename">FILE NAME <sup>*</sup></label>
                               <input type="text" v-model="newDoc.name" class="form-control cinput" id="inputFilename"
@@ -481,11 +582,12 @@
                             <button @click="showModal = false" type="button" class="btn button__grey-m">Cancel</button>
                             <button @click="uploadFile(newDoc)" type="button" class="btn  button__primary mx-3">Upload</button>
                           </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -497,6 +599,7 @@
 <script>
 import api from '@/api/user'
 import offerApi from '@/api/offer'
+import adminApi from '@/api/admin'
 import Footer from '@/components/user/UserFooter'
 import { upload } from '@/config'
 import {mapGetters} from 'vuex'
@@ -515,70 +618,95 @@ export default {
       showModal: false,
       detailPart: 1,
       transaction: [],
+      users: [],
+      uploadPartners: [{user_id: '', role: ''}],
       sellerDocs: [],
       buyerDocs: [],
       jointDocs: [],
       partners: [],
+      link: '',
       isPartner: false,
-      //   poster: '',
-      receiver: '',
       price: '',
-      mainsuccess: '',
-      mainerror: '',
       uploadfile: {},
+      status: {'value': 'Pending', 'label': 'Pending'},
       visible: false
     }
   },
   computed: {
-    ...mapGetters('user', ['user'])
+    ...mapGetters('admin', ['admin'])
   },
   mounted () {
     this.getTransaction()
+    this.getUsers()
   },
   methods: {
     /**
-     * Negotiate a transaction
+     * Get all users registered into a select field
      */
-    async negotiate () {
+    async getUsers () {
       let loader = this.$loading.show()
-      //   let link = 'https://localhost:8080/admin/transactions/' + this.$route.params.id
-      let link = 'https://trade.comflo.com/admin/transactions/' + this.$route.params.id
-      let details = {
-        link,
-        user: this.user._id
+      try {
+        let response = await adminApi.getUsers()
+        //   console.log('Admin Users')
+        // console.log(response.data)
+        loader.hide()
+        if (response.data.status === 'success') {
+          for (const key in response.data.data) {
+            if (response.data.data.hasOwnProperty(key)) {
+              const element = response.data.data[key]
+              let user = {'value': element._id, 'label': element.fname + ' ' + element.lname}
+              // console.log(element)
+              if (element.type === 'User') {
+                this.users.push(user)
+              }
+            }
+            this.uploadPartners[0].user_id = this.users[0].label
+          }
+        } else {
+          this.$toast.error(response.data.message, '', this.notificationSystem.options.error)
+        }
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+        } else {
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
+        this.disable = false
       }
-      console.log(details)
-      let response = await offerApi.negotiateOffer(this.transaction._id, details)
-      console.log(response)
-      loader.hide()
-      if (response.data.status === 'success') {
-        this.$toast.success('A negotiation mail has been sent. A representative will contact you', '', this.notificationSystem.options.success)
-      } else {
-        this.$toast.error('Error sending a negotiation mail', '', this.notificationSystem.options.error)
-        return false
-      }
-      this.disable = false
     },
     /**
      * Get details about a transaction
      */
     async getTransaction () {
       const loader = this.$loading.show()
-      const decodedString = this.decodeIt(this.$route.params.id)
-      const response = await offerApi.getOffer(decodedString)
-      console.log(response)
-      loader.hide()
-      if (response.data.status === 'success') {
-        this.transaction = response.data.data
-        this.transaction.status = this.transaction.status.toLowerCase()
-        this.transaction.quantity = this.transaction.quantity.toLocaleString()
-        this.transaction.currency = this.transaction.price.split(' ')[0]
-        this.transaction.price = parseInt(this.transaction.price.split(' ')[1], 10).toLocaleString()
-        this.price = this.locale(this.transaction.price)
-        this.getDocs()
-        this.getPartners()
+      try {
+        const decodedString = this.decodeIt(this.$route.params.id)
+        const response = await offerApi.getOffer(decodedString)
+        console.log(response)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.transaction = response.data.data
+          this.transaction.status = this.transaction.status.toLowerCase()
+          this.transaction.quantity = this.transaction.quantity.toLocaleString()
+          this.transaction.currency = this.transaction.price.split(' ')[0]
+          this.transaction.price = parseInt(this.transaction.price.split(' ')[1], 10).toLocaleString()
+          this.price = this.locale(this.transaction.price)
+          this.status.value = this.transaction.status
+          this.link = 'https://trade.comflo.com/admin/transactions/' + this.$route.params.id
+          this.getDocs()
+          this.getPartners()
+        }
+        this.disable = false
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+        } else {
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
+        this.disable = false
       }
-      this.disable = false
     },
     /**
      * Get Buyer/Receiver Doccuments
@@ -591,6 +719,51 @@ export default {
         loader.hide()
         if (response.data.status === 'success') {
           this.partners = response.data.data.partner
+        }
+        this.disable = false
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+        } else {
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
+        this.disable = false
+      }
+    },
+    /**
+     * upload partners
+     */
+    async uploadPartnersLink () {
+      console.log('partner link')
+      let loader = this.$loading.show()
+      try {
+        let partners = []
+        for (let i = 0; i < this.uploadPartners.length; i++) {
+          let partner = {}
+          partner.user_id = this.uploadPartners[i].user_id.value
+          // partner.address = this.uploadPartners[i].address.value
+          partner.role = this.uploadPartners[i].role
+          partners.push(partner)
+        }
+        const details = {
+          partner_id: this.transaction.partners,
+          partners,
+          link: this.link,
+          commodity: this.transaction.commodity
+        }
+        // console.log(details)
+        let response = await adminApi.adminAddPartner(details)
+        //   console.log(response)
+        //   console.log(response.data)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.$toast.success('Transaction Partner has been added', '', this.notificationSystem.options.success)
+          this.disable = false
+          // location.reload()
+          this.getTransaction()
+        } else {
+          this.$toast.error(response.data.data, '', this.notificationSystem.options.error)
         }
         this.disable = false
       } catch (error) {
@@ -629,52 +802,106 @@ export default {
     },
 
     async uploadFile (doc) {
-      this.showModal = false
-      let loader = this.$loading.show({zIndex: 999})
-      let file = doc.file
+      const loader = this.$loading.show()
+      try {
+        this.showModal = false
+        let file = doc.file
 
-      let type = 'buyer-docs'
-      let docId = this.transaction.buyerDocuments
-      if (this.user._id === this.transaction.seller) {
-        type = 'seller-docs'
-        docId = this.transaction.sellerDocuments
-      }
-      // console.log(file)
-      let url = ''
-      if (file.name) {
-        url = await upload(file, type, this.transaction.commodity)
-        doc.uploader = this.user._id
-      }
-      doc.url = url
-      doc.contract = false
-      delete doc.file
+        let type = 'buyer-docs'
+        let docId = this.transaction.buyerDocuments
+        if (this.admin._id === this.transaction.seller) {
+          type = 'seller-docs'
+          docId = this.transaction.sellerDocuments
+        }
+        // console.log(file)
+        let url = ''
+        if (file.name) {
+          url = await upload(file, type, this.transaction.commodity)
+          doc.uploader = this.admin._id
+        }
+        doc.url = url
+        doc.contract = false
+        delete doc.file
 
-      const documents = []
-      documents.push(doc)
-      const details = {
-        documents
-      }
-      let response = await api.userAddDocs(details, this.transaction._id, docId)
-      console.log(response)
-      // console.log(response.data.status)
-      loader.hide()
-      if (response.data.status === 'success') {
-        this.$toast.success('Document uploaded', '', this.notificationSystem.options.success)
+        const documents = []
+        documents.push(doc)
+        const details = {
+          documents
+        }
+        let response = await api.userAddDocs(details, this.transaction._id, docId)
+        console.log(response)
+        // console.log(response.data.status)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.$toast.success('Document uploaded', '', this.notificationSystem.options.success)
+          this.disable = false
+          // location.reload()
+          this.getTransaction()
+        } else {
+          this.$toast.error('An error occured uploading document', '', this.notificationSystem.options.error)
+          return false
+        }
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+        } else {
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
         this.disable = false
-        location.reload()
-      } else {
-        this.$toast.error('An error occured uploading document', '', this.notificationSystem.options.error)
-        return false
+      }
+    },
+
+    /**
+     * update status of a deal
+     */
+    async updateStatus () {
+      let loader = this.$loading.show()
+      try {
+        let details = {
+          status: this.status.value,
+          link: this.link
+        }
+        let response = await offerApi.patchOfferStatus(this.transaction._id, details)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.$toast.success(`Transaction status has been set to ${details.status}`, '', this.notificationSystem.options.success)
+          this.getTransaction()
+        } else {
+          this.$toast.error(response.data.data, '', this.notificationSystem.options.error)
+        }
+        this.disable = false
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+        } else {
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
+        this.disable = false
+      }
+    },
+
+    /**
+     * Remove partner, i.e if a user made a mistake
+     */
+    async removePartner (index, partnerId, _id) {
+      let loader = this.$loading.show()
+      try {
+        await adminApi.adminRemovePartner({partner: partnerId, id: _id})
+        this.partners.splice(index, 1)
+        this.$toast.success('Transaction Partner has been removed', '', this.notificationSystem.options.success)
+        loader.hide()
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+        } else {
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
+        this.disable = false
       }
     }
   }
 }
 </script>
-<style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .9s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-</style>

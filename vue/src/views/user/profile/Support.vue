@@ -17,14 +17,14 @@
 
           <div class="card support__card px-5 py-5">
             <form action="">
-              <div class="form-group mb-5">
+              <!-- <div class="form-group mb-5">
                 <label for="inputCategory">Please select category</label>
                 {{category}}
                 <select v-model="category" class="form-control cselect" id="inputCategory">
                   <option>Please select category</option>
                   <option v-for="(category, index) in categories" :key="index" :value="category">{{category}}</option>
                 </select>
-              </div>
+              </div> -->
               <div class="form-group mb-5">
                 <label for="inputSubject">Subject</label>
                 <input v-model="subject" type="text" class="form-control cinput form__valid" id="inputSubject" required>
@@ -77,7 +77,8 @@ export default {
       this.disable = true
       try {
         const details = {
-          subject: `Category: ${this.category}; ${this.subject}`,
+          // subject: `Category: ${this.category}; ${this.subject}`,
+          subject: `${this.subject}`,
           body: this.body,
           email: this.user.email
         }

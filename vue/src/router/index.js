@@ -47,14 +47,15 @@ import NewAdmin from '@/views/admin/dashboard/NewAdmin'
 import AdminCompanies from '@/views/admin/dashboard/Companies'
 import AdminCompany from '@/views/admin/dashboard/Company'
 import AdminTransactions from '@/views/admin/dashboard/Transactions'
-// import AdminEditTransaction from '@/views/admin/dashboard/EditTransaction'
+import AdminTransaction from '@/views/admin/dashboard/Transaction'
+import AdminAddContract from '@/views/admin/AddContract'
+import AdminAddContractContd from '@/views/admin/AddContractContd'
+
 // import AdminPartners from '@/views/admin/Partners'
 // import AdminAdmins from '@/views/admin/Admins'
 // import AdminContracts from '@/views/admin/Contracts'
-// import AdminDeal from '@/views/admin/Deal'
+// import AdminEditTransaction from '@/views/admin/dashboard/EditTransaction'
 // import AdminContract from '@/views/admin/Contract'
-// import AdminAddContract from '@/views/admin/AddContract'
-// import AdminAddContractContd from '@/views/admin/AddContractContd'
 // import AdminAddCompany from '@/views/admin/AddCompany'
 // import AdminAddPartner from '@/views/admin/AddPartner'
 // import AdminAddAdmin from '@/views/admin/AddAdmin'
@@ -262,6 +263,22 @@ const router = new Router({
           path: 'transactions',
           name: 'Admin-Transactions',
           component: AdminTransactions
+        },
+        {
+          path: 'transactions/:id',
+          name: 'Admin-Transaction',
+          component: AdminTransaction
+        },
+        {
+          path: 'contracts/new/:id',
+          name: 'Admin-Add-Contract',
+          component: AdminAddContract
+        },
+        {
+          path: 'contracts/upload/:id',
+          name: 'Admin-Add-Contract-Contd',
+          component: AdminAddContractContd,
+          props: true
         }
         // {
         //   path: 'deals/new',
@@ -274,25 +291,9 @@ const router = new Router({
         //   component: AdminEditDeal
         // },
         // {
-        //   path: 'deals/:id',
-        //   name: 'Admin-Deal',
-        //   component: AdminDeal
-        // },
-        // {
         //   path: 'contracts',
         //   name: 'Admin-Contracts',
         //   component: AdminContracts
-        // },
-        // {
-        //   path: 'contracts/new/:id',
-        //   name: 'Admin-Add-Contract',
-        //   component: AdminAddContract
-        // },
-        // {
-        //   path: 'contracts/upload/:id',
-        //   name: 'Admin-Add-Contract-Contd',
-        //   component: AdminAddContractContd,
-        //   props: true
         // },
         // {
         //   path: 'contracts/:id',

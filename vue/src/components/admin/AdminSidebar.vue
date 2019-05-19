@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     adminusers () {
-      return this.$route.path === '/admin' || this.$route.path === '/admin'
+      return this.$route.path === '/admin' || this.$route.path === '/admin/'
     },
     admincompanies () {
       return this.$route.path === '/admin/companies' || this.$route.path === '/admin/companies/' || this.$route.path.includes('/admin/companies')

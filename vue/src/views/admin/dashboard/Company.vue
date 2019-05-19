@@ -145,13 +145,12 @@
                       </div>
                       <div class="modal-footer  cwrap__modal-footer">
                         <button @click="showModal = false" type="button" class="btn  btn-no mx-3" data-dismiss="modal">No</button>
-                        <button type="button" class="btn  btn-yes mx-3">Yes</button>
+                        <button type="button" @click="failKYC" class="btn  btn-yes mx-3">Yes</button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <button :disabled="!emptyText || disable" class="btn  button__primary  mx-2">Approve</button>
-
+                <button v-if='company.verified != true' :disabled="disable" @click="passKYC" class="btn  button__primary  mx-2">Approve</button>
               </div>
             </div>
           </div>
@@ -163,7 +162,7 @@
 </template>
 <script>
 import api from '@/api/admin'
-import userApi from '@/api/user'
+import companyApi from '@/api/company'
 import Footer from '@/components/admin/AdminFooter'
 import vClickOutside from 'v-click-outside'
 export default {
@@ -204,6 +203,52 @@ export default {
       this.showFilter = false
       // console.log('Clicked outside. Event: ', event)
     },
+    async passKYC () {
+      let loader = this.$loading.show()
+      try {
+        let response = await api.passKYC(this.company._id)
+        console.log(response)
+        console.log(response.data.status)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.$toast.success('Company KYC has been approved', '', this.notificationSystem.options.success)
+          location.reload()
+        }
+        this.disable = false
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+        } else {
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
+        this.disable = false
+      }
+    },
+
+    async failKYC () {
+      this.showModal = false
+      let loader = this.$loading.show({zIndex: 999})
+      try {
+        let response = await api.failKYC(this.company._id, {reason: this.comment})
+        console.log(response)
+        console.log(response.data.status)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.$toast.success('Company KYC has been declined, declined email has been sent', '', this.notificationSystem.options.success)
+          // location.reload()
+        }
+        this.disable = false
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+        } else {
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
+        this.disable = false
+      }
+    },
     async getCompany () {
       let loader = this.$loading.show()
       try {
@@ -233,7 +278,7 @@ export default {
      */
     async getDoc () {
       let loader = this.$loading.show()
-      let kycResponse = await userApi.getTransactionDocs(this.company.kyc_documents)
+      let kycResponse = await companyApi.companyKycUrl(this.company._id, this.company.kyc_documents)
       loader.hide()
       if (kycResponse.data.status === 'success') {
         this.kycDocs = kycResponse.data.data
@@ -244,3 +289,11 @@ export default {
   }
 }
 </script>
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .9s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>

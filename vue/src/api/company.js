@@ -7,6 +7,7 @@ export default {
     'Authorization': ''
   },
   companies: 'companies/',
+  // /companies/:id/kyc/:doc_id
   // login: 'companies/signin',
   // register: 'companies/signup',
   // users: 'companies/users',
@@ -18,6 +19,18 @@ export default {
   // checkToken: 'companies/verify-token',
   // resetPass: 'companies/reset-pass',
 
+  async companyKycUrl (id, docId) {
+    try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
+      const response = blackAxios.get(`${this.companies}${id}/kyc/${docId}`, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
   async companyKyc (id, dargs) {
     try {
       this.headers.Authorization = 'Bearer ' + UserStore.state.user.token

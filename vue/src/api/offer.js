@@ -101,7 +101,18 @@ export default {
   },
   async getOfferDocs (offerId, docId) {
     try {
-      const response = blackAxios.get(this.offers + `${offerId}/documents/${docId}`, {
+      const response = blackAxios.get(this.offers + `${offerId}/documents`, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+  async getContractDocs (offerId, docId) {
+    try {
+      const response = blackAxios.get(this.offers + `${offerId}/documents/contract`, {
         headers: this.headers
       })
       return response

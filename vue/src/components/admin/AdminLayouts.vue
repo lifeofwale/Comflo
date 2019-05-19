@@ -1,6 +1,6 @@
 <template>
   <section class="container-fluid">
-    <div class="row">
+    <div class="row sticky-top">
       <aside class="col-sm-1 aside px-0">
         <div class="aside__controller">
           <a href="#" id="controller"><img src="/static/img/controller.svg" alt="controller"></a>

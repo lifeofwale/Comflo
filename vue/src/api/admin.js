@@ -9,14 +9,16 @@ export default {
   users: 'users/',
   partners: 'partners/',
   companies: 'companies/',
-  addPartners: 'admins/add-partner',
-  removePartner: 'admins/remove-partner',
+  addPartners: 'admins/add-partner/',
+  removePartner: 'admins/remove-partner/',
   admins: 'admins/admins',
   userToAdmin: '/make-admin',
   adminToUser: '/make-user',
   adminPostDeal: 'deals/',
   // adminUpdateTrader: 'admins/update-traders',
   adminUpdateStatus: 'admins/update-status',
+  company: 'companies/',
+  kycfailed: 'admins/kyc-failed',
 
   async getUsers (dargs) {
     try {
@@ -59,7 +61,7 @@ export default {
 
   async getCompany (dargs) {
     try {
-      const response = blackAxios.get(this.companies + '/' + dargs, {
+      const response = blackAxios.get(this.companies + dargs, {
         headers: this.headers
       })
       return response
@@ -128,6 +130,58 @@ export default {
       console.log(e)
       return false
     }
+  },
+
+  async adminAddPartner (dargs) {
+    try {
+      const response = blackAxios.post(this.addPartners, dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+
+  async passKYC (id) {
+    try {
+      this.headers.Authorization = 'Bearer ' + AdminStore.state.admin.token
+      const response = blackAxios.patch(`${this.company}${id}/kyc-passed`, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+
+  async failKYC (id, dargs) {
+    try {
+      this.headers.Authorization = 'Bearer ' + AdminStore.state.admin.token
+      const response = blackAxios.patch(`${this.company}${id}/kyc-failed`, dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+
+  async adminRemovePartner (dargs) {
+    try {
+      const response = blackAxios.post(this.removePartner + dargs.id, {
+        partner_id: dargs.partner
+      }, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
   }
 
   // async getAdmins (dargs) {
@@ -177,30 +231,4 @@ export default {
   //     return false
   //   }
   // },
-
-  // async adminAddPartner (dargs) {
-  //   try {
-  //     const response = blackAxios.post(this.addPartners, dargs, {
-  //       headers: this.headers
-  //     })
-  //     return response
-  //   } catch (e) {
-  //     console.log(e)
-  //     return false
-  //   }
-  // },
-
-  // async adminRemovePartner (dargs) {
-  //   try {
-  //     const response = blackAxios.post(this.removePartner, {
-  //       partner_id: dargs
-  //     }, {
-  //       headers: this.headers
-  //     })
-  //     return response
-  //   } catch (e) {
-  //     console.log(e)
-  //     return false
-  //   }
-  // }
 }

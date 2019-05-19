@@ -61,12 +61,12 @@
                 <p>View list of all current transactions</p>
               </span>
             </div>
-            <div class="d-flex justify-content-start">
+            <!-- <div class="d-flex justify-content-start">
               <div class="form-inline">
                 <a href="#" class="btn__green"><span><img src="/static/img/trans-icon.svg" alt="trans icon"></span> Add
                   Transaction</a>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="container">
@@ -114,21 +114,32 @@
                   <td>{{transaction.commodity}}</td>
                   <td>{{transaction.quantity.toLocaleString()}}</td>
                   <td>
-                    <!-- <div class="statusblock-green--m text-center">Completed</div> -->
-                    <div v-if="transaction.status.toLowerCase() == 'pending'" class="statusblock-yellow text-center">{{transaction.status | capitalCase }}</div>
-                    <div v-else-if="transaction.status.toLowerCase() == 'completed'" class="statusblock-green text-center">{{transaction.status | capitalCase}}</div>
-                    <div v-else-if="transaction.status.toLowerCase() == 'contract'" class="statusblock-grey text-center">{{transaction.status | capitalCase}}</div>
-                    <div v-else-if="transaction.status.toLowerCase() == 'active'" class="statusblock-blue text-center">{{transaction.status | capitalCase}}</div>
-                    <div v-else-if="transaction.status.toLowerCase() == 'terminated'" class="statusblock-red text-center">{{transaction.status | capitalCase}}</div>
+                    <div v-if="transaction.status.toLowerCase() == 'pending'" class="statusblock-yellow--m text-center">{{transaction.status | capitalCase }}</div>
+                    <div v-else-if="transaction.status.toLowerCase() == 'completed'" class="statusblock-green--m text-center">{{transaction.status | capitalCase}}</div>
+                    <div v-else-if="transaction.status.toLowerCase() == 'contract'" class="statusblock-grey--m text-center">{{transaction.status | capitalCase}}</div>
+                    <div v-else-if="transaction.status.toLowerCase() == 'active'" class="statusblock-blue--m text-center">{{transaction.status | capitalCase}}</div>
+                    <div v-else-if="transaction.status.toLowerCase() == 'terminated'" class="statusblock-red--m text-center">{{transaction.status | capitalCase}}</div>
                   </td>
                   <td>
-                    <div class="dropdown">
+                    <!-- <div class="dropdown">
                       <a class="btn p-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <img src="/static/img/drop-down.svg" width="32px" alt="drop-dwon">
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item drop-link" href="#">View details</a>
+                      </div>
+                    </div> -->
+                    <div :id="'show-'+index" class="dropdown">
+                      <a class="btn p-0" @click='makeDropdown(index)' role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                        <img src="/static/img/drop-down.svg" width="32px" alt="drop-dwon" />
+                      </a>
+
+                      <div :id="'show-2-'+index" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        <router-link class="dropdown-item drop-link" :to="{ name: 'Admin-Transaction', params: { id: encodeIt(transaction._id, transaction.reference, transaction.type) }}">
+                          View details
+                        </router-link>
                       </div>
                     </div>
                   </td>
@@ -137,24 +148,24 @@
             </table>
           </div>
           <div class="d-flex justify-content-between mt-4">
-            <p v-if="collections > 20">
-              <i><small>Showing results 1 - 20 of {{collections.length}}</small></i>
+            <p>
+              <i><small>Showing results 1 - {{collections.length}} of 20</small></i>
             </p>
             <!-- pagination begin -->
             <nav aria-label="Page navigation">
-              <ul class="pagination pagination__ul justify-content-center pagination-lg">
-                  <li v-if="pagination.pre_page != null" class="page-item pagination__li">
-                      <a class="page-link pagination__a" href="#" tabindex="-1"
-                          aria-disabled="true">&laquo;</a>
-                  </li>
-                  <template v-if="pagination.page > 1">
-                      <li v-for="(n, index) in pagination.page" :key="index" class="page-item active pagination__li"><a class="page-link pagination__a" @click="paginator(allCollections, n, 20)">{{n}}</a></li>
-                  </template>
-                  <li v-if="pagination.next_page != null" class="page-item pagination__li">
-                      <a class="page-link pagination__a" href="#">&raquo;</a>
-                  </li>
-              </ul>
-          </nav>
+                <ul class="pagination pagination__ul justify-content-center pagination-lg">
+                    <li v-if="pagination.pre_page != null" class="page-item pagination__li">
+                        <a class="page-link pagination__a" @click="collections = paginator(allCollections, pagination.pre_page, 20)" tabindex="-1"
+                            aria-disabled="true">&laquo;</a>
+                    </li>
+                    <template v-if="pagination.page !== 0">
+                        <li v-for="(n, index) in pagination.page" :key="index" class="page-item active pagination__li"><a class="page-link pagination__a" @click="collections = paginator(allCollections, n, 20)">{{n}}</a></li>
+                    </template>
+                    <li v-if="pagination.next_page != null" class="page-item pagination__li">
+                        <a class="page-link pagination__a" @click="collections = paginator(allCollections, pagination.next_page, 20)">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
             <!-- pagination -end -->
           </div>
         </div>
