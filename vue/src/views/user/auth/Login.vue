@@ -42,7 +42,7 @@
       <div class="w-75" style="margin:auto;position:absolute;top:50%;left:50%;transform: translate(-50%,-50%);">
           <div class="row jumb">
             <div class="col-sm-6 offset-sm-3">
-              <h1 class="cbig-text text-center my-5">Sign In to Comflo</h1>
+              <h1 class="cbig-text text-center my-5">Sign in to Comflo</h1>
               <p v-if="mainerror.length > 0" class="text-danger text-center">{{mainerror}}</p>
               <div class="csignin">
                   <form action="">
@@ -52,10 +52,15 @@
                     </div>
                     <div class="form-group mb-5">
                       <label for="inputFirstName">Password <sup>*</sup></label>
-                      <!-- <input type="password" v-model="password" class="form-control cinput form__valid" placeholder="Password" required> -->
+                      <!-- <input type="password" v-model="password" class="form-control cinput form__valid" placeholder="Password" required>
                       <input :type="passwordFieldType" class="form-control cinput form__valid" placeholder="**********" v-model="password" required>
                               <a @click="switchVisibility"><i class="fa fa-eye-slash show-pass" style="color:#83c225;"
+                                  aria-hidden="true"></i></a> -->
+                      <div class="input-group" id="show_hide_password">
+                              <input :type="passwordFieldType" class="form-control cinput" placeholder="**********" id="inputPassword" v-model="password" required>
+                              <a @click="switchVisibility"><i class="fa fa-eye-slash show-pass" style="color:#83c225;"
                                   aria-hidden="true"></i></a>
+                            </div>
                     </div>
                     <button type="button" @click="loginUser" :disabled="!emptyText || disable" class="btn btn-block button__primary mt-3">Sign In</button>
                     <div class="text-center  mt-4">

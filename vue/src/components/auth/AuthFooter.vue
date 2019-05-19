@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer fixed-bottom border">
+  <footer class="footer fixed-bottom border bg-white">
     <ul class="nav footer__ul justify-content-center text-center">
       <li class="nav-item footer__li">
         <router-link to="/" class='nav-link footer__a'>

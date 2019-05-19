@@ -10,9 +10,9 @@
     </nav>
   </div> -->
   <header class="border px-4">
-    <nav class="navbar cnav">
+    <nav class="navbar cnav align-items-center">
       <a @click="gotoHome"><img src="/static/img/comflo__logo.jpg" alt="comflo logo"></a>
-      <ul v-if="this.$route.path.includes('register')" class="nav cnav__ul">
+      <ul v-if="this.$route.path.includes('register')" class="nav cnav__ul align-items-center">
           <li class="nav-item cnav__li d-none d-md-block">
             <p class="nav-link">Already have an account?</p>
           </li>
@@ -22,7 +22,7 @@
           </router-link>
         </li>
       </ul>
-      <ul v-else class="nav cnav__ul">
+      <ul v-else class="nav cnav__ul align-items-center">
           <li class="nav-item cnav__li d-none d-md-block">
             <p class="nav-link">Don’t have a Comflo Account yet??</p>
           </li>
