@@ -159,7 +159,7 @@
                             aria-disabled="true">&laquo;</a>
                     </li>
                     <template v-if="pagination.page !== 0">
-                        <li v-for="(n, index) in pagination.page" :key="index" class="page-item active pagination__li"><a class="page-link pagination__a" @click="collections = paginator(allCollections, n, 20)">{{n}}</a></li>
+                        <li v-for="(n, index) in pagination.page" :key="index" :class="{active: index + 1 == pagination.page}" class="page-item pagination__li"><a class="page-link pagination__a" @click="collections = paginator(allCollections, n, 20)">{{n}}</a></li>
                     </template>
                     <li v-if="pagination.next_page != null" class="page-item pagination__li">
                         <a class="page-link pagination__a" @click="collections = paginator(allCollections, pagination.next_page, 20)">&raquo;</a>
