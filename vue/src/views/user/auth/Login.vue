@@ -124,36 +124,46 @@ export default {
     async loginUser () {
       let loader = this.$loading.show()
       this.disable = true
-      let user = {
-        email: this.email,
-        password: this.password
-      }
-      let response = await api.userlogin(user)
-      loader.hide()
-      console.log(response)
-      // console.log(response.data.status)
-      if (response.data.status === 'success') {
-        const user = this.cleanObject(response.data.data.user)
-        const company = this.cleanObject(response.data.data.company)
-        user.company_type = response.data.data.type
-        this.addCompany(company)
-        delete user['password']
-        this.$toast.success('Login Successful!', '', this.notificationSystem.options.success)
-        if (user.type.toLowerCase() === 'admin') {
-          this.addAdmin(user)
-          api.settoken(user.token)
-          this.clearError()
-          this.$router.push('/admin')
-        } else {
-          this.addUser(user)
-          api.settoken(user.token)
-          this.clearError()
-          this.$router.push('/user')
+      try {
+        let user = {
+          email: this.email,
+          password: this.password
         }
-      } else {
-        this.$toast.error('Wrong Username/Password', '', this.notificationSystem.options.error)
+        let response = await api.userlogin(user)
+        loader.hide()
+        console.log(response)
+        // console.log(response.data.status)
+        if (response.data.status === 'success') {
+          const user = this.cleanObject(response.data.data.user)
+          const company = this.cleanObject(response.data.data.company)
+          user.company_type = response.data.data.type
+          this.addCompany(company)
+          delete user['password']
+          this.$toast.success('Login Successful!', '', this.notificationSystem.options.success)
+          if (user.type.toLowerCase() === 'admin') {
+            this.addAdmin(user)
+            api.settoken(user.token)
+            this.clearError()
+            this.$router.push('/admin')
+          } else {
+            this.addUser(user)
+            api.settoken(user.token)
+            this.clearError()
+            this.$router.push('/user')
+          }
+        } else {
+          this.$toast.error('Wrong Username/Password', '', this.notificationSystem.options.error)
+        }
+        this.disable = false
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+        } else {
+          this.$toast.error(error.message, '', this.notificationSystem.options.error)
+        }
+        loader.hide()
+        this.disable = false
       }
-      this.disable = false
     }
   }
 }

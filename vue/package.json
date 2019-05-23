@@ -7,6 +7,7 @@
   "scripts": {
     "deploy": "npm run build && cp ./dist/index.html ./dist/200.html && cd dist && surge",
     "heroku": "npm run build && git add . && git commit -m $message && git push origin master && git push heroku master",
+    "push": "git add . && git commit -m '$1' && git push origin master && :",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "node server.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
@@ -40,6 +41,7 @@
     "vue-loading-overlay": "^2.1.0",
     "vue-multianalytics": "^1.9.7",
     "vue-router": "^3.0.1",
+    "vue-save-state": "^1.2.0",
     "vue-select": "^2.4.0",
     "vue-strap": "github:wffranco/vue-strap",
     "vue-tables": "^1.6.44",

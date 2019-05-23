@@ -48,8 +48,8 @@ import AdminCompanies from '@/views/admin/dashboard/Companies'
 import AdminCompany from '@/views/admin/dashboard/Company'
 import AdminTransactions from '@/views/admin/dashboard/Transactions'
 import AdminTransaction from '@/views/admin/dashboard/Transaction'
-import AdminAddContract from '@/views/admin/AddContract'
-import AdminAddContractContd from '@/views/admin/AddContractContd'
+import AdminAddContract from '@/views/admin/dashboard/AddContract'
+import AdminAddContractContd from '@/views/admin/dashboard/AddContractContd'
 
 // import AdminPartners from '@/views/admin/Partners'
 // import AdminAdmins from '@/views/admin/Admins'
@@ -270,15 +270,15 @@ const router = new Router({
           component: AdminTransaction
         },
         {
-          path: 'contracts/new/:id',
-          name: 'Admin-Add-Contract',
-          component: AdminAddContract
-        },
-        {
           path: 'contracts/upload/:id',
           name: 'Admin-Add-Contract-Contd',
           component: AdminAddContractContd,
           props: true
+        },
+        {
+          path: 'contracts/new/:id',
+          name: 'Admin-Add-Contract',
+          component: AdminAddContract
         }
         // {
         //   path: 'deals/new',

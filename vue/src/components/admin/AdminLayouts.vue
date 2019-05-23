@@ -48,11 +48,11 @@
                   </a>
 
                   <ul v-if="isProfileDropdownOpen" class="dropdown-menu content__dropdown show" aria-labelledby="dropdownMenuLink-2">
-                    <li class="nav-item content__li">
+                    <!-- <li class="nav-item content__li">
                       <router-link :to="{ name: 'Admin-Profile'}" class="nav-link content__a">
                         <i class="fas fa-cog mr-3"></i> Settings
                       </router-link>
-                    </li>
+                    </li> -->
                     <li class="nav-item content__li">
                       <a href="#" @click="signout" class="nav-link content__a">
                         <i class="fas fa-sign-out-alt mr-3"></i> Logout

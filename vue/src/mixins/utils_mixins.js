@@ -13,6 +13,10 @@ function getDashboard (vm) {
   return dashboard
 }
 
+function capitalCase (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
 export default {
   data: function () {
     return {
@@ -186,11 +190,14 @@ export default {
       delete object.__v
 
       return object
+    },
+    capitalCase (string) {
+      return capitalCase(string)
     }
   },
   filters: {
     capitalCase (string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
+      return capitalCase(string)
     }
   }
 }

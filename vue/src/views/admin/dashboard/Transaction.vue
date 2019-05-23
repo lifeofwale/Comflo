@@ -543,9 +543,11 @@
                         <div class="d-flex justify-content-between">
                           <button type="button" @click="updateStatus" :disabled="disable" class="btn btn-green-status">Set Status</button>
                           <!-- <button >Create Contract</button> -->
-                          <router-link v-if="transaction.contract === 'False' && transaction.status.toLowerCase() === 'contract'" :to="{ name: 'Admin-Add-Contract', params: { id: encodeIt(transaction._id, transaction.reference, transaction.type) }}" class="btn btn-green-status--m">
-                                Create Contract
-                            </router-link>
+                          <keep-alive>
+                            <router-link v-if="transaction.contract === 'False' && transaction.status.toLowerCase() === 'contract'" :to="{ name: 'Admin-Add-Contract', params: { id: encodeIt(transaction._id, transaction.reference, transaction.type) }}" class="btn btn-green-status--m">
+                                  Create Contract
+                              </router-link>
+                          </keep-alive>
                         </div>
                       </div>
                     </div>
@@ -692,7 +694,7 @@ export default {
           this.transaction.currency = this.transaction.price.split(' ')[0]
           this.transaction.price = parseInt(this.transaction.price.split(' ')[1], 10).toLocaleString()
           this.price = this.locale(this.transaction.price)
-          this.status.value = this.transaction.status
+          this.status = this.capitalCase(this.transaction.status)
           this.link = 'https://trade.comflo.com/admin/transactions/' + this.$route.params.id
           this.getDocs()
           this.getPartners()
