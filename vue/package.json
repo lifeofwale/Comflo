@@ -7,7 +7,7 @@
   "scripts": {
     "deploy": "npm run build && cp ./dist/index.html ./dist/200.html && cd dist && surge",
     "heroku": "npm run build && git add . && git commit -m $message && git push origin master && git push heroku master",
-    "push": "git add . && git commit -m '$1' && git push origin master && :",
+    "push": "git add . && git commit -m $1 && git push origin master && :",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "node server.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
