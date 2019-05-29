@@ -72,7 +72,6 @@
               </span>
             </div>
           </div>
-
           <div class="mt-4">
             <div class="card border-0 m-auto" style="max-width:90.4rem;">
               <div class="card-body p-5">
@@ -174,6 +173,11 @@ export default {
       return this.comment.length > 0 && this.jointDocs.length > 0
     }
   },
+  mounted () {
+    if (!this.transaction) {
+      this.$router.push({ name: 'Admin-Add-Contract', params: { id: this.$route.params.id } })
+    }
+  },
   methods: {
     async uploadContract () {
       let loader = this.$loading.show()
@@ -194,7 +198,9 @@ export default {
           delete this.jointDocs[i].file
         }
 
-        let response = await adminApi.postDeal(this.transaction)
+        console.log(transaction)
+
+        let response = await adminApi.postDeal(transaction)
         // console.log(response)
         // console.log(response.data.status)
         loader.hide()

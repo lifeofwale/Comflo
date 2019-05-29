@@ -107,7 +107,7 @@ export default {
     }
   },
   mounted () {
-    // this.mainerror = this.error
+    document.body.classList.remove('bg-grey')
     if (this.error) {
       this.$toast.error(this.error, '', this.notificationSystem.options.error)
     }

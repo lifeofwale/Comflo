@@ -127,12 +127,14 @@
   </main>
 </template>
 <script>
+import saveState from 'vue-save-state'
 import adminApi from '@/api/admin'
 import Footer from '@/components/admin/AdminFooter'
 import {mapGetters} from 'vuex'
 export default {
   name: 'Admin-Add-Contract',
   dashboard: true,
+  mixins: [saveState],
   title () {
     return `Admin Add Contract | Comflo Inc`
   },
@@ -161,6 +163,11 @@ export default {
     }
   },
   methods: {
+    getSaveStateConfig () {
+      return {
+        'cacheKey': 'Admin-Add-Contract'
+      }
+    },
     async addContract () {
       let loader = this.$loading.show()
       try {

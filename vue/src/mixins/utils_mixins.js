@@ -10,7 +10,11 @@ function getTitle (vm) {
 
 function getDashboard (vm) {
   const { dashboard } = vm.$options
-  return dashboard
+  if (dashboard) {
+    return typeof dashboard === 'function'
+      ? dashboard.call(vm)
+      : dashboard
+  }
 }
 
 function capitalCase (string) {
@@ -54,6 +58,7 @@ export default {
   mounted () {
     const title = getTitle(this)
     if (title) {
+      console.log('title', title)
       document.title = title
     }
     const dashboard = getDashboard(this)

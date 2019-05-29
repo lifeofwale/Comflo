@@ -32,6 +32,7 @@ import UserAddTransaction from '@/views/user/dashboard/NewTransaction'
 import UserTransactions from '@/views/user/dashboard/Transactions'
 import UserTransaction from '@/views/user/dashboard/Transaction'
 import UserMarketplace from '@/views/user/dashboard/Marketplace'
+import UserCompany from '@/views/user/dashboard/Company'
 // import UserContracts from '@/views/user/Contracts'
 // import UserContract from '@/views/user/Contract'
 // import UserEditTransaction from '@/views/user/EditDeal'
@@ -214,6 +215,11 @@ const router = new Router({
           path: 'transactions/:id',
           name: 'User-Transaction',
           component: UserTransaction
+        },
+        {
+          path: 'company',
+          name: 'User-Company',
+          component: UserCompany
         }
         // {
         //   path: 'contracts',

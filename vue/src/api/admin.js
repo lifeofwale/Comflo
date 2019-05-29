@@ -182,23 +182,23 @@ export default {
       console.log(e)
       return false
     }
+  },
+
+  async postDeal (dargs) {
+    try {
+      const response = blackAxios.post(`${this.adminPostDeal}${dargs.offer}`, dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
   }
 
   // async getAdmins (dargs) {
   //   try {
   //     const response = blackAxios.get(this.admins, dargs, {
-  //       headers: this.headers
-  //     })
-  //     return response
-  //   } catch (e) {
-  //     console.log(e)
-  //     return false
-  //   }
-  // },
-
-  // async postDeal (dargs) {
-  //   try {
-  //     const response = blackAxios.post(this.adminPostDeal, dargs, {
   //       headers: this.headers
   //     })
   //     return response

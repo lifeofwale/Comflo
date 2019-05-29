@@ -217,6 +217,7 @@ export default {
   },
   mounted () {
     this.getUsers()
+    document.body.classList.add('bg-grey')
   },
   directives: {
     clickOutside: vClickOutside.directive
