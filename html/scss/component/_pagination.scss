@@ -47,6 +47,11 @@
         
     }
 
+    &__li.active &__a:hover{
+        color: #fff !important;
+        
+    }
+
     &__a{
         border:none;
         background-color: transparent;
