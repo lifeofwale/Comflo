@@ -5,7 +5,7 @@
     }
 }
 .csignup{
-    padding:3.6rem 5.5rem;
+    padding:3.6rem 2.8rem;
     @media only screen and(max-width:600px){
         padding:2.6rem 3.5rem;
     }
@@ -27,10 +27,11 @@
     }
     
 }
-.form__valid{
-    &:not(:focus):valid {
-        background-image: url("../img/formvalid.svg"); }
-}
+// .form__valid{
+//     &:not(:focus):valid {
+//         background-image: url("../img/formvalid.svg"); }
+        
+// }
 .cselect{
     @include input_comflo;
 
