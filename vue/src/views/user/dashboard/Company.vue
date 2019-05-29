@@ -21,7 +21,9 @@
                   <h2>Users</h2>
                   <p class="empty-state"></p>
                 </div>
-                <a href="#" class="btn__green"><img class="mr-2" src="/static/img/add-user.svg" alt="add user"> Add User</a>
+                <router-link v-if="user" class="btn__green" :to="{ name: 'New-User'}">
+                  <img class="mr-2" src="/static/img/add-user.svg" alt="add user"> Add User
+                </router-link>
               </div>
               <div v-if="users.length > 0" class="table-responsive">
                 <table class="table custom-table table-borderless">
@@ -47,8 +49,8 @@
                         <div v-if='companyUser._id == user._id && user.company_type.toLowerCase() == "admin"' class="statusblock-green--m text-center">Admin</div>
                         <div v-else class="statusblock-blue--m text-center">User</div>
                       </td>
-                      <td>
-                        <button class="btn"> <img src="/static/img/trash-icon.svg" alt="trash-icon"></button>
+                      <td v-if='companyUser._id !== user._id'>
+                        <button type="button" @click="removeUser(companyUser._id)" class="btn"> <img src="/static/img/trash-icon.svg" alt="trash-icon"></button>
                       </td>
                     </tr>
                   </tbody>
@@ -167,13 +169,7 @@ export default {
         }
         this.disable = false
       } catch (error) {
-        if (error.message === 'Network Error') {
-          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
-        } else {
-          this.$toast.error(error.message, '', this.notificationSystem.options.error)
-        }
-        loader.hide()
-        this.disable = false
+        this.handleError(error, loader)
       }
     },
     /**
@@ -181,13 +177,38 @@ export default {
      */
     async getDoc () {
       let loader = this.$loading.show()
-      let kycResponse = await companyApi.companyKycUrl(this.company._id, this.company.kyc_documents)
-      loader.hide()
-      if (kycResponse.data.status === 'success') {
-        this.kycDocs = kycResponse.data.data
-        console.log(this.kycDocs)
+      try {
+        let kycResponse = await companyApi.companyKycUrl(this.company._id, this.company.kyc_documents)
+        loader.hide()
+        if (kycResponse.data.status === 'success') {
+          this.kycDocs = kycResponse.data.data
+          console.log(this.kycDocs)
+        }
+        this.disable = false
+      } catch (error) {
+        this.handleError(error, loader)
       }
-      this.disable = false
+    },
+    /**
+     * Remove a user from company
+     */
+    async removeUser (id) {
+      let loader = this.$loading.show()
+      try {
+        let response = await companyApi.removeUser({user_id: id}, this.company._id)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.$toast.success('User has been removed', '', this.notificationSystem.options.success)
+          location.reload()
+        } else {
+          this.$toast.error('Failed to remove user', '', this.notificationSystem.options.error)
+          this.resetDetails()
+          return false
+        }
+        this.disable = false
+      } catch (error) {
+        this.handleError(error, loader)
+      }
     }
   }
 }

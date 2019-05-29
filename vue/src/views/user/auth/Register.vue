@@ -304,7 +304,7 @@
   </div> -->
   <section class="container-fluid px-0 hero h-100vh">
     <Header></Header>
-    <div class="container mt-5 mb-2">
+    <div class="container mt-5 mb-15">
       <div v-if="signupPart == 0">
         <div class="row" id="create_1">
           <div class="col-md-8 col-sm-12 col-xs-12">

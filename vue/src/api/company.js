@@ -54,21 +54,31 @@ export default {
       console.log(e)
       return false
     }
+  },
+  async addUser (dargs, id) {
+    try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
+      const response = blackAxios.post(`${this.companies}${id}/add-user`, dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  },
+  async removeUser (dargs, id) {
+    try {
+      this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
+      const response = blackAxios.post(`${this.companies}${id}/remove-user`, dargs, {
+        headers: this.headers
+      })
+      return response
+    } catch (e) {
+      console.log(e)
+      return false
+    }
   }
-  // async companylogin (dargs) {
-  //   try {
-  //     const response = blackAxios.post(this.login, {
-  //       email: dargs.email,
-  //       password: dargs.password
-  //     }, {
-  //       headers: this.headers
-  //     })
-  //     return response
-  //   } catch (e) {
-  //     console.log(e)
-  //     return false
-  //   }
-  // },
 
   // async companyregister (dargs) {
   //   try {

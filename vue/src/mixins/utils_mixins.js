@@ -58,7 +58,7 @@ export default {
   mounted () {
     const title = getTitle(this)
     if (title) {
-      console.log('title', title)
+      // console.log('title', title)
       document.title = title
     }
     const dashboard = getDashboard(this)
@@ -72,6 +72,15 @@ export default {
     // this.$toast.error('Illegal operation', 'Error', this.notificationSystem.options.error)
   },
   methods: {
+    handleError (error, loader) {
+      if (error.message === 'Network Error') {
+        this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
+      } else {
+        this.$toast.error(error.message, '', this.notificationSystem.options.error)
+      }
+      loader.hide()
+      this.disable = false
+    },
     /**
      * convert a price string
      */
@@ -114,14 +123,14 @@ export default {
       let query = this.query.toString().toLowerCase()
       if (query === '') {
         this.collections = this.filteredCollections
-        console.log(this.collections.length)
+        // console.log(this.collections.length)
         this.collections = this.paginator(this.collections, 1, 20)
       } else {
         this.collections = this.filteredCollections.filter((collection) => {
-          // console.log()
+          // // console.log()
           for (let index = 0; index < Object.keys(collection).length; index++) {
             const collectionElement = Object.values(collection)[index].toString()
-            // console.log(collectionElement, collectionElement.toLowerCase().includes(query))
+            // // console.log(collectionElement, collectionElement.toLowerCase().includes(query))
             if (collectionElement.toLowerCase().includes(query) === false) {
               continue
             } else {
@@ -130,7 +139,7 @@ export default {
           }
           // return transaction.type.toLowerCase().includes(query) || transaction.commodity.toLowerCase().includes(query) || transaction.quantity.toString().toLowerCase().includes(query) || transaction.incoterm.toLowerCase().includes(query) || transaction.location.toLowerCase().includes(query) || transaction.reference.toLowerCase().includes(query) || transaction.price.toString().toLowerCase().includes(query)
         })
-        console.log(this.collections.length)
+        // console.log(this.collections.length)
         this.collections = this.paginator(this.collections, 1, 20)
       }
     },
@@ -164,7 +173,7 @@ export default {
       } else {
         this.filteredCollections = this.allCollections.filter((collection) => {
           const collectionElement = Object.values(collection)[index].toString()
-          console.log(collectionElement, query)
+          // console.log(collectionElement, query)
           return collectionElement.toLowerCase().includes(query)
         })
         this.collections = this.filteredCollections
@@ -175,7 +184,7 @@ export default {
      * helper function, check 2 addresses are same
      */
     notSame (seller, user) {
-      // console.log(seller, user)
+      // // console.log(seller, user)
       return !addCompare(seller, user)
     },
     switchVisibility () {
