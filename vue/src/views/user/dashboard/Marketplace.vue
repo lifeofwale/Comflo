@@ -101,7 +101,7 @@
                                     {{new Date(transaction.createdAt).getDate() + "/" + (new Date(transaction.createdAt).getMonth() + 1) + "/" + new Date(transaction.createdAt).getFullYear()}}
                                 </p>
                             </div>
-                            <div class="col-12 mb-3">
+                            <div v-if="transaction.availability" class="col-12 mb-3">
                                 <p class="market__desc">
                                     MARKET AVAILABILITY
                                 </p>
@@ -109,7 +109,7 @@
                                     <span class="d-inline">
                                         <div class="d-inline-block status-red"></div>
                                     </span>
-                                    <span class="d-inline-block">7 days left</span>
+                                    <span class="d-inline-block">{{daysLeft(transaction.availability)}} days left</span>
                                 </p>
                             </div>
                         </div>
@@ -160,25 +160,28 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-between mt-4">
         <p>
           <i><small>Showing results 1 - {{collections.length}} of 20</small></i>
         </p>
+        <!-- {{pagination}} -->
         <!-- pagination begin -->
         <nav aria-label="Page navigation">
             <ul class="pagination pagination__ul justify-content-center pagination-lg">
                 <li v-if="pagination.pre_page != null" class="page-item pagination__li">
-                    <a class="page-link pagination__a" @click="collections = paginator(allCollections, pagination.pre_page, 20)" tabindex="-1"
+                    <a class="page-link pagination__a" @click="collections = paginator(filteredCollections, pagination.pre_page, 20)" tabindex="-1"
                         aria-disabled="true">&laquo;</a>
                 </li>
                 <template v-if="pagination.page !== 0">
-                    <li v-for="(n, index) in pagination.page" :key="index" :class="{active: index + 1 == pagination.page}" class="page-item pagination__li"><a class="page-link pagination__a" @click="collections = paginator(allCollections, n, 20)">{{n}}</a></li>
+                    <li v-for="(n, index) in pagination.page" :key="index" :class="{active: index + 1 == pagination.page}" class="page-item pagination__li"><a class="page-link pagination__a" @click="collections = paginator(filteredCollections, n, 20)">{{n}}</a></li>
                 </template>
                 <li v-if="pagination.next_page != null" class="page-item pagination__li">
-                    <a class="page-link pagination__a" @click="collections = paginator(allCollections, pagination.next_page, 20)">&raquo;</a>
+                    <a class="page-link pagination__a" @click="collections = paginator(filteredCollections, pagination.next_page, 20)">&raquo;</a>
                 </li>
             </ul>
         </nav>
         <!-- pagination -end -->
+      </div>
     </div>
     <div v-else class="market container mt-5 mb-10">
         <div class="text-center mt-5">

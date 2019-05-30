@@ -72,6 +72,12 @@ export default {
     // this.$toast.error('Illegal operation', 'Error', this.notificationSystem.options.error)
   },
   methods: {
+    daysLeft (from) {
+      let today = new Date()
+      let fromDate = new Date(from)
+      let oneDay = 1000 * 60 * 60 * 24
+      return Math.ceil((fromDate.getTime() - today.getTime()) / (oneDay))
+    },
     handleError (error, loader) {
       if (error.message === 'Network Error') {
         this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)

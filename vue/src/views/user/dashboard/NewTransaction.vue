@@ -590,6 +590,14 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group mb-5">
+                    <label for="inputQuantity">MARKET AVAILABILITY <sup>*</sup></label>
+                    <datepicker v-model="availability" :input-class="'form-control cinput'" :placeholder="'Select Date'" :disabled="promoDuration.startState" v-on:selected="disableTo" required></datepicker>
+                  </div>
+                </div>
+              </div>
             </div>
           </fieldset>
           <fieldset :class="{ request__commodity: isActive != 2 }" class="mt-5 mb-5">
@@ -669,25 +677,37 @@ export default {
       currency: {'cc': 'USD', 'symbol': 'US$', 'label': 'United States dollar'},
       price: '',
       payment: '',
+      availability: '',
       // Step 3
       sellerDocs: [],
       buyerDocs: [],
       additionalInfo: '',
       visible: false,
       disable: false,
-      mainerror: ''
+      promoDuration: {
+        startState: {
+          to: new Date()
+        },
+        endState: {
+          to: null
+        }
+      }
     }
   },
   computed: {
     ...mapGetters('user', ['user']),
+    ...mapGetters('company', ['company']),
     step1 () {
       return this.type.value.length > 0 && this.commodity.length > 0 && this.quantity.length > 0 && this.incoterm.value.length > 0 && this.location.length > 0
     },
     step2 () {
-      return this.currency.cc.length > 0 && this.price.length > 0
+      return this.currency.cc.length > 0 && this.price.length > 0 && this.payment.length > 0 && this.availability.length > 0
     }
   },
   methods: {
+    disableTo (val) {
+      this.promoDuration.endState.to = val
+    },
     async saveTransaction () {
       let loader = this.$loading.show()
       for (let i = 0; i < this.sellerDocs.length; i++) {
@@ -723,20 +743,22 @@ export default {
         currency: this.currency.cc,
         price: this.price,
         payment: this.payment,
+        availability: this.availability,
         // Step 3
         sellerdocuments: this.sellerDocs,
         buyerdocuments: this.buyerDocs,
         jointdocuments: [],
         additionalInfo: this.additionalInfo,
         poster: this.user._id,
-        user_address: this.user.address
+        user_address: this.user.address,
+        company: this.company._id
       }
-      // console.log(deal)
+      console.log(deal)
       let response = await offerApi.postOffer(deal)
       loader.hide()
+      console.log(response.data.data)
       if (response.data.status === 'success') {
         this.$toast.success('Trabsaction has been created', '', this.notificationSystem.options.success)
-        console.log(response.data.data)
         this.disable = false
         this.clearFields()
         this.$router.push('/user/transactions')
