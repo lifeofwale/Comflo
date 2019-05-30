@@ -343,7 +343,8 @@
                   <div class="col">
                       <div class="form-group mb-5">
                           <label for="inputPhone">Phone Number <sup>*</sup></label>
-                          <input type="text" @keypress='isNumber($event)' v-model="phone" class="form-control cinput form__valid" id="inputPhone"  placeholder="234818374855" required>
+                          <vue-tel-input @onEnter='isNumber($event)' v-model="phone"></vue-tel-input>
+                          <!-- <input type="text" @keypress='isNumber($event)' v-model="phone" class="form-control cinput form__valid" id="inputPhone"  placeholder="234818374855" required> -->
                         </div>
                   </div>
                   <div class="col">
@@ -730,12 +731,14 @@
 import api from '@/api/user'
 import Header from '@/components/auth/AuthHeader'
 import Footer from '@/components/auth/AuthFooter'
+import VueTelInput from 'vue-tel-input'
 import {mapGetters, mapActions} from 'vuex'
 export default {
   name: 'User-Register',
   components: {
     Header,
-    Footer
+    Footer,
+    VueTelInput
   },
   title () {
     return `Register | Comflo Inc`

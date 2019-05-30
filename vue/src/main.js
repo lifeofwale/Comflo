@@ -17,6 +17,8 @@ import 'izitoast/dist/css/iziToast.min.css'
 
 import Tooltip from 'vue-directive-tooltip'
 import 'vue-directive-tooltip/css/index.css'
+import 'vue-tel-input/dist/vue-tel-input.css'
+import VueTelInput from 'vue-tel-input'
 import utilsMixins from './mixins/utils_mixins'
 import docsMixins from './mixins/doc_mixins'
 
@@ -27,6 +29,7 @@ Vue.use(Tooltip)
 Vue.use(VueRouter)
 Vue.use(Notify)
 Vue.use(VueLoading)
+Vue.use(VueTelInput)
 Vue.use(VueIziToast)
 Vue.component('datepicker', Datepicker)
 Vue.component('v-select', vSelect)
