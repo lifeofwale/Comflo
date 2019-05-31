@@ -14,7 +14,7 @@
       <a @click="gotoHome"><img src="/static/img/comflo__logo.jpg" alt="comflo logo"></a>
       <ul v-if="this.$route.path.includes('register')" class="nav cnav__ul align-items-center">
           <li class="nav-item cnav__li d-none d-md-block">
-            <p class="nav-link">Already have an account?</p>
+            <a class="nav-link  cnav__a">Already have an account?</a>
           </li>
         <li class="nav-item">
           <router-link :to="{ name: 'User-Login'}" class='btn__green'>
@@ -24,7 +24,7 @@
       </ul>
       <ul v-else class="nav cnav__ul align-items-center">
           <li class="nav-item cnav__li d-none d-md-block">
-            <p class="nav-link">Don’t have a Comflo Account yet??</p>
+            <a class="nav-link  cnav__a">Don’t have a Comflo Account yet??</a>
           </li>
         <li class="nav-item">
           <router-link :to="{ name: 'User-Register'}" class='btn__green'>

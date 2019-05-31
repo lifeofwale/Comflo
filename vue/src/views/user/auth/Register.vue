@@ -320,13 +320,13 @@
                       <div class="col">
                           <div class="form-group mb-5">
                               <label for="inputFirstName">First Name <sup>*</sup></label>
-                              <input type="text" v-model="fname" class="form-control cinput form__valid" id="inputFirstName" placeholder="Nachi" required>
+                              <input type="text" v-model="fname" class="form-control cinput form__valid" id="inputFirstName" placeholder="Arya" required>
                             </div>
                       </div>
                       <div class="col">
                           <div class="form-group mb-5">
                               <label for="inputLastName">Last Name <sup>*</sup></label>
-                              <input type="text" v-model="lname" class="form-control cinput form__valid" id="inputLastName" placeholder="Adaji" required>
+                              <input type="text" v-model="lname" class="form-control cinput form__valid" id="inputLastName" placeholder="Stark" required>
                             </div>
                         </div>
                     </div>
@@ -334,7 +334,7 @@
                   <div class="col">
                       <div class="form-group mb-5">
                           <label for="inputEmail">Email <sup>*</sup></label>
-                          <input type="email" v-model="email" class="form-control cinput form__valid" id="inputEmail" placeholder="nachi@comflo.com" required>
+                          <input type="email" v-model="email" class="form-control cinput form__valid" id="inputEmail" placeholder="arya@email.com" required>
                         </div>
                   </div>
                 </div>
@@ -394,7 +394,7 @@
                     <div class="col">
                         <div class="form-group mb-5">
                             <label for="inputCompanyName">Company Name <sup>*</sup></label>
-                            <input type="text" v-model="company_name" class="form-control cinput form__valid" id="inputCompanyName"  placeholder="Comflo" required>
+                            <input type="text" v-model="company_name" class="form-control cinput form__valid" id="inputCompanyName"  placeholder="Company" required>
                           </div>
                     </div>
                     <div class="col">
