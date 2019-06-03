@@ -1,190 +1,9 @@
 <template>
-    <!-- <main class="col-sm-11 ml-sm-auto col-md-11 col-lg-10 dashboard-content" role="main">
-        <div class="form-widget mt-lg-5">
-            <p v-if="mainerror.length > 0" class="text-danger text-center col-md-12">{{mainerror}}</p>
-            <p v-if="mainsuccess.length > 0" class="text-success text-center col-md-12">{{mainsuccess}}</p>
-            <loading :active.sync="visible" :can-cancel="true"></loading>
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">Posted By</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p>{{poster}}</p>
-                    </div>
-                </div> -
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">ID</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p>{{transaction.reference}}</p>
-                    </div>
-                </div>
-                <div v-if="partners.length > 0" class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">Participants</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p v-for="(partner, index) in partners" :key="index">
-                            <span class="col-md-4">{{ partner.user_id.fname }} {{ partner.user_id.lname }}</span>
-                            <span class="col-md-4">{{partner.role}}</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">Type</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p>{{transaction.type}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">Commodity</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p>{{transaction.commodity}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">Price</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p>{{price}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">Quantity</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p>{{transaction.quantity}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">INCOTERM</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p>{{transaction.incoterm}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">Payment</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p>{{transaction.payment}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">Commodity Location</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p>{{transaction.location}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">Status</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p>{{transaction.status}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <h5 class="text-muted">Category</h5>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <h5>{{transaction[10]}}</h5>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <h5 class="text-muted">Images</h5>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <h5 v-for="(image, index) in images" :key="index">
-                            <span class="col-md-4">{{image.name}}</span>
-                            <span class="col-md-4"><a @click="removeImage(index, image.url, image._id)">Remove</a></span>
-                            <span class="col-md-4"><a :href="image.url" target="_blank">View</a></span>
-                        </h5>
-                    </div>
-                </div> -
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">View Offer Documents</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p v-for="(sdoc, index) in sellerDocs" :key="index">
-                            <span class="col-md-3">{{sdoc.name}}</span>
-                            <span v-if="sdoc.uploader && sdoc.uploader !== ''" class="col-md-3">Uploaded by - {{sdoc.uploader}}</span>
-                            <span class="col-md-3"><a @click="removeDoc(index, sdoc.url, sdoc._id, sellerDocs)">Remove</a></span> -
-                            <span class="col-md-3"><a :href="sdoc.url" target="_blank">View</a></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4 pull-left">
-                        <p class="text-muted">View Requested Documents</p>
-                    </div>
-                    <div class="col-md-8 pull-right">
-                        <p v-for="(bdoc, index) in buyerDocs" :key="index">
-                            <span class="col-md-3">{{bdoc.name}}</span>
-                            <span v-if="(!bdoc.url || bdoc.url == 'false') && isPartner">
-                                <span>
-                                    <label class="fileContainer">
-                                        {{bdoc.file.name}} -
-                                        <input type="file" @change="setDocFilename($event, bdoc)" :id="index" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*"/>
-                                    </label>
-                                </span>
-                                <span>
-                                    <button @click="uploadFile($event, bdoc)" type="button" class="btn btn-action">
-                                        Upload
-                                    </button>
-                                </span>
-                            </span>
-                            <span v-if="bdoc.uploader && bdoc.uploader !== ''" class="col-md-3"><span v-if="bdoc.url && bdoc.url !== 'false'">Uploaded by</span> <span v-else>Requested by</span> - {{bdoc.uploader}}</span>
-                            <span class="col-md-3"><a @click="removeDoc(index, bdoc.url, bdoc._id, buyerDocs)">Remove</a></span> -
-                            <span v-if="bdoc.url && bdoc.url !== 'false'" class="col-md-3"><a :href="bdoc.url" target="_blank">View</a></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12 col-lg-12">
-            <template v-if="user.address == transaction.seller">
-                <p class="pull-right mt-10">
-                    <a v-link="'/user/transactions/'+transaction[0]+'/edit'" class="btn btn-round venice-bg">
-                    Edit
-                    </a>
-                </p>
-            </template> -
-            <p class="pull-right mt-10">
-                <a class="btn btn-round venice-bg" @click="negotiate()" v-if="notSame(transaction.poster, user._id) && transaction.status=='Pending'" >
-                    Negotiate
-                </a>
-                <router-link class="btn btn-round venice-bg" v-if="!notSame(transaction.poster, user._id) && transaction.status=='Pending'" :to="{ name: 'User-Edit-Deal', params: { id: encodeIt(transaction._id, transaction.reference, transaction.type) }}">
-                    Edit
-                </router-link>
-            </p>
-            <p class="pull-left mt-10">
-                <a @click="$router.go(-1)" class="btn btn-round venice-bg">
-                    Back
-                </a>
-            </p>
-        </div>
-  </main> -->
   <main class="col-sm-11 offset-sm-1 content content-m content-offset content-offset-m px-0">
         <div class="container mrt-6 mb-10">
           <div class="row">
             <div class="col-md-12">
-              <p><span class="d-inline-block"><img src="/static/img/id__icon.svg" alt="id__icon"></span> OFFER: <span
+              <p><span class="d-inline-block"><img src="/static/img/id__icon.svg" alt="id__icon"></span> OFFER ID: <span
                   class="font-weight-bold">{{transaction.reference}}</span></p>
             </div>
           </div>
@@ -194,13 +13,13 @@
                 <div class="card-body px-5">
                   <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                      <a :class="{ active: detailPart == 1 }" class="nav-item nav-link px-5" id="nav-home-tab" data-toggle="tab" @click="detailPart = 1"
+                      <a :class="{ active: detailPart == 1 }" class="nav-item nav-link px-5 cursor-active" id="nav-home-tab" data-toggle="tab" @click="detailPart = 1"
                         role="tab" aria-controls="nav-home" aria-selected="true">DETAILS</a>
-                      <a :class="{ active: detailPart == 2 }" class="nav-item nav-link px-5"  id="nav-profile-tab" data-toggle="tab" @click="detailPart = 2"
+                      <a :class="{ active: detailPart == 2 }" class="nav-item nav-link px-5 cursor-active"  id="nav-profile-tab" data-toggle="tab" @click="detailPart = 2"
                         role="tab" aria-controls="nav-profile" aria-selected="true">DOCUMENTS</a>
-                      <a :class="{ active: detailPart == 3 }" class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" @click="detailPart = 3" role="tab"
+                      <a :class="{ active: detailPart == 3 }" class="nav-item nav-link cursor-active" id="nav-contact-tab" data-toggle="tab" @click="detailPart = 3" role="tab"
                         aria-controls="nav-contact" aria-selected="true">PARTICIPANTS</a>
-                      <a :class="{ active: detailPart == 4 }" class="nav-item nav-link" id="nav-contract-tab" data-toggle="tab" @click="detailPart = 4"
+                      <a :class="{ active: detailPart == 4 }" class="nav-item nav-link cursor-active" id="nav-contract-tab" data-toggle="tab" @click="detailPart = 4"
                         role="tab" aria-controls="nav-contract" aria-selected="true">CONTRACT</a>
                     </div>
                   </nav>
@@ -234,7 +53,7 @@
                             <div v-if="transaction.status == 'pending'" class="statusblock-yellow text-center">{{transaction.status | capitalCase }}</div>
                             <div v-else-if="transaction.status == 'completed'" class="statusblock-green text-center">{{transaction.status | capitalCase}}</div>
                             <div v-else-if="transaction.status == 'contract'" class="statusblock-grey text-center">{{transaction.status | capitalCase}}</div>
-                            <div v-else-if="transaction.status == 'active'" class="statusblock-blue text-center">{{transaction.status | capitalCase}}</div>
+                            <div v-else-if="transaction.status == 'in progress'" class="statusblock-blue text-center">{{transaction.status | capitalCase}}</div>
                             <div v-else-if="transaction.status == 'terminated'" class="statusblock-red text-center">{{transaction.status | capitalCase}}</div>
                           </div>
                           <div class="col">
@@ -573,7 +392,7 @@
                             <div class="form-group mb-5">
                               <label for="inputFilename">FILE NAME <sup>*</sup></label>
                               <input type="text" v-model="newDoc.name" class="form-control cinput" id="inputFilename"
-                                placeholder="Enter file name" required>
+                                 required>
                             </div>
                             <div class="custom-file cwrap__file mb-4">
                               <input @change="setDocFilename($event, newDoc)" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*" type="file" class="custom-file-input" id="customFile-2">

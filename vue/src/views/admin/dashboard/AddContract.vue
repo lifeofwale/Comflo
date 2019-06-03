@@ -1,57 +1,4 @@
 <template>
-  <!-- <main class="col-sm-11 ml-sm-auto col-md-10 dashboard-content mt-lg-5" role="main">
-            <form action="/admin/dashboard/projects/create" method="post" enctype="multipart/form-data">
-                <div class="width-100">
-                    <h4 class="pull-left">New Contract</h4>
-                </div>
-                <div class="width-100 dashboard-widget">
-                    <div class="row">
-                        <p v-if="mainerror.length > 0" class="text-danger text-center col-md-12">{{mainerror}}</p>
-                        <loading :active.sync="visible" :can-cancel="true"></loading>
-                        <div class="col-md-12 col-lg-12">
-                            <div class="form-widget">
-                              <div class="form-group">
-                                <label>Shipment Date</label>
-                                <datepicker v-model="shipmentdate" :input-class="'form-control'" :placeholder="'Select Date'"></datepicker>
-                              </div>
-                              <div class="form-group">
-                                  <label>Destination</label>
-                                  <input type="text" v-model="destination" class="form-control" placeholder="Destination">
-                              </div>
-                              <div class="form-group">
-                                  <label>Origin</label>
-                                  <input type="text" v-model="origin" class="form-control" placeholder="Origin">
-                              </div>
-                              <div class="form-group">
-                                  <label>Seller</label>
-                                  <v-select v-model="seller" :options='users'>
-                                  </v-select>
-                              </div>
-                              <div class="form-group">
-                                  <label>Buyer</label>
-                                  <v-select v-model="buyer" :options='users'>
-                                  </v-select>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-12">
-                    <p class="pull-right mt-10">
-                        <button type="button" @click="addContract" :disabled="!emptyText || disable" class="btn btn-round venice-bg">
-                            Next
-                        </button>
-                    </p>
-                    <p class="pull-left mt-10">
-                        <router-link :to="{ name: 'Admin-Deals'}">
-                            <a class="btn btn-round venice-bg">
-                            Back
-                            </a>
-                        </router-link>
-                    </p>
-                </div>
-            </form>
-        </main> -->
   <main class="col-sm-11 offset-sm-1 content content-m content-offset content-offset-m px-0">
     <div class="container mrt-6 mb-10">
       <div class="d-flex align-content-center align-items-center justify-content-between request__query">
@@ -108,7 +55,7 @@
               </div>
               <div class="col">
                 <div class="form-group mb-5">
-                  <label for="inputBuyers">Buyers</label>
+                  <label for="inputBuyers">Buyer</label>
                   <v-select v-model="buyer" :options='users' required>
                    </v-select>
                 </div>

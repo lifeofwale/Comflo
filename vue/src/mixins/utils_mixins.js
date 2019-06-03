@@ -37,19 +37,21 @@ export default {
         options: {
           ballon: {
             balloon: true,
-            position: 'topRight'
+            position: 'topCenter'
           },
           info: {
-            position: 'topRight'
+            position: 'topCenter'
           },
           success: {
-            position: 'topRight'
+            timeout: false,
+            position: 'topCenter'
           },
           warning: {
-            position: 'topRight'
+            position: 'topCenter'
           },
           error: {
-            position: 'topRight'
+            timeout: false,
+            position: 'topCenter'
           }
         }
       }

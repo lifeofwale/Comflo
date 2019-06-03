@@ -24,7 +24,7 @@
       </ul>
       <ul v-else class="nav cnav__ul align-items-center">
           <li class="nav-item cnav__li d-none d-md-block">
-            <a class="nav-link  cnav__a">Don’t have a Comflo Account yet??</a>
+            <a class="nav-link  cnav__a">Don’t have a Comflo Account yet?</a>
           </li>
         <li class="nav-item">
           <router-link :to="{ name: 'User-Register'}" class='btn__green'>

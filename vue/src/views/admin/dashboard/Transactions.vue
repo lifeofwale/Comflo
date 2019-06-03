@@ -117,7 +117,7 @@
                     <div v-if="transaction.status.toLowerCase() == 'pending'" class="statusblock-yellow--m text-center">{{transaction.status | capitalCase }}</div>
                     <div v-else-if="transaction.status.toLowerCase() == 'completed'" class="statusblock-green--m text-center">{{transaction.status | capitalCase}}</div>
                     <div v-else-if="transaction.status.toLowerCase() == 'contract'" class="statusblock-grey--m text-center">{{transaction.status | capitalCase}}</div>
-                    <div v-else-if="transaction.status.toLowerCase() == 'active'" class="statusblock-blue--m text-center">{{transaction.status | capitalCase}}</div>
+                    <div v-else-if="transaction.status.toLowerCase() == 'in progress'" class="statusblock-blue--m text-center">{{transaction.status | capitalCase}}</div>
                     <div v-else-if="transaction.status.toLowerCase() == 'terminated'" class="statusblock-red--m text-center">{{transaction.status | capitalCase}}</div>
                   </td>
                   <td>

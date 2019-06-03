@@ -48,7 +48,7 @@
                   <form action="">
                     <div class="form-group mb-5">
                       <label for="inputEmail">Email Address <sup>*</sup></label>
-                      <input type="text" v-model="email" class="form-control cinput form__valid" placeholder="Nachi@gmail.com" required>
+                      <input type="text" v-model="email" class="form-control cinput form__valid"  required>
                     </div>
                     <div class="form-group mb-5">
                       <label for="inputFirstName">Password <sup>*</sup></label>
@@ -57,7 +57,7 @@
                               <a @click="switchVisibility"><i class="fa fa-eye-slash show-pass" style="color:#83c225;"
                                   aria-hidden="true"></i></a> -->
                       <div class="input-group" id="show_hide_password">
-                              <input :type="passwordFieldType" class="form-control cinput" placeholder="**********" id="inputPassword" v-model="password" required>
+                              <input :type="passwordFieldType" class="form-control cinput" id="inputPassword" v-model="password" required>
                               <a @click="switchVisibility"><i class="fa fa-eye-slash show-pass" style="color:#83c225;"
                                   aria-hidden="true"></i></a>
                             </div>

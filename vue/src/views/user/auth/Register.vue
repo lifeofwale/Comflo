@@ -320,13 +320,13 @@
                       <div class="col">
                           <div class="form-group mb-5">
                               <label for="inputFirstName">First Name <sup>*</sup></label>
-                              <input type="text" v-model="fname" class="form-control cinput form__valid" id="inputFirstName" placeholder="Arya" required>
+                              <input type="text" v-model="fname" class="form-control cinput form__valid" id="inputFirstName" required>
                             </div>
                       </div>
                       <div class="col">
                           <div class="form-group mb-5">
                               <label for="inputLastName">Last Name <sup>*</sup></label>
-                              <input type="text" v-model="lname" class="form-control cinput form__valid" id="inputLastName" placeholder="Stark" required>
+                              <input type="text" v-model="lname" class="form-control cinput form__valid" id="inputLastName" required>
                             </div>
                         </div>
                     </div>
@@ -334,7 +334,7 @@
                   <div class="col">
                       <div class="form-group mb-5">
                           <label for="inputEmail">Email <sup>*</sup></label>
-                          <input type="email" v-model="email" class="form-control cinput form__valid" id="inputEmail" placeholder="arya@email.com" required>
+                          <input type="email" v-model="email" class="form-control cinput form__valid" id="inputEmail" required>
                         </div>
                   </div>
                 </div>
@@ -351,7 +351,7 @@
                       <div class="form-group mb-5">
                           <label for="inputPassword">Password <sup>*</sup></label>
                           <div class="input-group" id="show_hide_password">
-                              <input :type="passwordFieldType" class="form-control cinput" placeholder="**********" id="inputPassword" v-model="password" required>
+                              <input :type="passwordFieldType" class="form-control cinput" id="inputPassword" v-model="password" required>
                               <a @click="switchVisibility"><i class="fa fa-eye-slash show-pass" style="color:#83c225;"
                                   aria-hidden="true"></i></a>
                             </div>
@@ -394,7 +394,7 @@
                     <div class="col">
                         <div class="form-group mb-5">
                             <label for="inputCompanyName">Company Name <sup>*</sup></label>
-                            <input type="text" v-model="company_name" class="form-control cinput form__valid" id="inputCompanyName"  placeholder="Company" required>
+                            <input type="text" v-model="company_name" class="form-control cinput form__valid" id="inputCompanyName" required>
                           </div>
                     </div>
                     <div class="col">
@@ -661,7 +661,7 @@
                         <!-- <select v-model="company_state" class="form-control cselect" id="inputState" >
                           <option>Select country</option>
                         </select> -->
-                        <input v-model="company_state" type="text" class="form-control cinput form__valid" id="inputState"  placeholder="Lagos" required>
+                        <input v-model="company_state" type="text" class="form-control cinput form__valid" id="inputState" required>
                       </div>
                     </div>
                     <div class="col">
@@ -672,13 +672,13 @@
                               <!-- <select v-model="com" class="form-control cselect" id="inputCity" >
                                 <option>Select city</option>
                               </select> -->
-                              <input v-model="company_city" type="text" class="form-control cinput form__valid" id="inputCity"  placeholder="Maryland" required>
+                              <input v-model="company_city" type="text" class="form-control cinput form__valid" id="inputCity" required>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-5">
                                 <label for="inputPost">Post/Zip Code <sup>*</sup></label>
-                                <input v-model="company_zip_code" type="number" class="form-control cinput form__valid" id="inputPost" placeholder="100001" required>
+                                <input v-model="company_zip_code" type="number" class="form-control cinput form__valid" id="inputPost" required>
                               </div>
                           </div>
                       </div>
@@ -689,13 +689,13 @@
                           <div class="col">
                                   <div class="form-group mb-5">
                                       <label for="inputAddress">Street Address <sup>*</sup></label>
-                                      <input v-model="company_address" type="text" class="form-control cinput form__valid" id="inputAddress"  placeholder="Block 96 Exile" required>
+                                      <input v-model="company_address" type="text" class="form-control cinput form__valid" id="inputAddress" required>
                                     </div>
                               </div>
                           <div class="col">
                               <div class="form-group mb-5">
                                   <label for="inputJob">Job Title<sup>*</sup></label>
-                                  <input v-model="company_position" type="text" class="form-control cinput form__valid" id="inputJob"  placeholder="Sales Representative" required>
+                                  <input v-model="company_position" type="text" class="form-control cinput form__valid" id="inputJob" required>
                                 </div>
                           </div>
 

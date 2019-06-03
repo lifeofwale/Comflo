@@ -37,11 +37,11 @@
                 <div class="card-body px-5">
                   <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                      <a :class="{ active: isActive === 0 }" @click="isActive = 0" class="nav-item nav-link px-5" id="nav-home-tab" data-toggle="tab"
+                      <a :class="{ active: isActive === 0 }" @click="isActive = 0" class="nav-item nav-link px-5 cursor-active" id="nav-home-tab" data-toggle="tab"
                         role="tab" aria-controls="nav-home" aria-selected="true">PERSONAL INFORMATION</a>
-                      <a v-if="user.type.toLowerCase() === 'admin'" :class="{ active: isActive === 1 }" @click="isActive = 1"  class="nav-item nav-link px-5" id="nav-profile-tab" data-toggle="tab"
+                      <a v-if="user.type.toLowerCase() === 'admin'" :class="{ active: isActive === 1 }" @click="isActive = 1"  class="nav-item nav-link px-5 cursor-active" id="nav-profile-tab" data-toggle="tab"
                         role="tab" aria-controls="nav-profile" aria-selected="false">COMPANY INFORMATON</a>
-                      <a :class="{ active: isActive === 2 }" @click="isActive = 2"  class="nav-item nav-link px-5" id="nav-profile-tab" data-toggle="tab"
+                      <a :class="{ active: isActive === 2 }" @click="isActive = 2"  class="nav-item nav-link px-5" id="nav-profile-tab cursor-active" data-toggle="tab"
                         role="tab" aria-controls="nav-profile" aria-selected="false">CHANGE PASSWORD</a>
 
                     </div>

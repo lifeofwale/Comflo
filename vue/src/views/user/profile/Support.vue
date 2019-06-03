@@ -32,7 +32,7 @@
               <div class="form-group mb-5">
                 <label for="inputmoreinfo">Give us the details
                   <br>
-                  <small>Please provide us with as much details as you can. We’ll reply in a few hours.</small>
+                  <small>Please provide us with as much details as you can. We will reply shortly.</small>
                 </label>
                 <textarea v-model="body" class="form-control cinput" id="inputmoreinfo" rows="5" required>
                           </textarea>

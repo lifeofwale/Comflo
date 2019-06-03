@@ -1,48 +1,4 @@
 <template>
-    <!-- <main class="col-sm-11 ml-sm-auto col-md-11 col-lg-10 dashboard-content" role="main">
-        <div class="pull-left mt-lg-5">
-            <h3>Marketplace</h3>
-        </div>
-        <p class="pull-right mt-lg-5">
-            <router-link :to="{ name: 'New-User-Deal'}" class='btn btn-round venice-bg'>
-                New Transaction
-            </router-link>
-        </p>
-        <div class="table-responsive dashboard-widget">
-          <p v-if="mainerror.length > 0" class="text-danger text-center col-md-12 mt-lg-5">{{mainerror}}</p>
-          <p v-if="!isOnline" class="text-danger text-center col-md-12 mt-lg-5">You are not connected to the internet</p>
-            <table id="projects" class="table" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th class=" hidden-md-down"></th>
-                    <th>ID</th>
-                    <th>Type</th>
-                    <th>Commodity</th>
-                    <th>Quantity (Tonnes)</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(deal, index) in collections" :key="index">
-                      <td class="hidden-md-down"></td>
-                          <td>{{deal.reference}}</td>
-                          <td>{{deal.type}}</td>
-                          <td>{{deal.commodity}}</td>
-                          <td>{{deal.quantity}}</td>
-                          <td>{{deal.price}}</td>
-                          <td v-bind:class="{ 'text-warning': deal.status == 'Pending', 'text-info': deal.status == 'Active', 'text-primary': deal.status == 'In Progress', 'text-danger': deal.status == 'Terminated', 'text-success': deal.status == 'Completed', 'text-dark': deal.status == 'Contract' }" >{{deal.status}}</td>
-                          <td>
-                              <router-link :to="{ name: 'User-Deal', params: { id: encodeIt(deal._id, deal.reference, deal.type) }}">
-                                  View
-                              </router-link>
-                          </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-  </main> -->
   <main class="col-sm-11 offset-sm-1 content content-m content-offset content-offset-m px-0">
     <div class="container mrt-6">
         <div class="d-flex align-content-center align-items-center justify-content-between request__query">
@@ -195,13 +151,9 @@
 </template>
 <script>
 import api from '@/api/offer'
-import Header from '@/components/Header'
 import {mapGetters} from 'vuex'
 export default {
   name: 'Index',
-  components: {
-    Header
-  },
   dashboard: true,
   title () {
     return `Marketplace | Comflo Inc`
@@ -226,7 +178,7 @@ export default {
   methods: {
     async getTransactions () {
       let loader = this.$loading.show()
-      let response = await api.getOffers('?status=pending')
+      let response = await api.getOffers('?status=pending&type=Sell')
       loader.hide()
       if (response.data.status === 'success') {
         console.log(response.data.data)
