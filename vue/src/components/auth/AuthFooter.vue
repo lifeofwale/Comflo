@@ -7,10 +7,10 @@
         </router-link>
       </li>
       <li class="nav-item footer__li">
-        <a href="#" class="nav-link footer__a">Terms of Service</a>
+        <a href="https://www.comflo.com/wp-content/uploads/2018/10/Comflo-Terms-of-Use-July-2018.pdf" target="_blank" class="nav-link footer__a">Terms of Use</a>
       </li>
       <li class="nav-item footer__li">
-        <a href="#" class="nav-link footer__a">Privacy Policy</a>
+        <a href="https://www.comflo.com/wp-content/uploads/2018/10/Comflo-Privacy-Policy-0718.pdf" target="_blank" class="nav-link footer__a">Privacy Policy</a>
       </li>
     </ul>
     <ul class="nav footer__ul justify-content-center text-center">

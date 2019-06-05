@@ -300,7 +300,7 @@
               <div class="row">
                 <div class="col">
                   <div class="form-group mb-5">
-                    <label for="inputQuantity">MARKET AVAILABILITY <sup>*</sup></label>
+                    <label for="inputQuantity">EXPIRY DATE <sup>*</sup></label>
                     <datepicker v-model="availability" :input-class="'form-control cinput'" :placeholder="'Select Date'" :disabled="promoDuration.startState" v-on:selected="disableTo" required></datepicker>
                   </div>
                 </div>

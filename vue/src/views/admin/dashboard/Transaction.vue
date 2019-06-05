@@ -198,6 +198,16 @@
                                     id="inlineRadio3" value="Bank">
                                   <label class="form-check-label" for="inlineRadio3">Bank</label>
                                 </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" v-model="partner.role" name="inlineRadioOptions"
+                                    id="inlineRadio3" value="Buyer">
+                                  <label class="form-check-label" for="inlineRadio3">Buyer</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" v-model="partner.role" name="inlineRadioOptions"
+                                    id="inlineRadio3" value="Seller">
+                                  <label class="form-check-label" for="inlineRadio3">Seller</label>
+                                </div>
                               </div>
                             </div>
                           </div>

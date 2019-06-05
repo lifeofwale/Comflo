@@ -59,7 +59,7 @@
                             </div>
                             <div v-if="transaction.availability" class="col-12 mb-3">
                                 <p class="market__desc">
-                                    MARKET AVAILABILITY
+                                    EXPIRY DATE
                                 </p>
                                 <p class="market__value d-inline-block">
                                     <span class="d-inline">
