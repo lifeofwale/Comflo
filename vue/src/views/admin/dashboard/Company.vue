@@ -79,7 +79,7 @@
                           <p class="mt-0 mb-1 font-weight-bold">{{doc.name}}</p>
                         </div>
                       </div>
-                      <a href="#" @click='makeDropdown(index)' :id="'show-'+index" class="btn btn__green-v" data-toggle="dropdown" aria-haspopup="true"
+                      <a @click='makeDropdown(index)' :id="'show-'+index" class="btn btn__green-v" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false"><i class="fas fa-ellipsis-v" style="color:#83c225"></i></a>
                       <div :id="'show-2-'+index" class="dropdown-menu dropdown-menu-right shadow border-0" style="font-size:1.5rem;">
                         <a target="_blank" :href="doc.url" class="dropdown-item" type="button"><i class="far fa-eye mr-4"></i>View file</a>
