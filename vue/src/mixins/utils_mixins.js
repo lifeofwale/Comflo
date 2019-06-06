@@ -31,7 +31,7 @@ export default {
       allCollections: [],
       query: '',
       commodities: [],
-      filterQuery: 'all',
+      filterQuery: '',
       pagination: {},
       notificationSystem: {
         options: {
