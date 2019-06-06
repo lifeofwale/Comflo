@@ -76,7 +76,10 @@
 .grey__bg.active{
     background-color: $clr__green;
 }
-
+.a-bg-d{
+    border: solid 0.6px #83c225;
+    background-color: rgba(131, 194, 37, 0.1);
+}
 .bg-grey{
     background-color: #F5F6FA;
 }
