@@ -146,6 +146,14 @@
     color:#ef0000;
     background-color: rgba(239,0,0,0.1);
  }
+ .statusblock-red--m{
+    width: auto;
+    font-size: 1.6rem;
+    height: 2.7rem;
+    border-radius: 3px;
+    color:#ef0000;
+    background-color: rgba(239,0,0,0.1);
+ }
  .statusblock-blue{
     width: 7.8rem;
     font-size: 1.3rem;
@@ -163,6 +171,17 @@
     color:#0a6994;
     background-color: rgba(10,105,148,0.1)
  }
+
+ .statusblock-grey--m{
+    width: auto;
+    font-size: 1.6rem;
+    height: 2.7rem;
+    border-radius: 3px;
+    color:#999999;
+    background-color: rgba(153,153,153,0.1)
+ }
+
+
  .status-yellow{
     width: 14px;
     height: 14px;
