@@ -14,53 +14,16 @@
       </li>
     </ul>
     <ul class="nav footer__ul justify-content-center text-center">
-      <li class="nav-item footer__li">
-        <a href="#" target="_blank" class="nav-link footer__a"><i class="fab fa-medium-m"></i></a>
-      </li>
-      <li class="nav-item footer__li">
-        <a href="#" target="_blank" class="nav-link footer__a"><i class="fab fa-facebook"></i></a>
-      </li>
-      <li class="nav-item footer__li">
-        <a href="#" target="_blank" class="nav-link footer__a"><i class="fab fa-twitter-square"></i></a>
-      </li>
-      </ul>
+      <footer-link></footer-link>
+    </ul>
   </footer>
-  <!-- <footer class="dashboard-foot">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-9 col-sm-12 col-xs-12">
-          <p>&copy; 2018 Comflo. All rights reserved.</p>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-          <ul class="social-icons">
-            <li>
-              <a href="#" target="_blank">
-                <i class="fa fa-facebook"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank">
-                <i class="fa fa-twitter"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank">
-                <i class="fa fa-instagram"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank">
-                <i class="fa fa-linkedin"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer> -->
 </template>
 <script>
+import FooterLink from '@/components/FooterLink'
 export default {
-  name: 'MinFrontFooter'
+  name: 'MinFrontFooter',
+  components: {
+    FooterLink
+  }
 }
 </script>

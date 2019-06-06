@@ -80,6 +80,7 @@
                 <p class="empty-state m-auto"></p>
                 <p>We offer support for special
                 trade request </p>
+                <small>(Coming Soon)</small>
             </div>
             </a>
         </div>

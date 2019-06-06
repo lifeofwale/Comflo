@@ -34,7 +34,7 @@
           <span class="d-block mt-1">Transactions</span>
         </a> -->
       </li>
-      <li v-if='user.company_type.toLowerCase() == "admin"' class="nav-item aside-m__item">
+      <li v-if='user.company_type && user.company_type.toLowerCase() == "admin"' class="nav-item aside-m__item">
         <router-link :to="{ name: 'User-Company'}" :class="{ active: usercompany }"  class="nav-link aside-m__a text-center">
           <i class="fas fa-building"></i>
           <span class="d-block mt-1">Company</span>

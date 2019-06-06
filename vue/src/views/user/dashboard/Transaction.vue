@@ -272,7 +272,7 @@
                     </router-link>
                   </div>
                   <div class="float-right">
-                    <button v-if="user._id === transaction.buyer || user._id === transaction.seller" @click="showModal = true" type="button" class="btn button__primary-m" data-toggle="modal"
+                    <button v-if="user._id === transaction.buyer || user._id === transaction.seller || isPartner" @click="showModal = true" type="button" class="btn button__primary-m" data-toggle="modal"
                       data-target="#exampleModalCenter">Add Document</button>
                     <button @click="negotiate()" v-if="notSame(transaction.poster, user._id) && transaction.status == 'pending'" type="button" class="btn button__primary-m" data-toggle="modal"
                     data-target="#exampleModalCenter">Negotiate</button>
@@ -410,6 +410,11 @@ export default {
         loader.hide()
         if (response.data.status === 'success') {
           this.partners = response.data.data.partner
+          this.partners.map((partner) => {
+            if (partner.user_id._id === this.user._id) {
+              this.isPartner = true
+            }
+          })
         }
         this.disable = false
       } catch (error) {
