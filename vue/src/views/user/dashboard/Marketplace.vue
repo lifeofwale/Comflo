@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group mx-sm-3 d-none d-md-block">
                         <select @change="filter(6)" v-model="filterQuery" class="form-control search-input">
-                            <option value="all">Filter by commodity</option>
+                            <option value="">Filter by commodity</option>
                             <option v-for="(commodity, index) in commodities" :key="index" :value="commodity">{{commodity}}</option>
                         </select>
                     </div>

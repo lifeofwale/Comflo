@@ -11,7 +11,7 @@
           <header class="navbar content__header">
             <a href="#"><img src="/static/img/comflo__logo.png" alt="comflo__logo"></a>
             <ul class="nav align-items-center">
-              <li class="nav-item px-3">
+              <!-- <li class="nav-item px-3">
                 <div class="dropdown">
                   <a v-click-outside="hideNotif" @click="isNotifDropdownOpen = !isNotifDropdownOpen" class="content__notify" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="true">
@@ -36,7 +36,7 @@
                   </ul>
                 </div>
 
-              </li>
+              </li> -->
               <li class="nav-item px-3">
                 <div class="dropdown">
                   <a v-click-outside="hideProfile" @click="isProfileDropdownOpen = !isProfileDropdownOpen" class="content__launch" href="#" role="button" id="dropdownMenuLink-2" data-toggle="dropdown"

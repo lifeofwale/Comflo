@@ -26,9 +26,13 @@
                   <div class="tab-content" id="nav-tabContent">
                     <div :class="{ active: detailPart === 1, show: detailPart === 1, fade: detailPart != 1  }" class="tab-pane" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                       <div class="market__details mt-4">
-                        <p class="font-weight-bold"><span class="d-inline-block mr-2"><img src="/static/img/paper_icon.svg"
-                              alt="paper icon"></span>QUICK DETAILS</p>
-                        <p class="empty-state"></p>
+                        <div class="d-flex justify-content-between">
+                          <span>
+                              <p class="font-weight-bold"><span class="d-inline-block mr-2"><img src="/static/img/paper_icon.svg" alt="paper icon"></span>QUICK DETAILS</p>
+                              <p class="empty-state"></p>
+                          </span>
+                          <a href="#">Edit Transaction</a>
+                        </div>
                         <div class="row mt-5">
                           <div class="col">
                             <p class="market__desc">
@@ -360,7 +364,8 @@
                             <option value="Completed">Completed</option>
                           </select> -->
                           <v-select v-model="status" :options='[
-                            {"value":"Pending", "label":"Pending"},
+                            {"value":"Pending",
+                            "label":"Pending"},
                             {"value":"In Progress", "label":"In Progress"},
                             {"value":"Contract", "label":"Contract"},
                             {"value":"Completed", "label":"Completed"},
