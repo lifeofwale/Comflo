@@ -102,15 +102,41 @@
                                     {{new Date(transaction.createdAt).getDate() + "/" + (new Date(transaction.createdAt).getMonth() + 1) + "/" + new Date(transaction.createdAt).getFullYear()}}
                                 </p>
                             </div>
-                            <div v-if="transaction.availability" class="col-12 mb-3">
+                            <div v-if="transaction.status" class="col-12 mb-3">
                                 <p class="market__desc">
-                                    EXPIRY DATE
+                                    STATUS
                                 </p>
                                 <p class="market__value d-inline-block">
-                                    <span class="d-inline">
-                                        <div class="d-inline-block status-red"></div>
-                                    </span>
-                                    <span class="d-inline-block">{{daysLeft(transaction.availability)}} days left</span>
+                                    <template v-if="transaction.status.toLowerCase() == 'pending'">
+                                        <span class="d-inline">
+                                            <div class="d-inline-block status-yellow"></div>
+                                        </span>
+                                        <span class="d-inline-block">{{transaction.status | capitalCase }}</span>
+                                    </template>
+                                    <template v-else-if="transaction.status.toLowerCase() == 'completed'">
+                                        <span class="d-inline">
+                                            <div class="d-inline-block status-green"></div>
+                                        </span>
+                                        <span class="d-inline-block">{{transaction.status | capitalCase }}</span>
+                                    </template>
+                                    <template v-else-if="transaction.status.toLowerCase() == 'contract'">
+                                        <span class="d-inline">
+                                            <div class="d-inline-block status-grey"></div>
+                                        </span>
+                                        <span class="d-inline-block">{{transaction.status | capitalCase }}</span>
+                                    </template>
+                                    <template v-else-if="transaction.status.toLowerCase() == 'in progress'">
+                                        <span class="d-inline">
+                                            <div class="d-inline-block status-blue"></div>
+                                        </span>
+                                        <span class="d-inline-block">{{transaction.status | capitalCase }}</span>
+                                    </template>
+                                    <template v-else-if="transaction.status.toLowerCase() == 'terminated'">
+                                        <span class="d-inline">
+                                            <div class="d-inline-block status-red"></div>
+                                        </span>
+                                        <span class="d-inline-block">{{transaction.status | capitalCase }}</span>
+                                    </template>
                                 </p>
                             </div>
                         </div>
@@ -234,13 +260,7 @@ export default {
         loader.hide()
         this.disable = false
       } catch (error) {
-        if (error.message === 'Network Error') {
-          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
-        } else {
-          this.$toast.error(error.message, '', this.notificationSystem.options.error)
-        }
-        loader.hide()
-        this.disable = false
+        this.handleError(error, loader)
       }
     }
   }

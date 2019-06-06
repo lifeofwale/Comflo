@@ -14,7 +14,7 @@ export default {
   },
 
   login: 'users/signin',
-  // verify: 'users/activate-email',
+  verify: 'users/activate-email',
   resend: 'users/resend-token',
   register: 'users/signup',
   sendToken: 'users/send-token',
@@ -77,7 +77,7 @@ export default {
     try {
       this.headers.Authorization = 'Bearer ' + UserStore.state.user.token
       console.log(this.headers.Authorization)
-      const response = blackAxios.patch(this.checkToken, dargs, {
+      const response = blackAxios.patch(this.verify, dargs, {
         headers: this.headers
       })
       return response

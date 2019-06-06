@@ -5,7 +5,8 @@
       <div class="text-center">
         <img src="/static/img/comflo__logo.png" class="mb-4" alt="comflo__logo">
       </div>
-      <div class="row">
+      <div class="d-flex justify-content-center align-items-center" style="height:70vh;overflow-y:auto;overflow-x:hidden;">
+        <div class="row">
         <div class="col-sm-8">
           <div class="text-left">
             <h2 class="cmedium-text mb-4">Know Your Client</h2>
@@ -88,6 +89,7 @@
         </div>
         <side-card></side-card>
       </div>
+      </div>
       <p class="text-center  p-copyright">© 2019 Comflo. All rights reserved.</p>
     </div>
     <div v-if="showModal === true" class="modal-backdrop fade show"></div>
@@ -132,36 +134,40 @@ export default {
     async uploadKYC () {
       const loader = this.$loading.show()
       this.disable = true
-      const companyLicense = this.companyLicense.file
-      const personalID = this.personalID.file
-      if (companyLicense.name && personalID.name) {
-        const [companyLicenseUrl, personalIDUrl] = await Promise.all([upload(companyLicense, 'Company-License', this.user._id), upload(personalID, 'Personal-ID', this.user._id)])
-        console.log(companyLicenseUrl, personalIDUrl)
-        const kycDetails = {
-          id: this.company._id,
-          user_id: this.user._id,
-          company_id_url: personalIDUrl,
-          company_id_name: personalID.name,
-          registeration_url: companyLicenseUrl,
-          registeration_name: companyLicense.name
-        }
-        const response = await companyApi.companyKyc(this.company._id, kycDetails)
-        const company = this.cleanObject(response.data.data)
-        this.addCompany(company)
-        // console.log(response)
-        if (response.data.status === 'success') {
-          this.$toast.success('KYC Upload Successful!', '', this.notificationSystem.options.success)
-          this.$router.push('/user')
+      try {
+        const companyLicense = this.companyLicense.file
+        const personalID = this.personalID.file
+        if (companyLicense.name && personalID.name) {
+          const [companyLicenseUrl, personalIDUrl] = await Promise.all([upload(companyLicense, 'Company-License', this.user._id), upload(personalID, 'Personal-ID', this.user._id)])
+          console.log(companyLicenseUrl, personalIDUrl)
+          const kycDetails = {
+            id: this.company._id,
+            user_id: this.user._id,
+            company_id_url: personalIDUrl,
+            company_id_name: personalID.name,
+            registeration_url: companyLicenseUrl,
+            registeration_name: companyLicense.name
+          }
+          const response = await companyApi.companyKyc(this.company._id, kycDetails)
+          const company = this.cleanObject(response.data.data)
+          this.addCompany(company)
+          // console.log(response)
+          if (response.data.status === 'success') {
+            this.$toast.success('KYC Upload Successful!', '', this.notificationSystem.options.success)
+            this.$router.push('/user')
+          } else {
+            this.$toast.error(response.data.data, '', this.notificationSystem.options.error)
+            // this.mainerror = response.data.message
+          }
+          this.disable = false
         } else {
-          this.$toast.error(response.data.data, '', this.notificationSystem.options.error)
-          // this.mainerror = response.data.message
+          this.$toast.error('Please select your Company ID and Personal ID for verification', '', this.notificationSystem.options.error)
         }
+        loader.hide()
         this.disable = false
-      } else {
-        this.$toast.error('Please select your Company ID and Personal ID for verification', '', this.notificationSystem.options.error)
+      } catch (error) {
+        this.handleError(error, loader)
       }
-      loader.hide()
-      this.disable = false
     }
   }
 }

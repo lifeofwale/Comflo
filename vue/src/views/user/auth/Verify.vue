@@ -72,34 +72,42 @@ export default {
     async activateUser () {
       const loader = this.$loading.show()
       this.disable = true
-      const details = {
-        rec_token: this.token
+      try {
+        const details = {
+          rec_token: this.token
+        }
+        let response = await api.userverify(details)
+        loader.hide()
+        console.log(response)
+        // console.log(response.data.status)
+        if (response.data.status === 'success') {
+          this.$toast.success('Activation Successful!', '', this.notificationSystem.options.success)
+          this.$router.push('/welcome')
+        } else {
+          this.$toast.error(response.data.message, '', this.notificationSystem.options.error)
+        }
+        this.disable = false
+      } catch (error) {
+        this.handleError(error, loader)
       }
-      let response = await api.userverify(details)
-      loader.hide()
-      console.log(response)
-      // console.log(response.data.status)
-      if (response.data.status === 'success') {
-        this.$toast.success('Activation Successful!', '', this.notificationSystem.options.success)
-        this.$router.push('/welcome')
-      } else {
-        this.$toast.error(response.data.message, '', this.notificationSystem.options.error)
-      }
-      this.disable = false
     },
     async resendToken () {
       const loader = this.$loading.show()
       this.disable = true
-      let response = await api.userresend()
-      loader.hide()
-      console.log(response)
-      // console.log(response.data.status)
-      if (response.data.status === 'success') {
-        this.$toast.success('Token has been sent', '', this.notificationSystem.options.success)
-      } else {
-        this.$toast.error(response.data.message, '', this.notificationSystem.options.error)
+      try {
+        let response = await api.userresend()
+        loader.hide()
+        console.log(response)
+        // console.log(response.data.status)
+        if (response.data.status === 'success') {
+          this.$toast.success('Token has been sent', '', this.notificationSystem.options.success)
+        } else {
+          this.$toast.error(response.data.message, '', this.notificationSystem.options.error)
+        }
+        this.disable = false
+      } catch (error) {
+        this.handleError(error, loader)
       }
-      this.disable = false
     }
   }
 }

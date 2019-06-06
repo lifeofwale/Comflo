@@ -413,62 +413,66 @@ export default {
     },
     async saveTransaction () {
       let loader = this.$loading.show()
-      for (let i = 0; i < this.sellerDocs.length; i++) {
-        let file = this.sellerDocs[i].file
-        // console.log(file)
-        let url = ''
-        if (file.name) {
-          url = await upload(file, 'seller-docs', this.commodity)
-          this.sellerDocs[i].uploader = this.user._id
+      try {
+        for (let i = 0; i < this.sellerDocs.length; i++) {
+          let file = this.sellerDocs[i].file
+          // console.log(file)
+          let url = ''
+          if (file && file.name) {
+            url = await upload(file, 'seller-docs', this.commodity)
+            this.sellerDocs[i].uploader = this.user._id
+          }
+          this.sellerDocs[i].url = url
+          delete this.sellerDocs[i].file
         }
-        this.sellerDocs[i].url = url
-        delete this.sellerDocs[i].file
-      }
-      for (let i = 0; i < this.buyerDocs.length; i++) {
-        let file = this.buyerDocs[i].file
-        // console.log(file)
-        let url = ''
-        if (file.name) {
-          url = await upload(file, 'buyer-docs', this.commodity)
-          this.buyerDocs[i].uploader = this.user._id
+        for (let i = 0; i < this.buyerDocs.length; i++) {
+          let file = this.buyerDocs[i].file
+          // console.log(file)
+          let url = ''
+          if (file && file.name) {
+            url = await upload(file, 'buyer-docs', this.commodity)
+            this.buyerDocs[i].uploader = this.user._id
+          }
+          this.buyerDocs[i].url = url
+          delete this.buyerDocs[i].file
         }
-        this.buyerDocs[i].url = url
-        delete this.buyerDocs[i].file
-      }
-      const deal = {
-        // Step 1
-        type: this.type.value,
-        commodity: this.commodity,
-        quantity: this.quantity,
-        incoterm: this.incoterm.value,
-        location: this.location,
-        // Step 2
-        currency: this.currency.cc,
-        price: this.price,
-        payment: this.payment,
-        availability: this.availability,
-        // Step 3
-        sellerdocuments: this.sellerDocs,
-        buyerdocuments: this.buyerDocs,
-        jointdocuments: [],
-        additionalInfo: this.additionalInfo,
-        poster: this.user._id,
-        user_address: this.user.address,
-        company: this.company._id
-      }
-      console.log(deal)
-      let response = await offerApi.postOffer(deal)
-      loader.hide()
-      console.log(response.data.data)
-      if (response.data.status === 'success') {
-        this.$toast.success('Trabsaction has been created', '', this.notificationSystem.options.success)
-        this.disable = false
-        this.clearFields()
-        this.$router.push('/user/transactions')
-      } else {
-        this.$toast.error('Error creating a new transaction', '', this.notificationSystem.options.error)
-        // this.mainerror = 'An error occured'
-        return false
+        const deal = {
+          // Step 1
+          type: this.type.value,
+          commodity: this.commodity,
+          quantity: this.quantity,
+          incoterm: this.incoterm.value,
+          location: this.location,
+          // Step 2
+          currency: this.currency.cc,
+          price: this.price,
+          payment: this.payment,
+          availability: this.availability,
+          // Step 3
+          sellerdocuments: this.sellerDocs,
+          buyerdocuments: this.buyerDocs,
+          jointdocuments: [],
+          additionalInfo: this.additionalInfo,
+          poster: this.user._id,
+          user_address: this.user.address,
+          company: this.company._id
+        }
+        console.log(deal)
+        let response = await offerApi.postOffer(deal)
+        loader.hide()
+        console.log(response.data.data)
+        if (response.data.status === 'success') {
+          this.$toast.success('Transaction has been created', '', this.notificationSystem.options.success)
+          this.disable = false
+          this.clearFields()
+          this.$router.push('/user/transactions')
+        } else {
+          this.$toast.error('Error creating a new transaction', '', this.notificationSystem.options.error)
+          // this.mainerror = 'An error occured'
+          return false
+        }
+      } catch (error) {
+        this.handleError(error, loader)
       }
     },
 

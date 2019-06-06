@@ -360,44 +360,52 @@ export default {
      */
     async negotiate () {
       let loader = this.$loading.show()
-      //   let link = 'https://localhost:8080/admin/transactions/' + this.$route.params.id
-      let link = 'https://trade.comflo.com/admin/transactions/' + this.$route.params.id
-      let details = {
-        link,
-        user: this.user._id
+      try {
+        //   let link = 'https://localhost:8080/admin/transactions/' + this.$route.params.id
+        let link = 'https://trade.comflo.com/admin/transactions/' + this.$route.params.id
+        let details = {
+          link,
+          user: this.user._id
+        }
+        console.log(details)
+        let response = await offerApi.negotiateOffer(this.transaction._id, details)
+        console.log(response)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.$toast.success('A negotiation mail has been sent. A representative will contact you', '', this.notificationSystem.options.success)
+        } else {
+          this.$toast.error('Error sending a negotiation mail', '', this.notificationSystem.options.error)
+          return false
+        }
+        this.disable = false
+      } catch (error) {
+        this.handleError(error, loader)
       }
-      console.log(details)
-      let response = await offerApi.negotiateOffer(this.transaction._id, details)
-      console.log(response)
-      loader.hide()
-      if (response.data.status === 'success') {
-        this.$toast.success('A negotiation mail has been sent. A representative will contact you', '', this.notificationSystem.options.success)
-      } else {
-        this.$toast.error('Error sending a negotiation mail', '', this.notificationSystem.options.error)
-        return false
-      }
-      this.disable = false
     },
     /**
      * Get details about a transaction
      */
     async getTransaction () {
       const loader = this.$loading.show()
-      const decodedString = this.decodeIt(this.$route.params.id)
-      const response = await offerApi.getOffer(decodedString)
-      console.log(response)
-      loader.hide()
-      if (response.data.status === 'success') {
-        this.transaction = response.data.data
-        this.transaction.status = this.transaction.status.toLowerCase()
-        this.transaction.quantity = this.transaction.quantity.toLocaleString()
-        this.transaction.currency = this.transaction.price.split(' ')[0]
-        this.transaction.price = parseInt(this.transaction.price.split(' ')[1], 10).toLocaleString()
-        this.price = this.locale(this.transaction.price)
-        this.getDocs()
-        this.getPartners()
+      try {
+        const decodedString = this.decodeIt(this.$route.params.id)
+        const response = await offerApi.getOffer(decodedString)
+        console.log(response)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.transaction = response.data.data
+          this.transaction.status = this.transaction.status.toLowerCase()
+          this.transaction.quantity = this.transaction.quantity.toLocaleString()
+          this.transaction.currency = this.transaction.price.split(' ')[0]
+          this.transaction.price = parseInt(this.transaction.price.split(' ')[1], 10).toLocaleString()
+          this.price = this.locale(this.transaction.price)
+          this.getDocs()
+          this.getPartners()
+        }
+        this.disable = false
+      } catch (error) {
+        this.handleError(error, loader)
       }
-      this.disable = false
     },
     /**
      * Get Buyer/Receiver Doccuments
@@ -418,13 +426,7 @@ export default {
         }
         this.disable = false
       } catch (error) {
-        if (error.message === 'Network Error') {
-          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
-        } else {
-          this.$toast.error(error.message, '', this.notificationSystem.options.error)
-        }
-        loader.hide()
-        this.disable = false
+        this.handleError(error, loader)
       }
     },
     /**
@@ -442,53 +444,51 @@ export default {
         }
         this.disable = false
       } catch (error) {
-        if (error.message === 'Network Error') {
-          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
-        } else {
-          this.$toast.error(error.message, '', this.notificationSystem.options.error)
-        }
-        loader.hide()
-        this.disable = false
+        this.handleError(error, loader)
       }
     },
 
     async uploadFile (doc) {
       this.showModal = false
-      let loader = this.$loading.show({zIndex: 999})
-      let file = doc.file
+      let loader = this.$loading.show()
+      try {
+        let file = doc.file
 
-      let type = 'buyer-docs'
-      let docId = this.transaction.buyerDocuments
-      if (this.user._id === this.transaction.seller) {
-        type = 'seller-docs'
-        docId = this.transaction.sellerDocuments
-      }
-      // console.log(file)
-      let url = ''
-      if (file.name) {
-        url = await upload(file, type, this.transaction.commodity)
-        doc.uploader = this.user._id
-      }
-      doc.url = url
-      doc.contract = false
-      delete doc.file
+        let type = 'buyer-docs'
+        let docId = this.transaction.buyerDocuments
+        if (this.user._id === this.transaction.seller) {
+          type = 'seller-docs'
+          docId = this.transaction.sellerDocuments
+        }
+        // console.log(file)
+        let url = ''
+        if (file && file.name) {
+          url = await upload(file, type, this.transaction.commodity)
+          doc.uploader = this.user._id
+        }
+        doc.url = url
+        doc.contract = false
+        delete doc.file
 
-      const documents = []
-      documents.push(doc)
-      const details = {
-        documents
-      }
-      let response = await api.userAddDocs(details, this.transaction._id, docId)
-      console.log(response)
-      // console.log(response.data.status)
-      loader.hide()
-      if (response.data.status === 'success') {
-        this.$toast.success('Document uploaded', '', this.notificationSystem.options.success)
-        this.disable = false
-        location.reload()
-      } else {
-        this.$toast.error('An error occured uploading document', '', this.notificationSystem.options.error)
-        return false
+        const documents = []
+        documents.push(doc)
+        const details = {
+          documents
+        }
+        let response = await api.userAddDocs(details, this.transaction._id, docId)
+        console.log(response)
+        // console.log(response.data.status)
+        loader.hide()
+        if (response.data.status === 'success') {
+          this.$toast.success('Document uploaded', '', this.notificationSystem.options.success)
+          this.disable = false
+          location.reload()
+        } else {
+          this.$toast.error('An error occured uploading document', '', this.notificationSystem.options.error)
+          return false
+        }
+      } catch (error) {
+        this.handleError(error, loader)
       }
     }
   }

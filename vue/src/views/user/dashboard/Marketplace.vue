@@ -178,16 +178,20 @@ export default {
   methods: {
     async getTransactions () {
       let loader = this.$loading.show()
-      let response = await api.getOffers('?status=pending&type=Sell')
-      loader.hide()
-      if (response.data.status === 'success') {
-        console.log(response.data.data)
-        this.allCollections = response.data.data
-        this.filteredCollections = this.allCollections
-        this.commodities = [...new Set(this.allCollections.map(transaction => transaction.commodity.trim()))]
-        this.collections = this.paginator(this.allCollections, 1, 20)
+      try {
+        let response = await api.getOffers('?status=pending&type=Sell')
+        loader.hide()
+        if (response.data.status === 'success') {
+          console.log(response.data.data)
+          this.allCollections = response.data.data
+          this.filteredCollections = this.allCollections
+          this.commodities = [...new Set(this.allCollections.map(transaction => transaction.commodity.trim()))]
+          this.collections = this.paginator(this.allCollections, 1, 20)
+        }
+        this.disable = false
+      } catch (error) {
+        this.handleError(error, loader)
       }
-      this.disable = false
     }
   }
 }

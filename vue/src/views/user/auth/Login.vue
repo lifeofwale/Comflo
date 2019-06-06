@@ -156,13 +156,7 @@ export default {
         }
         this.disable = false
       } catch (error) {
-        if (error.message === 'Network Error') {
-          this.$toast.error('Connection not established, please check your internet connection', '', this.notificationSystem.options.error)
-        } else {
-          this.$toast.error(error.message, '', this.notificationSystem.options.error)
-        }
-        loader.hide()
-        this.disable = false
+        this.handleError(error, loader)
       }
     }
   }

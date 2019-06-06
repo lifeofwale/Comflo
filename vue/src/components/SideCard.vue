@@ -11,7 +11,7 @@
         <a
           href="walethebrand@gmail.com"
           target="_blank"
-          class="btn btn__green p-2 w-75"
+          class="btn btn__green p-2 w-75" style="line-height:3.3rem !important;"
         >Send us a mail</a>
       </div>
     </div>
