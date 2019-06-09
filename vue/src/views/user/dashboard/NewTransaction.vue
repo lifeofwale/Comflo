@@ -65,33 +65,6 @@
                      required>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="form-group mb-5">
-                    <label for="inputIncoterm">INCOTERM <sup>*</sup></label>
-                    <!-- <select class="form-control cselect" id="inputIncoterm">
-                      <option>Select method</option>
-                    </select> -->
-                    <v-select v-model="incoterm" :options='[
-                      {"value":"EXW - ExWorks", "label":"EXW - ExWorks"},
-                      {"value":"FCA - Free Carrier", "label":"FCA - Free Carrier"},
-                      {"value":"FAS - Free Alongside Ship", "label":"FAS - Free Alongside Ship"},
-                      {"value":"FOB - Free On Board", "label":"FOB - Free On Board"},
-                      {"value":"CFR - Cost and Freight", "label":"CFR - Cost and Freight"},
-                      {"value":"CIF - Cost, Insurance, Freight", "label":"CIF - Cost, Insurance, Freight"},
-                      {"value":"CIP - Carriage and Insurance Paid", "label":"CIP - Carriage and Insurance Paid"},
-                      {"value":"CPT - Carriage Paid To", "label":"CPT - Carriage Paid To"},
-                      {"value":"DAF - Delivered At Frontier", "label":"DAF - Delivered At Frontier"},
-                      {"value":"DEQ - Delivered Ex Quay", "label":"DEQ - Delivered Ex Quay"},
-                      {"value":"DES - Delivered Ex Ship", "label":"DES - Delivered Ex Ship"},
-                      {"value":"DDP - Delivered Duty Paid", "label":"DDP - Delivered Duty Paid"},
-                      {"value":"DDU - Delivered Duty Unpaid", "label":"DDU - Delivered Duty Unpaid"},
-                      {"value":"DAT - Delivered At Terminal", "label":"DAT - Delivered At Terminal"},
-                      {"value":"DAT - Delivered At Place", "label":"DAT - Delivered At Place"},
-                      {"value":"Not Applicable", "label":"Not Applicable"}
-                      ]'>
-                      </v-select>
-                  </div>
-                </div>
               </div>
               <div class="row">
                 <div class="col">
@@ -110,7 +83,7 @@
               <div class="row">
                 <div class="col">
                   <div class="form-group mb-5">
-                    <label for="inputType">CURRENCY <sup>*</sup></label>
+                    <label for="inputType">CURRENCY</label>
                     <!-- <select class="form-control cselect" id="inputType">
                       <option selected>Select currency type</option>
                       <option>...</option>
@@ -282,18 +255,46 @@
               <div class="row">
                 <div class="col">
                   <div class="form-group mb-5">
-                    <label for="inputQuantity">PRICE <sup>*</sup></label>
+                    <label for="inputQuantity">PRICE</label>
                     <input type="text" autocomplete="off" @keypress='isNumber($event)' v-model="price" class="form-control cinput" id="inputQuantity"
                       required>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col">
+                <!-- <div class="col">
                   <div class="form-group mb-5">
                     <label for="inputQuantity">PAYMENT TYPE <sup>*</sup></label>
                     <input type="text" v-model="payment" class="form-control cinput" id="inputQuantity"
                       required>
+                  </div>
+                </div> -->
+                <div class="col">
+                  <div class="form-group mb-5">
+                    <label for="inputIncoterm">INCOTERM/PAYMENT TYPE</label>
+                    <!-- <select class="form-control cselect" id="inputIncoterm">
+                      <option>Select method</option>
+                    </select> -->
+                    <v-select v-model="incoterm" :options='[
+                      {"value":"EXW - ExWorks", "label":"EXW - ExWorks"},
+                      {"value":"LPO - Local Purchase Order", "label":"LPO - Local Purchase Order"},
+                      {"value":"FCA - Free Carrier", "label":"FCA - Free Carrier"},
+                      {"value":"FAS - Free Alongside Ship", "label":"FAS - Free Alongside Ship"},
+                      {"value":"FOB - Free On Board", "label":"FOB - Free On Board"},
+                      {"value":"CFR - Cost and Freight", "label":"CFR - Cost and Freight"},
+                      {"value":"CIF - Cost, Insurance, Freight", "label":"CIF - Cost, Insurance, Freight"},
+                      {"value":"CIP - Carriage and Insurance Paid", "label":"CIP - Carriage and Insurance Paid"},
+                      {"value":"CPT - Carriage Paid To", "label":"CPT - Carriage Paid To"},
+                      {"value":"DAF - Delivered At Frontier", "label":"DAF - Delivered At Frontier"},
+                      {"value":"DEQ - Delivered Ex Quay", "label":"DEQ - Delivered Ex Quay"},
+                      {"value":"DES - Delivered Ex Ship", "label":"DES - Delivered Ex Ship"},
+                      {"value":"DDP - Delivered Duty Paid", "label":"DDP - Delivered Duty Paid"},
+                      {"value":"DDU - Delivered Duty Unpaid", "label":"DDU - Delivered Duty Unpaid"},
+                      {"value":"DAT - Delivered At Terminal", "label":"DAT - Delivered At Terminal"},
+                      {"value":"DAT - Delivered At Place", "label":"DAT - Delivered At Place"},
+                      {"value":"Not Applicable", "label":"Not Applicable"}
+                      ]'>
+                      </v-select>
                   </div>
                 </div>
               </div>
@@ -312,14 +313,14 @@
               <div v-for="(sdoc, index) in sellerDocs" :key="index" class="row">
                 <div class="col">
                   <div class="form-group mb-5">
-                    <label for="inputQuantity">FILE NAME <sup>*</sup></label>
+                    <label for="inputQuantity">FILE NAME</label>
                     <input type="text" v-model="sdoc.name" class="form-control cinput" id="inputQuantity"
                       required>
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group mb-5">
-                    <label for="inputQuantity">UPLOAD DOCUMENT <sup>*</sup></label>
+                    <label for="inputQuantity">DOCUMENT</label>
                     <input type="file" @change="setDocFilename($event, sdoc)" :id="index" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf, image/*" class="form-control cinput"
                        required>
                   </div>
@@ -379,7 +380,7 @@ export default {
       // Step 2
       currency: {'cc': 'USD', 'symbol': 'US$', 'label': 'United States dollar'},
       price: '',
-      payment: '',
+      // payment: '',
       availability: '',
       // Step 3
       sellerDocs: [],
@@ -401,10 +402,10 @@ export default {
     ...mapGetters('user', ['user']),
     ...mapGetters('company', ['company']),
     step1 () {
-      return this.type.value.length > 0 && this.commodity.length > 0 && this.quantity.length > 0 && this.incoterm.value.length > 0 && this.location.length > 0
+      return this.type.value.length > 0 && this.commodity.length > 0 && this.quantity.length > 0 && this.location.length > 0
     },
     step2 () {
-      return this.currency.cc.length > 0 && this.price.length > 0 && this.payment.length > 0
+      return this.currency.cc.length > 0 && this.price.length > 0 && this.incoterm.value.length > 0
     }
   },
   methods: {
@@ -446,7 +447,7 @@ export default {
           // Step 2
           currency: this.currency.cc,
           price: this.price,
-          payment: this.payment,
+          // payment: this.payment,
           availability: this.availability,
           // Step 3
           sellerdocuments: this.sellerDocs,
@@ -481,7 +482,7 @@ export default {
       this.commodity = ''
       this.currency = {'cc': 'USD', 'symbol': 'US$', 'label': 'United States dollar'}
       this.price = ''
-      this.payment = ''
+      // this.payment = ''
       this.quantity = ''
       this.incoterm = {'value': 'EXW - ExWorks', 'label': 'EXW - ExWorks'}
       this.location = ''

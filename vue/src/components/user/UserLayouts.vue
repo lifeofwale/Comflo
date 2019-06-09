@@ -41,8 +41,8 @@
                 <div class="dropdown">
                   <a v-click-outside="hideProfile" @click="isProfileDropdownOpen = !isProfileDropdownOpen" class="content__launch" href="#" role="button" id="dropdownMenuLink-2" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="true">
-                    <template v-if="user.image"><img :src="user.image" class="content__img" alt="User-Profile-Image"></template>
-                    <template v-else><img src="/static/img/avatar.jpg" class="content__img" alt="User-Profile-Image"></template>
+                    <!-- <template v-if="user.image"><img :src="user.image" class="content__img" alt="User-Profile-Image"></template>
+                    <template v-else><img src="/static/img/avatar.jpg" class="content__img" alt="User-Profile-Image"></template> -->
                     <span class="mr-2">{{user.fname}} {{user.lname}}</span>
                     <img src="/static/img/spaceship.svg" alt="spaceship">
                   </a>

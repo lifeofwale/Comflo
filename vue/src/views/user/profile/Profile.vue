@@ -14,10 +14,10 @@
 
         <div class="row profile mb-10">
           <div class="col-sm-3 mt-5">
-            <div class="profile__img text-center">
+            <!-- <div class="profile__img text-center">
               <template v-if="user.image"><img :src="user.image" alt="user image"></template>
               <template v-else><img src="/static/img/profile--img.png" alt="user image"></template>
-            </div>
+            </div> -->
             <div class="card mt-4 text-center px-4 d-none d-md-block" style="height: 29.85rem;">
               <form>
                 <img class="mt-4 mb-3" src="/static/img/chat__icon.svg" alt="chat icon">
@@ -83,7 +83,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col">
+                        <!-- <div class="col">
                           <div class="form-group">
                             <label for="file-upload">Change profile image</label>
                             <div class="content__formfile w-100 p-rel">
@@ -93,7 +93,7 @@
                               <div v-if="image.file.name != 'Choose File'" id="file-upload-filename">{{image.file.name}}</div>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="col">
                           <div class="form-group mb-5">
                             <label for="inputPhone">Phone Number</label>
